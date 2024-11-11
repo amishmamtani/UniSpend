@@ -33,17 +33,14 @@ public class BudgetI implements BudgetInputBoundary {
                 double allocation = defaultAllocations.get(entry.getKey()) * income;
                 categoryAllocations.put(entry.getKey(), allocation);
 
-                System.out.println("Category: " + entry.getKey() + " | Allocation: " + allocation);
             }
         }
 
-        System.out.println("Market Health: " + marketHealth);
 
 
         double savings = savingsPercentage * income;
         double investments = investmentsPercentage * income;
 
-        System.out.println("Savings: " + savings + " | Investments: " + investments);
 
         BudgetOutputData outputData = new BudgetOutputData(income, categoryAllocations, savings, investments);
         outputBoundary.presentBudget(outputData);
