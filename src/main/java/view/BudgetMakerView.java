@@ -1,12 +1,13 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.HashMap;
-import org.jfree.chart.ChartPanel;
 import view.components.ColouredButton;
 import view.components.Heading;
 import view.components.PieChart;
+import org.jfree.chart.ChartPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
 
 
 public class BudgetMakerView {
