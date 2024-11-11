@@ -7,10 +7,13 @@ import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 
 public class BudgetMakerView {
+    private JPanel mainPanel;
     public BudgetMakerView() {
 
         JLabel budgetTitleLabel = new Heading("Budget Maker").getHeading();
@@ -35,24 +38,32 @@ public class BudgetMakerView {
         data.put("February", 150.0);
         data.put("March", 180.0);
 
-        PieChart pieChart = new PieChart("Monthly Budget", data);
-        ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
-        chartPanel.setBackground(Color.decode("#FFFFFF"));
-        chartPanel.setBounds(35, 233, 320, 320);
-        chartPanel.setVisible(false);
 
         JPanel budgetMaker = new JPanel();
         budgetMaker.add(budgetTitleLabel);
         budgetMaker.add(allowanceLabel);
         budgetMaker.add(incomeTextField);
         budgetMaker.add(createBudgetButton);
-        budgetMaker.add(chartPanel);
         budgetMaker.setLayout(null);
         budgetMaker.setBackground(Color.decode("#FFFFFF"));
+        this.mainPanel = budgetMaker;
 
-
-        createBudgetButton.addActionListener(e -> {
-            chartPanel.setVisible(true);
+        createBudgetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("create budget clicked");
+                Double income = Double.parseDouble(incomeTextField.getText());
+                System.out.println(income);
+                categories categories = new categories(income);
+                System.out.println(categories.generateBudget());
+                PieChart pieChart = new PieChart("Monthly Budget", categories.generateBudget());
+                ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
+                chartPanel.setBackground(Color.decode("#FFFFFF"));
+                chartPanel.setBounds(35, 233, 320, 320);
+                chartPanel.setVisible(true);
+                mainPanel.add(chartPanel);
+                mainPanel.revalidate();
+                mainPanel.repaint();
+            }
         });
 
         JFrame frame = new JFrame("Budget Maker");

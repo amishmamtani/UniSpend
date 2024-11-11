@@ -32,7 +32,7 @@ public class categories {
 
     }
 
-    public Object generateBudget() {
+    public HashMap generateBudget() {
         BudgetInputData inputData = new BudgetInputData(income, selectedCategories);
 
 
@@ -50,6 +50,6 @@ public class categories {
             }
         };
         budgetInteractor.createBudget(inputData, BPC);
-        return percentageCategories;
+        return (HashMap) percentageCategories;
     }
 }
