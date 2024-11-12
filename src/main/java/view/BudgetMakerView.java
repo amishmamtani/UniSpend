@@ -62,6 +62,7 @@ public class BudgetMakerView {
 
         JFrame frame = new JFrame("Budget Maker");
         frame.setSize(390, 744);
+        frame.setResizable(false);
         frame.setContentPane(budgetMaker);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
