@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 
 public class BudgetMakerView {
-    private JPanel mainPanel;
+
     public BudgetMakerView() {
 
         JLabel budgetTitleLabel = new Heading("Budget Maker").getHeading();
@@ -33,11 +33,6 @@ public class BudgetMakerView {
         JButton createBudgetButton = createBudget.getButton();
         createBudgetButton.setBounds(32, 618, 320, 60);
 
-        HashMap<String, Double> data = new HashMap<>();
-        data.put("January", 200.0);
-        data.put("February", 150.0);
-        data.put("March", 180.0);
-
 
         JPanel budgetMaker = new JPanel();
         budgetMaker.add(budgetTitleLabel);
@@ -46,7 +41,6 @@ public class BudgetMakerView {
         budgetMaker.add(createBudgetButton);
         budgetMaker.setLayout(null);
         budgetMaker.setBackground(Color.decode("#FFFFFF"));
-        this.mainPanel = budgetMaker;
 
         createBudgetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,14 +54,15 @@ public class BudgetMakerView {
                 chartPanel.setBackground(Color.decode("#FFFFFF"));
                 chartPanel.setBounds(35, 233, 320, 320);
                 chartPanel.setVisible(true);
-                mainPanel.add(chartPanel);
-                mainPanel.revalidate();
-                mainPanel.repaint();
+                budgetMaker.add(chartPanel);
+                budgetMaker.revalidate();
+                budgetMaker.repaint();
             }
         });
 
         JFrame frame = new JFrame("Budget Maker");
         frame.setSize(390, 744);
+        frame.setResizable(false);
         frame.setContentPane(budgetMaker);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
