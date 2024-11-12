@@ -1,15 +1,15 @@
 package interface_adapter.budget;
 
-import use_case.budget.BudgetI;
+import use_case.budget.BudgetInteractor;
 import use_case.budget.BudgetInputData;
 import use_case.budget.BudgetOutputBoundary;
 
 import java.util.Map;
 
 public class BudgetController {
-    private final BudgetI budgetInteractor;
+    private final BudgetInteractor budgetInteractor;
 
-    public BudgetController(BudgetI budgetInteractor) {
+    public BudgetController(BudgetInteractor budgetInteractor) {
         this.budgetInteractor = budgetInteractor;
     }
 

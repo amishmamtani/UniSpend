@@ -5,7 +5,7 @@ import app.MarketHealthService;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BudgetI implements BudgetInputBoundary {
+public class BudgetInteractor implements BudgetInputBoundary {
 
     @Override
     public void createBudget(BudgetInputData inputData, BudgetOutputBoundary outputBoundary) {

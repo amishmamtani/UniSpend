@@ -8,13 +8,13 @@ import static org.junit.Assert.fail;
 
 import java.util.Map;
 
-public class BudgetITest {
+public class BudgetInteractorTest {
 
-    private BudgetI budgetInteractor;
+    private BudgetInteractor budgetInteractor;
 
     @Before
     public void setUp() {
-        budgetInteractor = new BudgetI();
+        budgetInteractor = new BudgetInteractor();
     }
 
     @Test

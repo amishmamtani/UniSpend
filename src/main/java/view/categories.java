@@ -1,16 +1,15 @@
 package view;
 import java.util.HashMap;
 import java.util.Map;
-import app.MarketHealthService;
-import interface_adapter.budget.BudgetPresenter;
-import use_case.budget.BudgetI;
+
+import use_case.budget.BudgetInteractor;
 import use_case.budget.BudgetInputData;
 import use_case.budget.BudgetOutputBoundary;
 import use_case.budget.BudgetOutputData;
 
 
 public class categories {
-    private BudgetI budgetInteractor = new BudgetI();
+    private BudgetInteractor budgetInteractor = new BudgetInteractor();
     double income;
     Map<String, Boolean> selectedCategories;
     Map<String, Double> percentageCategories;
@@ -27,7 +26,7 @@ public class categories {
                 "Savings", true,
                 "Investments", true);
 
-        this.budgetInteractor = new BudgetI();
+        this.budgetInteractor = new BudgetInteractor();
         this.percentageCategories = new HashMap<>();
 
     }
