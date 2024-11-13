@@ -24,7 +24,6 @@ public class PieChart {
         // Change the background color of the chart
         plot.setBackgroundPaint(Color.WHITE);
 
-        // this.chart = chart;
     }
 
     public JFreeChart getChart() {
