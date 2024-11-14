@@ -1,5 +1,6 @@
 package interface_adapter.budget;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BudgetState {
@@ -8,11 +9,14 @@ public class BudgetState {
     private double savings;
     private double investments;
 
-    public BudgetState(double income, Map<String, Double> categoryAllocations, double savings, double investments) {
+    public BudgetState(double income, HashMap<String, Double> categoryAllocations, double savings, double investments) {
         this.income = income;
         this.categoryAllocations = categoryAllocations;
         this.savings = savings;
         this.investments = investments;
+    }
+
+    public BudgetState() {
     }
 
     public double getIncome() {
