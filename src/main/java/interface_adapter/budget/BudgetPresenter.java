@@ -4,6 +4,8 @@ import use_case.budget.BudgetOutputBoundary;
 import use_case.budget.BudgetOutputData;
 import interface_adapter.ViewModel;
 
+import java.util.HashMap;
+
 public class BudgetPresenter implements BudgetOutputBoundary {
     private final ViewModel<BudgetState> viewModel;
 
@@ -13,10 +15,9 @@ public class BudgetPresenter implements BudgetOutputBoundary {
 
     @Override
     public void presentBudget(BudgetOutputData outputData) {
-        // Create a new BudgetState object based on the output data
         BudgetState budgetState = new BudgetState(
                 outputData.getIncome(),
-                outputData.getCategoryAllocations(),
+                (HashMap<String, Double>) outputData.getCategoryAllocations(),
                 outputData.getSavings(),
                 outputData.getInvestments()
         );

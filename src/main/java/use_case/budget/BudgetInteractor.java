@@ -7,8 +7,13 @@ import java.util.Map;
 
 public class BudgetInteractor implements BudgetInputBoundary {
 
+    private final BudgetOutputBoundary budgetPresenter;
+
+    public BudgetInteractor(BudgetOutputBoundary budgetPresenter) {
+        this.budgetPresenter = budgetPresenter;
+    }
     @Override
-    public void createBudget(BudgetInputData inputData, BudgetOutputBoundary outputBoundary) {
+    public void createBudget(BudgetInputData inputData) {
         double income = inputData.getIncome();
         Map<String, Boolean> selectedCategories = inputData.getSelectedCategories();
 
@@ -43,7 +48,7 @@ public class BudgetInteractor implements BudgetInputBoundary {
 
 
         BudgetOutputData outputData = new BudgetOutputData(income, categoryAllocations, savings, investments);
-        outputBoundary.presentBudget(outputData);
+        budgetPresenter.presentBudget(outputData);
     }
 
 }

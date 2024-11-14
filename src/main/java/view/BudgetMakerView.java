@@ -1,5 +1,10 @@
 package view;
 
+import interface_adapter.budget.BudgetController;
+import interface_adapter.budget.BudgetState;
+import interface_adapter.budget.BudgetViewModel;
+import use_case.budget.BudgetOutputBoundary;
+import use_case.budget.BudgetOutputData;
 import view.components.ColouredButton;
 import view.components.Heading;
 import view.components.PieChart;
@@ -9,13 +14,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
+import java.util.Map;
 
 
-public class BudgetMakerView {
+public class BudgetMakerView extends JPanel implements ActionListener, PropertyChangeListener{
 
-    public BudgetMakerView() {
+    private final BudgetViewModel BudgetviewModel;
+    private final BudgetController budgetController;
+    private final HashMap<String, Double> percentageCategories;
+    public BudgetMakerView(BudgetViewModel budgetViewModel, BudgetController controller) {
 
+        this.budgetController = controller;
+        this.BudgetviewModel = budgetViewModel;
+        this.percentageCategories = new HashMap<>();
         JLabel budgetTitleLabel = new Heading("Budget Maker").getHeading();
         budgetTitleLabel.setBounds(99, 43, 191, 43);
 
@@ -47,9 +61,31 @@ public class BudgetMakerView {
                 System.out.println("create budget clicked");
                 Double income = Double.parseDouble(incomeTextField.getText());
                 System.out.println(income);
-                categories categories = new categories(income);
-                System.out.println(categories.generateBudget());
-                PieChart pieChart = new PieChart("Monthly Budget", categories.generateBudget());
+                Map<String, Boolean> selectedCategories = Map.of(
+                        "Housing", true,
+                        "Food", true,
+                        "Transportation", true,
+                        "Utilities", true,
+                        "Entertainment", true,
+                        "Healthcare", true,
+                        "Savings", true,
+                        "Investments", true);
+//                BudgetOutputBoundary BPC = new BudgetOutputBoundary() {
+//                    @Override
+//                    public void presentBudget(BudgetOutputData outputData) {
+//                        percentageCategories.put("Housing", outputData.getCategoryAllocations().get("Housing"));
+//                        percentageCategories.put("Food", outputData.getCategoryAllocations().get("Food"));
+//                        percentageCategories.put("Transportation", outputData.getCategoryAllocations().get("Transportation"));
+//                        percentageCategories.put("Utilities", outputData.getCategoryAllocations().get("Utilities"));
+//                        percentageCategories.put("Entertainment", outputData.getCategoryAllocations().get("Entertainment"));
+//                        percentageCategories.put("Healthcare", outputData.getCategoryAllocations().get("Healthcare"));
+//                        percentageCategories.put("Savings", outputData.getCategoryAllocations().get("Savings"));
+//                        percentageCategories.put("Investments", outputData.getCategoryAllocations().get("Investments"));
+//                    }
+//                };
+                final BudgetState currentState = budgetViewModel.getState();
+                budgetController.createBudget(income, selectedCategories);
+                PieChart pieChart = new PieChart("Monthly Budget", (HashMap<String, Double>) currentState.getCategoryAllocations());
                 ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                 chartPanel.setBackground(Color.decode("#FFFFFF"));
                 chartPanel.setBounds(35, 233, 320, 320);
@@ -68,4 +104,13 @@ public class BudgetMakerView {
         frame.setVisible(true);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 }

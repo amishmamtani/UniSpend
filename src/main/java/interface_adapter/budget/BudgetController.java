@@ -13,8 +13,8 @@ public class BudgetController {
         this.budgetInteractor = budgetInteractor;
     }
 
-    public void createBudget(double income, Map<String, Boolean> selectedCategories, BudgetOutputBoundary outputBoundary) {
+    public void createBudget(double income, Map<String, Boolean> selectedCategories) {
         BudgetInputData inputData = new BudgetInputData(income, selectedCategories);
-        budgetInteractor.createBudget(inputData, outputBoundary);
+        budgetInteractor.createBudget(inputData);
     }
 }
