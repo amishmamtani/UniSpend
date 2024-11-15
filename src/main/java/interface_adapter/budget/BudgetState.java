@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class BudgetState {
     private double income;
-    private Map<String, Double> categoryAllocations;
+    private HashMap<String, Double> categoryAllocations;
     private double savings;
     private double investments;
 
@@ -23,7 +23,7 @@ public class BudgetState {
         return income;
     }
 
-    public Map<String, Double> getCategoryAllocations() {
+    public HashMap<String, Double> getCategoryAllocations() {
         return categoryAllocations;
     }
 
