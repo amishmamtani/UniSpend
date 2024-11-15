@@ -83,9 +83,9 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
 //                        percentageCategories.put("Investments", outputData.getCategoryAllocations().get("Investments"));
 //                    }
 //                };
-                final BudgetState currentState = budgetViewModel.getState();
                 budgetController.createBudget(income, selectedCategories);
-                PieChart pieChart = new PieChart("Monthly Budget", (HashMap<String, Double>) currentState.getCategoryAllocations());
+                final BudgetState currentState = budgetViewModel.getState();
+                PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
                 ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                 chartPanel.setBackground(Color.decode("#FFFFFF"));
                 chartPanel.setBounds(35, 233, 320, 320);
