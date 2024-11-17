@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class BudgetInputData {
     private final double income;
-    private final Map<String, Boolean> selectedCategories;
+    private final Map<String, Double> selectedCategories;
 
-    public BudgetInputData(double income, Map<String, Boolean> selectedCategories) {
+    public BudgetInputData(double income, Map<String, Double> selectedCategories) {
         this.income = income;
         this.selectedCategories = selectedCategories;
     }
@@ -15,7 +15,7 @@ public class BudgetInputData {
         return income;
     }
 
-    public Map<String, Boolean> getSelectedCategories() {
+    public Map<String, Double> getSelectedCategories() {
         return selectedCategories;
     }
 }

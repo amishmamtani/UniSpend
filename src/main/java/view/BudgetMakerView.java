@@ -61,15 +61,16 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 System.out.println("create budget clicked");
                 Double income = Double.parseDouble(incomeTextField.getText());
                 System.out.println(income);
-                Map<String, Boolean> selectedCategories = Map.of(
-                        "Housing", true,
-                        "Food", true,
-                        "Transportation", true,
-                        "Utilities", true,
-                        "Entertainment", true,
-                        "Healthcare", true,
-                        "Savings", true,
-                        "Investments", true);
+                Map<String, Double> selectedCategories = Map.of(
+                        "Housing", 0.8,
+                        "Food", 0.1,
+                        "Transportation", (double) 0,
+                        "Utilities", 0.1,
+                        "Entertainment", 0.1,
+                        "Healthcare", 0.1,
+                        "Music", 0.05,
+                        "OTT", 0.05,
+                            "Ramen", 0.02);
 //                BudgetOutputBoundary BPC = new BudgetOutputBoundary() {
 //                    @Override
 //                    public void presentBudget(BudgetOutputData outputData) {
