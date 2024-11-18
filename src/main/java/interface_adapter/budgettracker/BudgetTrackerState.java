@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class BudgetTrackerState {
     private double income;
-    private Map<String, Double> alreadySpentCategories;
+    private HashMap<String, Double> alreadySpentCategories;
     private double unspent_income;
     private boolean spent_more_than_income;
 

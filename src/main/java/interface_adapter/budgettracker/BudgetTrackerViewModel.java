@@ -1,4 +1,11 @@
 package interface_adapter.budgettracker;
 
-public class BudgetTrackerViewModel {
+import interface_adapter.ViewModel;
+import interface_adapter.budget.BudgetState;
+
+public class BudgetTrackerViewModel extends ViewModel<BudgetTrackerState> {
+    public BudgetTrackerViewModel() {
+        super("Budget Tracker");
+        setState(new BudgetTrackerState());
+    }
 }

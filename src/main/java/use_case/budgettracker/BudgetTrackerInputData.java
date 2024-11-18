@@ -1,14 +1,27 @@
 package use_case.budgettracker;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BudgetTrackerInputData {
     private final double income;
-    private final Map<String, Double> alreadySpentCategories;
+    private final HashMap<String, Double> alreadySpentCategories;
     private final double amount_spent;
     private final String category_spent_on;
 
-    public BudgetTrackerInputData(double income, Map<String, Double> alreadySpentCategories, double amount_spent,
+    /**
+     * I WAS WONDERING HOW I CAN MODIFY THIS SO THAT THE USER CAN INPUT AN ALREADY MADE BUDGET
+     * @param income
+     * @param alreadySpentCategories
+     * @param amount_spent
+     * @param category_spent_on
+     */
+
+
+
+
+
+    public BudgetTrackerInputData(double income, HashMap<String, Double> alreadySpentCategories, double amount_spent,
                                   String category_spent_on) {
         this.income = income;
         this.alreadySpentCategories = alreadySpentCategories;
@@ -18,7 +31,7 @@ public class BudgetTrackerInputData {
 
     public double getIncome() { return income; }
 
-    public Map<String, Double> getAlreadySpentCategories() { return alreadySpentCategories; }
+    public HashMap<String, Double> getAlreadySpentCategories() { return alreadySpentCategories; }
 
     public double getAmount_spent() {return amount_spent;}
 
