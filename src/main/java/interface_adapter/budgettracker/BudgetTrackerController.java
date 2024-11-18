@@ -14,8 +14,10 @@ public class BudgetTrackerController {
         this.budgetTrackerInteractor = budgetTrackerInteractor;
     }
 
-    public void createBudgetTracker(double income, Map<String, Boolean> selectedCategories, Map<String, Double> alreadySpentCategories) {
-        BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income, selectedCategories, alreadySpentCategories);
+    public void createBudgetTracker(double income, Map<String, Double> alreadySpentCategories, double amount_spent,
+                                    String category_spent_on) {
+        BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income,
+                alreadySpentCategories, amount_spent, category_spent_on);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
     }
 
