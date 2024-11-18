@@ -7,9 +7,6 @@ import use_case.budget.BudgetInteractor;
 import use_case.budget.BudgetOutputBoundary;
 import view.BudgetMakerView;
 
-import java.awt.*;
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
         BudgetViewModel BVM = new BudgetViewModel();
