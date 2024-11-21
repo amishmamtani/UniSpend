@@ -1,0 +1,82 @@
+[
+    {
+        "response": "Track your expenses daily to identify unnecessary spending.",
+        "vector": [0.12, 0.23, 0.45, 0.67, 0.89]
+    },
+    {
+        "response": "Create a budget that allocates 50% of your income to needs, 30% to wants, and 20% to savings.",
+        "vector": [0.15, 0.28, 0.46, 0.62, 0.84]
+    },
+    {
+        "response": "Consider using budgeting apps like Mint or You Need a Budget (YNAB) for better financial tracking.",
+        "vector": [0.18, 0.34, 0.52, 0.65, 0.88]
+    },
+    {
+        "response": "Build an emergency fund with at least 3 to 6 months' worth of living expenses.",
+        "vector": [0.11, 0.27, 0.49, 0.68, 0.81]
+    },
+    {
+        "response": "Opt for a student credit card to build your credit score but use it responsibly.",
+        "vector": [0.16, 0.31, 0.47, 0.69, 0.90]
+    },
+    {
+        "response": "Take advantage of student discounts to save on everyday expenses.",
+        "vector": [0.10, 0.22, 0.48, 0.61, 0.85]
+    },
+    {
+        "response": "Look for part-time jobs or internships to supplement your income during college.",
+        "vector": [0.14, 0.29, 0.51, 0.63, 0.87]
+    },
+    {
+        "response": "Invest early, even with small amounts, to benefit from compound growth.",
+        "vector": [0.13, 0.26, 0.44, 0.66, 0.92]
+    },
+    {
+        "response": "Avoid impulse purchases by making a shopping list and sticking to it.",
+        "vector": [0.17, 0.33, 0.53, 0.64, 0.89]
+    },
+    {
+        "response": "Prioritize paying off high-interest debts, like credit card balances, as soon as possible.",
+        "vector": [0.19, 0.35, 0.54, 0.71, 0.86]
+    },
+    {
+        "response": "Use free resources like the public library or university services to save on books and software.",
+        "vector": [0.21, 0.38, 0.56, 0.70, 0.93]
+    },
+    {
+        "response": "Plan meals in advance to avoid eating out frequently and save money.",
+        "vector": [0.20, 0.32, 0.50, 0.67, 0.91]
+    },
+    {
+        "response": "Set financial goals and regularly review your progress to stay motivated.",
+        "vector": [0.25, 0.39, 0.57, 0.73, 0.94]
+    },
+    {
+        "response": "Use second-hand stores or online marketplaces for affordable furniture and supplies.",
+        "vector": [0.23, 0.40, 0.58, 0.72, 0.90]
+    },
+    {
+        "response": "Check for tax benefits like tuition tax credits available for Canadian students.",
+        "vector": [0.27, 0.41, 0.59, 0.74, 0.88]
+    },
+    {
+        "response": "Contribute to a TFSA (Tax-Free Savings Account) as early as possible to maximize savings.",
+        "vector": [0.30, 0.42, 0.61, 0.75, 0.87]
+    },
+    {
+        "response": "Shop for groceries at budget-friendly stores and buy in bulk to save money.",
+        "vector": [0.28, 0.43, 0.60, 0.76, 0.86]
+    },
+    {
+        "response": "Learn basic cooking skills to save on eating out and improve your health.",
+        "vector": [0.29, 0.45, 0.62, 0.78, 0.84]
+    },
+    {
+        "response": "Review your phone and internet plans to ensure you're not overspending.",
+        "vector": [0.31, 0.46, 0.63, 0.77, 0.85]
+    },
+    {
+        "response": "Participate in university clubs and events for free or discounted experiences.",
+        "vector": [0.33, 0.47, 0.64, 0.80, 0.83]
+    }
+]
