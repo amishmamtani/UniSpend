@@ -18,17 +18,18 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
         String category_spent_on = trackerInputData.getCategory_spent_on();
 
         /**
-         * Updates tracker if its their first time creating a tracker and there is no tracker already stored
+         * Updates tracker with category spent on and the amount spent
          */
-        if (!Objects.equals(category_spent_on, "none")) {
+        if (!Objects.equals(category_spent_on, "NONE")) {
             update_tracker(trackerInputData, category_spent_on, amount_spent, alreadySpentCategories);
         }
 
-        /**
-         * Finds how much of the income is unspent
-         */
-        double unspent_income = get_unspent_income(alreadySpentCategories, income);
+//        /**
+//         * Finds how much of the income is unspent
+//         */
+//        double unspent_income = get_unspent_income(alreadySpentCategories, income);
 
+        double unspent_income = get_unspent_income(alreadySpentCategories);
         boolean spent_more_than_income = unspent_income < 0;
 
         BudgetTrackerOutputData trackerOutputData = new BudgetTrackerOutputData(income, alreadySpentCategories,
@@ -52,18 +53,31 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
         } else{
             alreadySpentCategories.put(category_spent_on, amount_spent);
         }
+        double unspent_income = alreadySpentCategories.get("UNSPENT INCOME");
+        unspent_income = unspent_income - amount_spent;
+        alreadySpentCategories.put("UNSPENT INCOME",unspent_income);
     }
 
     /**
-     * Obtains the value of unspent income based on how much has already been spent on each category.
+     * Obtains the value of unspent income based on the value in alreadySpentCategories
      */
-    private static double get_unspent_income(HashMap<String, Double> alreadySpentCategories, double income) {
-        double unspent_income = income;
-        for (Double amountSpent : alreadySpentCategories.values()) {
-            unspent_income = unspent_income - amountSpent;
-        }
-        return unspent_income;
+    private static double get_unspent_income(HashMap<String, Double> alreadySpentCategories){
+        return alreadySpentCategories.get("UNSPENT INCOME");
     }
+
+
+
+
+//    /**
+//     * Obtains the value of unspent income based on how much has already been spent on each category.
+//     */
+//    private static double get_unspent_income(HashMap<String, Double> alreadySpentCategories, double income) {
+//        double unspent_income = income;
+//        for (Double amountSpent : alreadySpentCategories.values()) {
+//            unspent_income = unspent_income - amountSpent;
+//        }
+//        return unspent_income;
+//    }
 }
 
 
