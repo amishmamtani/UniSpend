@@ -85,14 +85,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         System.out.println("create new clicked");
                         income = Double.parseDouble(salaryTextField.getText());
                         System.out.println(income);
-                        categorySpending1.put("none", 0.0);
+                        categorySpending1.put("UNSPENT INCOME", income);
 
                         budgetTrackerController.createBudgetTracker(income, categorySpending1, 0.0, "none");
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
-                        double unspent_income = currentState.getUnspent_income();
-                        currentState.getAlreadySpentCategories().put("unspent income", unspent_income);
                         PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
-                        currentState.getAlreadySpentCategories().remove("unspent income");
                         ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
                         chartPanel.setBounds(34, 119, 321, 371);
@@ -107,7 +104,8 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
             }
         });
 
-        HashMap<String, Double> categorySpending = new HashMap<>();
+//        HashMap<String, Double> categorySpending = new HashMap<>(categorySpending1);
+//        System.out.println(categorySpending);
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -152,16 +150,17 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 addPopUp.add(addPanel);
                 addPopUp.setVisible(true);
 
-
+                System.out.println(categorySpending1);
                 addButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("add clicked");
                         Double amountSpent = Double.parseDouble(amountSpentTextField.getText());
                         String categorySpentOn = categorySpentTextField.getText();
-                        categorySpending.put(categorySpentOn, amountSpent);
-
-                        budgetTrackerController.createBudgetTracker(income, categorySpending, amountSpent, categorySpentOn);
+                        System.out.println(categorySpending1);
+                        budgetTrackerController.createBudgetTracker(income, categorySpending1, amountSpent, categorySpentOn);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
+                        HashMap<String, Double> categorySpending1 = new HashMap<>(currentState.getAlreadySpentCategories());
+                        System.out.println(currentState.getAlreadySpentCategories());
                         PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
                         ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
