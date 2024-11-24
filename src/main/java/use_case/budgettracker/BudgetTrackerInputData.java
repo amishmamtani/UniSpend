@@ -26,7 +26,7 @@ public class BudgetTrackerInputData {
         this.income = income;
         this.alreadySpentCategories = alreadySpentCategories;
         this.amount_spent = amount_spent;
-        this.category_spent_on = category_spent_on;
+        this.category_spent_on = category_spent_on.toUpperCase();
     }
 
     public double getIncome() { return income; }
