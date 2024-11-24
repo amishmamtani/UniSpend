@@ -29,11 +29,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
 //        this.alreadySpentCategories = new HashMap<>();
 
         JLabel titleLabel = new Heading("Budget Tracker", 30).getHeading();
-        titleLabel.setBounds(99, 43, 191, 43);
+        titleLabel.setBounds(90, 43, 230, 43);
 
         ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 18);
         JButton createNewButton = createNew.getButton();
-        createNewButton.setBounds(35, 629, 133, 60);
+        createNewButton.setBounds(35, 629, 150, 60);
 
         ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 18);
         JButton addButton = add.getButton();
@@ -51,9 +51,9 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
             public void actionPerformed(ActionEvent e) {
                 System.out.println("create new clicked");
                 JFrame createNewPopUp = new JFrame();
-                createNewPopUp.setSize(400, 470);
+                createNewPopUp.setSize(380, 300);
                 JLabel createNewTitleLabel = new Heading("New Budget Tracker", 30).getHeading();
-                createNewTitleLabel.setBounds(30, 30, 245, 35);
+                createNewTitleLabel.setBounds(30, 30, 300, 35);
 
                 JLabel salaryLabel = new JLabel("Enter your salary or allowance: ");
                 salaryLabel.setBounds(30, 79, 209, 19);
@@ -66,7 +66,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
 
                 ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 18);
                 JButton createNewButton = createNew.getButton();
-                createNewButton.setBounds(30, 353, 340, 60);
+                createNewButton.setBounds(30, 188, 320, 60);
 
                 JPanel createNewPanel = new JPanel();
                 createNewPanel.add(createNewTitleLabel);
@@ -111,9 +111,9 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
             public void actionPerformed(ActionEvent e) {
                 System.out.println("add clicked");
                 JFrame addPopUp = new JFrame();
-                addPopUp.setSize(400, 470);
+                addPopUp.setSize(380, 470);
                 JLabel addTitleLabel = new Heading("Update Tracker", 30).getHeading();
-                addTitleLabel.setBounds(30, 30, 186, 35);
+                addTitleLabel.setBounds(30, 30, 220, 35);
 
                 JLabel amountSpentLabel = new JLabel("Enter your spending: ");
                 amountSpentLabel.setBounds(30, 82, 141, 19);
@@ -135,7 +135,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
 
                 ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 18);
                 JButton addButton = add.getButton();
-                addButton.setBounds(30, 353, 340, 60);
+                addButton.setBounds(30, 353, 320, 60);
 
                 JPanel addPanel = new JPanel();
                 addPanel.add(addTitleLabel);
@@ -167,6 +167,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         chartPanel.setBounds(34, 119, 321, 371);
                         chartPanel.setVisible(true);
                         budgettracker.add(chartPanel);
+                        budgettracker.setComponentZOrder(chartPanel, 0);
 
                         if (currentState.isSpent_more_than_income()) {
                             JLabel warningLabel = new JLabel("Warning: you have spent more than your income.");
