@@ -21,7 +21,7 @@ public class MongoUserRepositoryTest {
     @Test
     public void testSaveAndRetrieveBudgetAndTracker() {
         User user = new User("Alice", "Brown", "password123", "alice.brown@example.com");
-        user.setIncome(60000.0);
+        user.setIncome(60000.0);//rand
 
         HashMap<String, Double> budget = new HashMap<>();
         budget.put("Groceries", 300.0);
