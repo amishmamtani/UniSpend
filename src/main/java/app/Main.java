@@ -3,13 +3,20 @@ package app;
 import interface_adapter.budget.BudgetController;
 import interface_adapter.budget.BudgetPresenter;
 import interface_adapter.budget.BudgetViewModel;
+import interface_adapter.budgetcompare.BudgetCompareController;
+import interface_adapter.budgetcompare.BudgetComparePresenter;
+import interface_adapter.budgetcompare.BudgetCompareViewModel;
 import interface_adapter.budgettracker.BudgetTrackerController;
 import interface_adapter.budgettracker.BudgetTrackerPresenter;
 import interface_adapter.budgettracker.BudgetTrackerViewModel;
 import use_case.budget.BudgetInteractor;
 import use_case.budget.BudgetOutputBoundary;
+import use_case.budgetcompare.BudgetCompareInteractor;
+import use_case.budgetcompare.BudgetCompareOutputBoundary;
+import use_case.budgetcompare.BudgetCompareOutputData;
 import use_case.budgettracker.BudgetTrackerInteractor;
 import use_case.budgettracker.BudgetTrackerOutputBoundary;
+import view.BudgetCompareView;
 import view.BudgetMakerView;
 
 import view.BudgetTrackerView;
@@ -44,6 +51,12 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(() -> {
             view.setVisible(true);
         });
+
+        BudgetCompareViewModel compareViewModel = new BudgetCompareViewModel();
+        BudgetCompareOutputBoundary compareOutputBoundary = new BudgetComparePresenter(compareViewModel);
+        BudgetCompareInteractor compareInteractor = new BudgetCompareInteractor(compareOutputBoundary);
+        BudgetCompareController compareController = new BudgetCompareController(compareInteractor);
+        new BudgetCompareView(compareViewModel, compareController);
 
     }
 }
