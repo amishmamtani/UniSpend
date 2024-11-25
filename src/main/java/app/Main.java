@@ -45,5 +45,7 @@ public class Main {
             view.setVisible(true);
         });
 
+        System.out.println(System.getenv("EMAIL"));
+
     }
 }
