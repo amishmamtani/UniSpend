@@ -88,16 +88,4 @@ public class ChatBotView extends JFrame {
             responseArea.append("ChatBot: " + state.getAnswer().getAnswer() + "\n");
         }
     }
-
-    public static void main(String[] args) {
-        ChatBotViewModel viewModel = new ChatBotViewModel();
-        ChatBotController controller = new ChatBotController(new use_case.chatBot.ChatBotInteractor(
-                new interface_adapter.ChatBot.ChatBotPresenter(viewModel)
-        ));
-
-        SwingUtilities.invokeLater(() -> {
-            ChatBotView view = new ChatBotView(controller, viewModel);
-            view.setVisible(true);
-        });
-    }
 }

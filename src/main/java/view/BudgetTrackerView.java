@@ -1,5 +1,6 @@
 package view;
 
+import app.SendEmail;
 import interface_adapter.budgettracker.BudgetTrackerController;
 import interface_adapter.budgettracker.BudgetTrackerState;
 import interface_adapter.budgettracker.BudgetTrackerViewModel;
@@ -170,6 +171,9 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         budgettracker.setComponentZOrder(chartPanel, 0);
 
                         if (currentState.isSpent_more_than_income()) {
+                            new SendEmail("amishmamtani@gmail.com",
+                                    "Your wallet’s waving a little red flag \uD83D\uDEA9",
+                                    "<p>Hi Amish!</p><br>" + System.getenv("OVER_BUDGET_EMAIL"));
                             JLabel warningLabel = new JLabel("Warning: you have spent more than your income.");
                             warningLabel.setBounds(36,490, 331,19);
                             warningLabel.setFont(new Font("Arial", Font.PLAIN, 14));
