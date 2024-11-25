@@ -9,18 +9,6 @@ public class BudgetTrackerInputData {
     private final double amount_spent;
     private final String category_spent_on;
 
-    /**
-     * I WAS WONDERING HOW I CAN MODIFY THIS SO THAT THE USER CAN INPUT AN ALREADY MADE BUDGET
-     * @param income
-     * @param alreadySpentCategories
-     * @param amount_spent
-     * @param category_spent_on
-     */
-
-
-
-
-
     public BudgetTrackerInputData(double income, HashMap<String, Double> alreadySpentCategories, double amount_spent,
                                   String category_spent_on) {
         this.income = income;
