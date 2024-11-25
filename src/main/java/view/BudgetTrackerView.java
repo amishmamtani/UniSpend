@@ -20,13 +20,11 @@ import java.util.Map;
 public class BudgetTrackerView extends JPanel implements ActionListener, PropertyChangeListener {
     private final BudgetTrackerViewModel budgetTrackerViewModel;
     private final BudgetTrackerController budgetTrackerController;
-//    private HashMap<String, Double> alreadySpentCategories;
     private double income;
 
     public BudgetTrackerView(BudgetTrackerViewModel viewModel, BudgetTrackerController controller) {
         this.budgetTrackerController = controller;
         this.budgetTrackerViewModel = viewModel;
-//        this.alreadySpentCategories = new HashMap<>();
 
         JLabel titleLabel = new Heading("Budget Tracker", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
@@ -87,7 +85,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         System.out.println(income);
                         categorySpending1.put("UNSPENT INCOME", income);
 
-                        budgetTrackerController.createBudgetTracker(income, categorySpending1, 0.0, "none");
+                        budgetTrackerController.createBudgetTracker(income, categorySpending1, 0.0, "NONE");
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                         PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
                         ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
@@ -104,8 +102,6 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
             }
         });
 
-//        HashMap<String, Double> categorySpending = new HashMap<>(categorySpending1);
-//        System.out.println(categorySpending);
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -156,7 +152,6 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         System.out.println("add clicked");
                         Double amountSpent = Double.parseDouble(amountSpentTextField.getText());
                         String categorySpentOn = categorySpentTextField.getText();
-                        System.out.println(categorySpending1);
                         budgetTrackerController.createBudgetTracker(income, categorySpending1, amountSpent, categorySpentOn);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                         HashMap<String, Double> categorySpending1 = new HashMap<>(currentState.getAlreadySpentCategories());
