@@ -1,7 +1,6 @@
 package interface_adapter.budgettracker;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class BudgetTrackerState {
     private double income;

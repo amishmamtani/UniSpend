@@ -1,7 +1,6 @@
 package use_case.budgettracker;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class BudgetTrackerOutputData {
     private final double income;
