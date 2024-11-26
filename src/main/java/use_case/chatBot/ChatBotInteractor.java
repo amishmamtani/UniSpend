@@ -14,7 +14,7 @@ import java.util.List;
 public class ChatBotInteractor implements ChatBotInputBoundary {
 
     private final ChatBotOutputBoundary chatBotPresenter;
-    private static final String API_KEY = "rGPIA69zxDWSRsgGVabr5dCaJmvPokkPIUt0xx2r";
+    private static final String API_KEY = System.getenv("CHATBOT_API_KEY");
     private static final String COHERE_EMBED_URL = "https://api.cohere.ai/embed";
     private final List<VectorizedResponse> vectorizedResponses;
 

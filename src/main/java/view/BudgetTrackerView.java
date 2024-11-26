@@ -8,6 +8,7 @@ import interface_adapter.budgettracker.BudgetTrackerViewModel;
 import org.jfree.chart.ChartPanel;
 import view.components.ColouredButton;
 import view.components.Heading;
+import view.components.LogCard;
 import view.components.PieChart;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
     private final BudgetTrackerViewModel budgetTrackerViewModel;
     private final BudgetTrackerController budgetTrackerController;
     private double income;
+    private Integer distance = 0;
 
     public BudgetTrackerView(BudgetTrackerViewModel viewModel, BudgetTrackerController controller) {
         this.budgetTrackerController = controller;
@@ -154,6 +156,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         System.out.println("add clicked");
                         Double amountSpent = Double.parseDouble(amountSpentTextField.getText());
                         String categorySpentOn = categorySpentTextField.getText();
+
+                        LogCard logCard = new LogCard(categorySpentOn, amountSpentTextField.getText());
+                        logCard.setBounds(35,95+50*distance,320, 45);
+                        distance += 1;
+
                         System.out.println(categorySpending1);
                         budgetTrackerController.createBudgetTracker(income, categorySpending1, amountSpent, categorySpentOn);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
@@ -164,12 +171,13 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
                         chartPanel.setBounds(400, 80, 380, 380);
                         chartPanel.setVisible(true);
+                        budgettracker.add(logCard);
                         budgettracker.add(chartPanel);
                         budgettracker.setComponentZOrder(chartPanel, 0);
 
                         if (currentState.isSpent_more_than_income()) {
-                            String userEmail = "paianish62@gmail.com";
-                            String userFirstName = "Anish";
+                            String userEmail = "amishmamtani@gmail.com";
+                            String userFirstName = "Amish";
                             new EmailSender().sendEmail(userEmail,
                                     "Your wallet’s waving a little red flag \uD83D\uDEA9",
                                     "<html>Hi "+ userFirstName+ "!<br>"+System.getenv("OVER_BUDGET_EMAIL"));

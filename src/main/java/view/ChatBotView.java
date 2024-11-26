@@ -33,7 +33,7 @@ public class ChatBotView extends JFrame {
 
     private static final String TRANSLATION_API_URL_EN = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-<source>-en";
     private static final String TRANSLATION_API_URL_FR = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr";
-    private static final String API_KEY = "Bearer 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";
+    private static final String API_KEY = System.getenv("TRANSLATION_API_KEY");
 
     public ChatBotView(ChatBotController controller, ChatBotViewModel viewModel) {
         this.controller = controller;
