@@ -18,32 +18,30 @@ import interface_adapter.ChatBot.ChatBotController;
 import interface_adapter.ChatBot.ChatBotPresenter;
 import interface_adapter.ChatBot.ChatBotViewModel;
 import view.ChatBotView;
+import view.ChatBotViewOld;
 import use_case.chatBot.ChatBotInteractor;
 
 
 public class Main {
     public static void main(String[] args) {
-        BudgetViewModel BVM = new BudgetViewModel();
-        BudgetOutputBoundary BOB = new BudgetPresenter(BVM);
-        BudgetInteractor budgetInteractor = new BudgetInteractor(BOB);
-        BudgetController BPC = new BudgetController(budgetInteractor);
-        new BudgetMakerView(BVM, BPC);
+        BudgetViewModel budgetViewModel = new BudgetViewModel();
+        BudgetPresenter budgetPresenter = new BudgetPresenter(budgetViewModel);
+        BudgetInteractor budgetInteractor = new BudgetInteractor(budgetPresenter);
+        BudgetController budgetController = new BudgetController(budgetInteractor);
+        new BudgetMakerView(budgetViewModel, budgetController);
 
 
-        BudgetTrackerViewModel BVM2 = new BudgetTrackerViewModel();
-        BudgetTrackerOutputBoundary BTOB = new BudgetTrackerPresenter(BVM2);
-        BudgetTrackerInteractor budgetTrackerInteractor = new BudgetTrackerInteractor(BTOB);
-        BudgetTrackerController BTC = new BudgetTrackerController(budgetTrackerInteractor);
-        new BudgetTrackerView(BVM2, BTC);
+        BudgetTrackerViewModel budgetTrackerViewModel = new BudgetTrackerViewModel();
+        BudgetTrackerPresenter budgetTrackerPresenter = new BudgetTrackerPresenter(budgetTrackerViewModel);
+        BudgetTrackerInteractor budgetTrackerInteractor = new BudgetTrackerInteractor(budgetTrackerPresenter);
+        BudgetTrackerController budgetTrackerController = new BudgetTrackerController(budgetTrackerInteractor);
+        new BudgetTrackerView(budgetTrackerViewModel, budgetTrackerController);
 
-        ChatBotViewModel viewModel = new ChatBotViewModel();
-        ChatBotPresenter presenter = new ChatBotPresenter(viewModel);
-        ChatBotInteractor interactor = new ChatBotInteractor(presenter);
-        ChatBotController controller = new ChatBotController(interactor);
-        ChatBotView view = new ChatBotView(controller, viewModel);
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            view.setVisible(true);
-        });
+        ChatBotViewModel chatBotViewModel = new ChatBotViewModel();
+        ChatBotPresenter chatBotPresenter = new ChatBotPresenter(chatBotViewModel);
+        ChatBotInteractor chatBotInteractor = new ChatBotInteractor(chatBotPresenter);
+        ChatBotController chatBotController = new ChatBotController(chatBotInteractor);
+        new ChatBotView(chatBotController, chatBotViewModel);
 
         System.out.println(System.getenv("EMAIL"));
 

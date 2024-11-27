@@ -3,6 +3,8 @@ package app;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class EmailSender {
@@ -32,7 +34,7 @@ public class EmailSender {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromEmail));
+            message.setFrom(new InternetAddress(fromEmail, "UniSpend"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject(subject);
             message.setContent(body, "text/html; charset=UTF-8");
@@ -40,7 +42,7 @@ public class EmailSender {
             Transport.send(message);
             System.out.println("Email sent successfully!");
 
-        } catch (MessagingException e) {
+        } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
