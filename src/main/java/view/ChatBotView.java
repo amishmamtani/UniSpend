@@ -110,6 +110,10 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
                 timer.start();
             }
         });
+
+        warmUpModel("https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-fr-en");
+        warmUpModel("https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr");
+
     }
 
     private JPanel newMessagePanel(String text, Boolean isUser){

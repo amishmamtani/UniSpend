@@ -30,14 +30,14 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         this.budgetTrackerController = controller;
         this.budgetTrackerViewModel = viewModel;
 
-        JLabel titleLabel = new Heading("Budget Tracker", 30).getHeading();
+        JLabel titleLabel = new Heading("Budget Tracker", 28).getHeading();
         titleLabel.setBounds(35, 23, 230, 43);
 
-        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 18);
+        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 16);
         JButton createNewButton = createNew.getButton();
         createNewButton.setBounds(35, 480, 150, 60);
 
-        ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 18);
+        ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 16);
         JButton addButton = add.getButton();
         addButton.setBounds(224, 480, 133, 60);
 
@@ -66,7 +66,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 salaryTextField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 salaryTextField.setBackground(Color.decode("#D6DCE6"));
 
-                ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 18);
+                ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 16);
                 JButton createNewButton = createNew.getButton();
                 createNewButton.setBounds(30, 188, 320, 60);
 
@@ -133,7 +133,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 categorySpentTextField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 categorySpentTextField.setBackground(Color.decode("#D6DCE6"));
 
-                ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 18);
+                ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 16);
                 JButton addButton = add.getButton();
                 addButton.setBounds(30, 353, 320, 60);
 
