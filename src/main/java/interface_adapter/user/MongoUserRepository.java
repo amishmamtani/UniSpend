@@ -12,12 +12,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import io.github.cdimascio.dotenv.Dotenv;
+
+
 
 public class MongoUserRepository implements UserRepository {
     private final MongoCollection<Document> usersCollection;
 
     public MongoUserRepository() {
-        String uri = "mongodb+srv://unispend:ajVAWrXyIYuIo2FB@unispend.zrxes.mongodb.net/UniSpend?retryWrites=true&w=majority";
+        Dotenv dotenv = Dotenv.load();
+        String uri = dotenv.get("DATABASE_URL");
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("UniSpend");
 

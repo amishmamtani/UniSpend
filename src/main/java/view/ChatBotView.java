@@ -16,100 +16,133 @@ import java.util.Map;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import view.components.ColouredButton;
 
-public class ChatBotView extends JFrame {
-
-    private final ChatBotController controller;
-    private final ChatBotViewModel viewModel;
-
-    private JTextArea responseArea;
-    private JTextField questionField;
-    private JComboBox<String> languageDropdown;
+public class ChatBotView extends JPanel implements ActionListener, PropertyChangeListener {
+    private ChatBotController chatBotController;
+    private ChatBotViewModel chatBotViewModel;
+    private JScrollPane chatBotScrollPane;
+    private Integer distance = 0;
+    private JTextField textInput;
+    private ButtonGroup languageButtonGroup;
     private Map<String, String> languageMap = new HashMap<>(Map.of(
             "English", "en",
             "French", "fr"
     ));
-    private JButton sendButton;
-
     private static final String TRANSLATION_API_URL_EN = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-<source>-en";
     private static final String TRANSLATION_API_URL_FR = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr";
-    private static final String API_KEY = "Bearer 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";
+    private static final String API_KEY = System.getenv("TRANSLATION_API_KEY");
 
-    public ChatBotView(ChatBotController controller, ChatBotViewModel viewModel) {
-        this.controller = controller;
-        this.viewModel = viewModel;
+    public ChatBotView(ChatBotController chatBotController, ChatBotViewModel chatBotViewModel) {
+        this.chatBotController = chatBotController;
+        this.chatBotViewModel = chatBotViewModel;
 
-        setTitle("ChatBot");
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initializeUI();
+        this.setLayout(null);
+        this.setVisible(true);
+        this.setBackground(Color.decode("#D6DCE6"));
 
-        viewModel.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("state".equals(evt.getPropertyName())) {
-                    try {
-                        updateResponseArea((ChatBotState) evt.getNewValue());
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+        chatBotScrollPane = new JScrollPane();
+        chatBotScrollPane.setBounds(10,10, 810,480);
+        chatBotScrollPane.getViewport().setBackground(Color.decode("#D6DCE6"));
+        chatBotScrollPane.setBorder(BorderFactory.createEmptyBorder());
+
+        textInput = new JTextField();
+        textInput.setBounds(120, 496, 550, 60);
+        textInput.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        textInput.setBackground(Color.decode("#FFFFFF"));
+
+
+        JButton sendButton = new ColouredButton("Send","#1A1A1A","#FFFFFF", 15).getButton();
+        sendButton.setBounds(680,496, 130 ,60);
+
+        languageButtonGroup = new ButtonGroup();
+        JRadioButton englishButton = new JRadioButton("English");
+        englishButton.setSelected(true);
+        englishButton.setActionCommand("English");
+        englishButton.setBounds(20, 496, 120, 30);
+
+        JRadioButton frenchButton = new JRadioButton("French");
+        frenchButton.setBounds(20, 521, 120, 30);
+        frenchButton.setActionCommand("French");
+        languageButtonGroup.add(englishButton);
+        languageButtonGroup.add(frenchButton);
+
+        this.add(chatBotScrollPane);
+        this.add(textInput);
+        this.add(sendButton);
+        this.add(englishButton);
+        this.add(frenchButton);
+
+        JFrame frame = new JFrame("Chat Bot");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(830,600);
+        frame.setResizable(false);
+        frame.setContentPane(this);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBackground(Color.decode("#FFFFFF"));
+        frame.setVisible(true);
+
+        textInput.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateUserMessage();
+                Timer timer = new Timer(1250, new ActionListener(){
+                    public void actionPerformed(ActionEvent event) {
+                        updateChatBotMessage();
+                        ((Timer) event.getSource()).stop();
                     }
-                }
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
         });
-
-        warmUpModel("https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-fr-en");
-        warmUpModel("https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr");
-    }
-
-    private void initializeUI() {
-        setLayout(new BorderLayout());
-
-        responseArea = new JTextArea();
-        responseArea.setEditable(false);
-        responseArea.setLineWrap(true);
-        responseArea.setWrapStyleWord(true);
-        JScrollPane responseScrollPane = new JScrollPane(responseArea);
-        add(responseScrollPane, BorderLayout.CENTER);
-
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new BorderLayout());
-
-        questionField = new JTextField();
-
-        languageDropdown = new JComboBox<>(new String[]{
-                "English", "French"
-        });
-
-        sendButton = new JButton("Send");
-
-        JPanel topInputPanel = new JPanel();
-        topInputPanel.setLayout(new BorderLayout());
-        topInputPanel.add(languageDropdown, BorderLayout.WEST);
-        topInputPanel.add(questionField, BorderLayout.CENTER);
-        topInputPanel.add(sendButton, BorderLayout.EAST);
-
-        inputPanel.add(topInputPanel, BorderLayout.CENTER);
-
-        add(inputPanel, BorderLayout.SOUTH);
 
         sendButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                sendQuestion();
-            }
-        });
-
-        questionField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sendQuestion();
+            public void actionPerformed(ActionEvent evt) {
+                updateUserMessage();
+                Timer timer = new Timer(1250, new ActionListener(){
+                    public void actionPerformed(ActionEvent event) {
+                        updateChatBotMessage();
+                        ((Timer) event.getSource()).stop();
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
             }
         });
     }
 
-    private void sendQuestion() {
-        String questionText = questionField.getText().trim();
-        String selectedLanguage = (String) languageDropdown.getSelectedItem();
+    private JPanel newMessagePanel(String text, Boolean isUser){
+        JPanel textMessagePanel = new JPanel();
+        textMessagePanel.setLayout(new GridBagLayout());
+
+        String textMessage = text;
+        JLabel textMessageLabel = new JLabel(textMessage);
+        textMessageLabel.setForeground(Color.decode("#FFFFFF"));
+
+        FontMetrics fm = getFontMetrics(textMessageLabel.getFont());
+        int textWidth = fm.stringWidth(textMessage) + 30;
+        System.out.println(textWidth);
+
+        textMessagePanel.add(textMessageLabel);
+
+        if (isUser){
+            textMessagePanel.setBackground(Color.decode("#2166DE"));
+            textMessagePanel.setBounds(800-textWidth, 10 + 60 * distance, textWidth, 40);
+        }
+        else {
+            textMessagePanel.setBackground(Color.decode("#3C5175"));
+            textMessagePanel.setBounds(10, 10 + 60 * distance, textWidth, 40);
+        }
+
+        distance += 1;
+        return textMessagePanel;
+
+    }
+
+    private void sendQuestion(String question, String language) {
+        String questionText = question.trim();
+        String selectedLanguage = language;
 
         if (!questionText.isEmpty()) {
             if (!"English".equals(selectedLanguage)) {
@@ -120,21 +153,67 @@ public class ChatBotView extends JFrame {
                     return;
                 }
             }
-            controller.generateResponse(new entity.Question(questionText));
-            questionField.setText("");
+            chatBotController.generateResponse(new entity.Question(questionText));
         }
     }
 
-    private void updateResponseArea(ChatBotState state) throws Exception {
-        if (state.getAnswer() != null) {
-            String selectedLanguage = (String) languageDropdown.getSelectedItem();
-            String answerText = state.getAnswer().getAnswer();
+    private void updateUserMessage(){
+        Container viewportView = (Container) chatBotScrollPane.getViewport().getView();
 
-            if ("French".equals(selectedLanguage)) {
-                answerText = translateWithRetry(answerText, TRANSLATION_API_URL_FR);
-            }
-            responseArea.append("ChatBot: " + answerText + "\n");
+        if (viewportView == null) {
+            viewportView = new JPanel();
+            viewportView.setLayout(null);
+            chatBotScrollPane.setViewportView(viewportView);
         }
+
+        viewportView.add(newMessagePanel(textInput.getText(), true));
+
+        sendQuestion(textInput.getText(), languageButtonGroup.getSelection().getActionCommand());
+
+        viewportView.setBackground(Color.decode("#D6DCE6"));
+
+        viewportView.revalidate();
+        viewportView.repaint();
+
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar vertical = chatBotScrollPane.getVerticalScrollBar();
+            vertical.setValue(vertical.getMaximum());
+        });
+
+        textInput.setText("");
+    }
+
+    private void updateChatBotMessage(){
+        Container viewportView = (Container) chatBotScrollPane.getViewport().getView();
+
+        if (viewportView == null) {
+            viewportView = new JPanel();
+            viewportView.setLayout(null);
+            chatBotScrollPane.setViewportView(viewportView);
+        }
+
+        ChatBotState currentState = chatBotViewModel.getState();
+        String answerText = currentState.getAnswer().getAnswer();
+        if(languageButtonGroup.getSelection().getActionCommand() == "French") {
+            try {
+                answerText = translateWithRetry(answerText, TRANSLATION_API_URL_FR);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        viewportView.add(newMessagePanel(answerText, false));
+
+        viewportView.setBackground(Color.decode("#D6DCE6"));
+
+        viewportView.revalidate();
+        viewportView.repaint();
+
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar vertical = chatBotScrollPane.getVerticalScrollBar();
+            vertical.setValue(vertical.getMaximum());
+        });
+
     }
 
     private String translateWithRetry(String text, String url) throws Exception {
@@ -191,5 +270,15 @@ public class ChatBotView extends JFrame {
         } catch (Exception e) {
             System.out.println("Error warming up model: " + e.getMessage());
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
     }
 }

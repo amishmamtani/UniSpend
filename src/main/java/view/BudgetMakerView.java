@@ -26,8 +26,7 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
     private JFrame addCategoryPopUp = new JFrame();
     private JFrame mainFrame;
     private int x = 0;
-
-
+    private JPanel mainPanel;
 
 
     public BudgetMakerView(BudgetViewModel budgetViewModel, BudgetController controller) {
@@ -42,57 +41,60 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 "Entertainment", 1.0,
                 "Healthcare", 1.0));
 
+        // main budget maker user interface
+
         JLabel budgetTitleLabel = new Heading("Budget Maker", 28).getHeading();
-        budgetTitleLabel.setBounds(99, 43, 191, 43);
+        budgetTitleLabel.setBounds(35, 23, 191, 43);
 
 
         JLabel allowanceLabel = new JLabel("Enter your monthly allowance or salary: ");
-        allowanceLabel.setBounds(35, 117, 300, 18);
+        allowanceLabel.setBounds(35, 77, 300, 18);
         allowanceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
         JTextField incomeTextField = new JTextField();
-        incomeTextField.setBounds(32, 147, 320, 60);
+        incomeTextField.setBounds(32, 107, 320, 60);
         incomeTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         incomeTextField.setBackground(Color.decode("#D6DCE6"));
 
         JLabel categoryHeading = new Heading("Categories", 22).getHeading();
-        categoryHeading.setBounds(35, 237, 200, 25);
+        categoryHeading.setBounds(35, 197, 200, 25);
 
         JCheckBox housingCheckBox = new JCheckBox("Housing");
-        housingCheckBox.setBounds(35, 278, 200, 18);
+        housingCheckBox.setBounds(35, 258, 120, 18);
         housingCheckBox.setSelected(true);
 
         JCheckBox foodCheckBox = new JCheckBox("Food");
-        foodCheckBox.setBounds(35, 308, 200, 18);
+        foodCheckBox.setBounds(35, 288, 120, 18);
         foodCheckBox.setSelected(true);
 
         JCheckBox transportCheckBox = new JCheckBox("Transportation");
-        transportCheckBox.setBounds(35, 338, 200, 18);
+        transportCheckBox.setBounds(35, 318, 130, 18);
         transportCheckBox.setSelected(true);
 
         JCheckBox utilityCheckBox = new JCheckBox("Utilities");
-        utilityCheckBox.setBounds(35, 368, 200, 18);
+        utilityCheckBox.setBounds(35, 348, 120, 18);
         utilityCheckBox.setSelected(true);
 
         JCheckBox entertainmentCheckBox = new JCheckBox("Entertainment");
-        entertainmentCheckBox.setBounds(35, 398, 200, 18);
+        entertainmentCheckBox.setBounds(35, 378, 120, 18);
         entertainmentCheckBox.setSelected(true);
 
         JCheckBox healthcareCheckBox = new JCheckBox("Healthcare");
-        healthcareCheckBox.setBounds(35, 428, 200, 18);
+        healthcareCheckBox.setBounds(35, 408, 120, 18);
         healthcareCheckBox.setSelected(true);
 
         ColouredButton createBudget = new ColouredButton("Create Budget", "#1A1A1A",
                 "#FFFFFF", 16);
         JButton createBudgetButton = createBudget.getButton();
-        createBudgetButton.setBounds(32, 618, 320, 60);
+        createBudgetButton.setBounds(32, 480, 320, 60);
 
         ColouredButton addCategory = new ColouredButton("＋ Add ", "#1A1A1A",
                 "#FFFFFF", 15);
         JButton addCategoryButton = addCategory.getButton();
-        addCategoryButton.setBounds(258,232, 96, 38);
+        addCategoryButton.setBounds(258,192, 96, 38);
 
         JPanel budgetMaker = new JPanel();
+        budgetMaker.setSize(830, 600);
         budgetMaker.add(budgetTitleLabel);
         budgetMaker.add(allowanceLabel);
         budgetMaker.add(incomeTextField);
@@ -116,17 +118,21 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 Map<String, Double> selectedCategories = getSelectedCategories();
                 System.out.println(selectedCategories);
                 budgetController.createBudget(income, selectedCategories);
+
                 final BudgetState currentState = budgetViewModel.getState();
-                JFrame pieChartPopUp = new JFrame();
+
+                //JFrame pieChartPopUp = new JFrame();
                 PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
+
                 ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                 chartPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
                 chartPanel.setBackground(Color.decode("#FFFFFF"));
-                chartPanel.setBounds(35, 233, 320, 320);
+                chartPanel.setBounds(400, 80, 380, 380);
                 chartPanel.setVisible(true);
-                pieChartPopUp.add(chartPanel);
-                pieChartPopUp.setSize(400, 400);
-                pieChartPopUp.setVisible(true);
+
+                budgetMaker.add(chartPanel);
+                budgetMaker.repaint();
+                budgetMaker.revalidate();
             }
         });
 
@@ -151,28 +157,29 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         });
 
         JFrame frame = new JFrame("Budget Maker");
-        frame.setSize(390, 744);
+        frame.setSize(830, 600);
         frame.setResizable(false);
         frame.setContentPane(budgetMaker);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         mainFrame = frame;
+        mainPanel = budgetMaker;
     }
 
     private void addCategory(String category, Double percentage) {
         JCheckBox checkBox = new JCheckBox(category);
         checkBox.setSelected(true);
-        checkBox.setBounds(35, 458+30*x, 100, 18);
+        checkBox.setBounds(200, 258+30*x, 200, 18);
         x = x + 1;
         percentageCategories.put(category, percentage/100);
-        mainFrame.add(checkBox);
-        mainFrame.revalidate();
-        mainFrame.repaint();
+        mainPanel.add(checkBox);
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
     private Map<String, Double> getSelectedCategories() {
         Map<String, Boolean> selectedCategories = new HashMap<>();
-        for (Component component : mainFrame.getContentPane().getComponents()) {
+        for (Component component : mainPanel.getComponents()) {
             if (component instanceof JCheckBox) {
                 selectedCategories.put(((JCheckBox) component).getText(), ((JCheckBox) component).isSelected());
             }

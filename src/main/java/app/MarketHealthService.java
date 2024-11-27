@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class MarketHealthService {
     private static final String API_URL = "https://api.api-ninjas.com/v1/inflation?country=Canada";
-    private static final String API_KEY = "D8Z16zixz06/Rb6Wcm5sOQ==vZQbRetFGVacgbCZ";
+    private static final String API_KEY = System.getenv("API_NINJA_KEY");
 
     private static Double mockMarketHealth = null;
 
