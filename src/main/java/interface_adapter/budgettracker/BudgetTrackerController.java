@@ -1,5 +1,6 @@
 package interface_adapter.budgettracker;
 
+import entity.User;
 import use_case.budgettracker.BudgetTrackerInputData;
 import use_case.budgettracker.BudgetTrackerInteractor;
 
@@ -16,21 +17,9 @@ public class BudgetTrackerController {
     }
 
     public void createBudgetTracker(double income, HashMap<String, Double> alreadySpentCategories, double amount_spent,
-                                    String category_spent_on) {
+                                    String category_spent_on, User user) {
         BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income,
-                alreadySpentCategories, amount_spent, category_spent_on);
+                alreadySpentCategories, amount_spent, category_spent_on, user);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
     }
-
-
-    /**
-     * This should take in an already made BudgetTracker, category_spent, amount_spent
-     * I AM NOT SURE HOW THIS CAN BE IMPLEMENTED  AS I AM NOT SURE HOW TO TAKE IN AN ALREADY MADE BUDGET TRACKER
-     */
-
-//    public void updateBudgetTracker(){
-//        BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData();
-//        budgetTrackerInteractor.updateBudgetTracker();
-//    }
-
 }
