@@ -58,7 +58,7 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         return generatedAnswer;
     }
 
-    private List<VectorizedResponse> loadVectorizedData() {
+    List<VectorizedResponse> loadVectorizedData() {
         List<VectorizedResponse> responses = new ArrayList<>();
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("VectorizedData.json")) {
             if (is == null) {
@@ -113,13 +113,14 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         }
     }
 
-    private VectorizedResponse findBestMatch(double[] userVector) {
+    VectorizedResponse findBestMatch(double[] userVector) {
         VectorizedResponse bestMatch = null;
         double bestSimilarity = -1;
+        double similarityThreshold = 0.5; // Adjust this value as needed
 
         for (VectorizedResponse response : vectorizedResponses) {
             double similarity = weightedSimilarity(userVector, response.getVector());
-            if (similarity > bestSimilarity) {
+            if (similarity > bestSimilarity && similarity > similarityThreshold) {
                 bestSimilarity = similarity;
                 bestMatch = response;
             }
@@ -144,7 +145,7 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         return dotProduct / (Math.sqrt(norm1) * Math.sqrt(norm2));
     }
 
-    private double weightedSimilarity(double[] vec1, double[] vec2) {
+    double weightedSimilarity(double[] vec1, double[] vec2) {
         int minLength = Math.min(vec1.length, vec2.length);
         double dotProduct = 0.0;
         double vec1Magnitude = 0.0;
