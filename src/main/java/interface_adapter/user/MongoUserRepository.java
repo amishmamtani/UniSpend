@@ -52,6 +52,18 @@ public class MongoUserRepository implements UserRepository {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        Document query = new Document("email", email);
+        Document userDocument = usersCollection.find(query).first();
+
+        if (userDocument != null) {
+            return fromDocument(userDocument);
+        }
+        return null;
+    }
+
+
+    @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         for (Document doc : usersCollection.find()) {
