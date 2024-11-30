@@ -19,14 +19,13 @@ import java.util.Map;
 
 
 public class BudgetMakerView extends JPanel implements ActionListener, PropertyChangeListener{
-
+    private final String viewName = "budget maker";
     private final BudgetViewModel budgetViewModel;
     private final BudgetController budgetController;
     private final Map<String, Double> percentageCategories;
     private JFrame addCategoryPopUp = new JFrame();
-    private JFrame mainFrame;
-    private int x = 0;
     private JPanel mainPanel;
+    private int x = 0;
 
 
     public BudgetMakerView(BudgetViewModel budgetViewModel, BudgetController controller) {
@@ -42,9 +41,12 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 "Healthcare", 1.0));
 
         // main budget maker user interface
+        ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
+        JLabel backButton = new JLabel(backIcon);
+        backButton.setBounds(28, 29, backIcon.getIconWidth(), backIcon.getIconHeight());
 
         JLabel budgetTitleLabel = new Heading("Budget Maker", 28).getHeading();
-        budgetTitleLabel.setBounds(35, 23, 191, 43);
+        budgetTitleLabel.setBounds(90, 23, 191, 43);
 
 
         JLabel allowanceLabel = new JLabel("Enter your monthly allowance or salary: ");
@@ -93,22 +95,23 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         JButton addCategoryButton = addCategory.getButton();
         addCategoryButton.setBounds(258,192, 96, 38);
 
-        JPanel budgetMaker = new JPanel();
-        budgetMaker.setSize(830, 600);
-        budgetMaker.add(budgetTitleLabel);
-        budgetMaker.add(allowanceLabel);
-        budgetMaker.add(incomeTextField);
-        budgetMaker.add(categoryHeading);
-        budgetMaker.add(housingCheckBox);
-        budgetMaker.add(foodCheckBox);
-        budgetMaker.add(transportCheckBox);
-        budgetMaker.add(utilityCheckBox);
-        budgetMaker.add(entertainmentCheckBox);
-        budgetMaker.add(healthcareCheckBox);
-        budgetMaker.add(createBudgetButton);
-        budgetMaker.add(addCategoryButton);
-        budgetMaker.setLayout(null);
-        budgetMaker.setBackground(Color.decode("#FFFFFF"));
+        this.setSize(830, 600);
+        this.add(backButton);
+        this.add(budgetTitleLabel);
+        this.add(allowanceLabel);
+        this.add(incomeTextField);
+        this.add(categoryHeading);
+        this.add(housingCheckBox);
+        this.add(foodCheckBox);
+        this.add(transportCheckBox);
+        this.add(utilityCheckBox);
+        this.add(entertainmentCheckBox);
+        this.add(healthcareCheckBox);
+        this.add(createBudgetButton);
+        this.add(addCategoryButton);
+        this.setLayout(null);
+        this.setBackground(Color.decode("#FFFFFF"));
+        mainPanel = this;
 
         createBudgetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -129,10 +132,10 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 chartPanel.setBackground(Color.decode("#FFFFFF"));
                 chartPanel.setBounds(400, 80, 380, 380);
                 chartPanel.setVisible(true);
+                mainPanel.add(chartPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
 
-                budgetMaker.add(chartPanel);
-                budgetMaker.repaint();
-                budgetMaker.revalidate();
             }
         });
 
@@ -159,11 +162,9 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         JFrame frame = new JFrame("Budget Maker");
         frame.setSize(830, 600);
         frame.setResizable(false);
-        frame.setContentPane(budgetMaker);
+        frame.setContentPane(this);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        mainFrame = frame;
-        mainPanel = budgetMaker;
     }
 
     private void addCategory(String category, Double percentage) {
@@ -172,14 +173,14 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         checkBox.setBounds(200, 258+30*x, 200, 18);
         x = x + 1;
         percentageCategories.put(category, percentage/100);
-        mainPanel.add(checkBox);
-        mainPanel.revalidate();
-        mainPanel.repaint();
+        this.add(checkBox);
+        this.revalidate();
+        this.repaint();
     }
 
     private Map<String, Double> getSelectedCategories() {
         Map<String, Boolean> selectedCategories = new HashMap<>();
-        for (Component component : mainPanel.getComponents()) {
+        for (Component component : this.getComponents()) {
             if (component instanceof JCheckBox) {
                 selectedCategories.put(((JCheckBox) component).getText(), ((JCheckBox) component).isSelected());
             }
@@ -204,5 +205,9 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public String getViewName() {
+        return viewName;
     }
 }

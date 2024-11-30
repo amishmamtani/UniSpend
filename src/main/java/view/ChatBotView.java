@@ -19,10 +19,13 @@ import org.json.JSONObject;
 import view.components.ColouredButton;
 
 public class ChatBotView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final String viewName = "chatbot";
     private ChatBotController chatBotController;
     private ChatBotViewModel chatBotViewModel;
     private JScrollPane chatBotScrollPane;
+    private String questionText;
     private Integer distance = 0;
+    private Integer messageCount = 0;
     private JTextField textInput;
     private ButtonGroup languageButtonGroup;
     private Map<String, String> languageMap = new HashMap<>(Map.of(
@@ -41,8 +44,13 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
         this.setVisible(true);
         this.setBackground(Color.decode("#D6DCE6"));
 
+        ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
+        JLabel backButton = new JLabel(backIcon);
+        backButton.setBounds(28, 29, backIcon.getIconWidth(), backIcon.getIconHeight());
+        System.out.println(backIcon.getIconHeight());
+
         chatBotScrollPane = new JScrollPane();
-        chatBotScrollPane.setBounds(10,10, 810,480);
+        chatBotScrollPane.setBounds(10,60, 810,430);
         chatBotScrollPane.getViewport().setBackground(Color.decode("#D6DCE6"));
         chatBotScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
@@ -67,6 +75,7 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
         languageButtonGroup.add(englishButton);
         languageButtonGroup.add(frenchButton);
 
+        this.add(backButton);
         this.add(chatBotScrollPane);
         this.add(textInput);
         this.add(sendButton);
@@ -110,6 +119,10 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
                 timer.start();
             }
         });
+
+        warmUpModel("https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-fr-en");
+        warmUpModel("https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr");
+
     }
 
     private JPanel newMessagePanel(String text, Boolean isUser){
@@ -166,6 +179,7 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
             chatBotScrollPane.setViewportView(viewportView);
         }
 
+        questionText = textInput.getText();
         viewportView.add(newMessagePanel(textInput.getText(), true));
 
         sendQuestion(textInput.getText(), languageButtonGroup.getSelection().getActionCommand());
@@ -181,9 +195,11 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
         });
 
         textInput.setText("");
+        messageCount += 1;
     }
 
     private void updateChatBotMessage(){
+        messageCount += 1;
         Container viewportView = (Container) chatBotScrollPane.getViewport().getView();
 
         if (viewportView == null) {
@@ -200,6 +216,17 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
+        }
+        System.out.println(messageCount);
+
+        if(messageCount % 6 == 0){
+            System.out.println("messageCount if statement");
+            viewportView.removeAll();
+            distance = 0;
+            viewportView.add(newMessagePanel(questionText, true));
+            viewportView.revalidate();
+            viewportView.repaint();
+
         }
 
         viewportView.add(newMessagePanel(answerText, false));
@@ -280,5 +307,9 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public String getViewName() {
+        return viewName;
     }
 }
