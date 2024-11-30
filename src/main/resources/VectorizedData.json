@@ -78,5 +78,583 @@
     {
         "response": "Participate in university clubs and events for free or discounted experiences.",
         "vector": [0.33, 0.47, 0.64, 0.80, 0.83]
+    },
+
+    {
+        "response": "Take public transportation or bike to campus instead of driving to save on transportation costs.",
+        "vector": [0.12, 0.25, 0.47, 0.65, 0.88]
+    },
+    {
+        "response": "Use price comparison tools like Flipp or Rakuten to find the best deals on groceries and other essentials.",
+        "vector": [0.14, 0.27, 0.46, 0.63, 0.87]
+    },
+    {
+        "response": "Attend free campus workshops or webinars to improve skills and knowledge without additional cost.",
+        "vector": [0.13, 0.28, 0.48, 0.64, 0.86]
+    },
+    {
+        "response": "Split rent and utilities with roommates to make housing more affordable.",
+        "vector": [0.15, 0.30, 0.49, 0.62, 0.85]
+    },
+    {
+        "response": "Sell old textbooks or items you no longer need through platforms like Kijiji or Facebook Marketplace.",
+        "vector": [0.18, 0.29, 0.50, 0.66, 0.89]
+    },
+    {
+        "response": "Take advantage of free campus resources like gyms, counseling, and career services.",
+        "vector": [0.17, 0.31, 0.51, 0.68, 0.84]
+    },
+    {
+        "response": "Use cashback credit cards or apps to earn rewards on regular purchases.",
+        "vector": [0.16, 0.33, 0.52, 0.67, 0.90]
+    },
+    {
+        "response": "Set up automated savings transfers to grow your savings effortlessly.",
+        "vector": [0.20, 0.32, 0.53, 0.65, 0.87]
+    },
+    {
+        "response": "Limit streaming subscriptions to only those you actively use, and consider student plans for discounts.",
+        "vector": [0.22, 0.34, 0.54, 0.69, 0.88]
+    },
+    {
+        "response": "Use cashback and rewards points to offset the cost of flights, groceries, or other essentials.",
+        "vector": [0.21, 0.36, 0.55, 0.71, 0.92]
+    },
+    {
+        "response": "Volunteer for events on campus in exchange for free entry or perks.",
+        "vector": [0.23, 0.37, 0.56, 0.72, 0.93]
+    },
+    {
+        "response": "Buy generic brands for everyday items to save money without sacrificing quality.",
+        "vector": [0.19, 0.35, 0.57, 0.73, 0.86]
+    },
+    {
+        "response": "Schedule your classes efficiently to reduce commuting costs and free up time for a job or studies.",
+        "vector": [0.24, 0.38, 0.58, 0.75, 0.90]
+    },
+    {
+        "response": "Learn to use financial tools like Excel or Google Sheets to track your budget effectively.",
+        "vector": [0.25, 0.39, 0.59, 0.76, 0.91]
+    },
+    {
+        "response": "Avoid skipping student health insurance if you are eligible; it could save money in emergencies.",
+        "vector": [0.26, 0.41, 0.60, 0.78, 0.84]
+    },
+    {
+        "response": "Borrow or rent equipment like cameras, laptops, or lab tools instead of buying them outright.",
+        "vector": [0.28, 0.40, 0.61, 0.79, 0.87]
+    },
+    {
+        "response": "Use energy-efficient habits like unplugging devices and switching to LED lights to lower utility bills.",
+        "vector": [0.29, 0.42, 0.62, 0.77, 0.85]
+    },
+    {
+        "response": "Participate in student research projects that offer stipends or financial benefits.",
+        "vector": [0.27, 0.43, 0.63, 0.80, 0.89]
+    },
+    {
+        "response": "Sign up for newsletters from stores you frequently shop at to receive coupons and exclusive deals.",
+        "vector": [0.30, 0.44, 0.64, 0.81, 0.83]
+    },
+    {
+        "response": "Bundle insurance policies, such as car and renters’ insurance, to reduce premiums.",
+        "vector": [0.33, 0.45, 0.65, 0.82, 0.88]
+    },
+    {
+        "response": "Look for free local events and activities for entertainment instead of paid options.",
+        "vector": [0.12, 0.24, 0.46, 0.67, 0.87]
+    },
+    {
+        "response": "Use your student ID to access discounts at museums, theaters, and local attractions.",
+        "vector": [0.14, 0.26, 0.48, 0.65, 0.86]
+    },
+    {
+        "response": "Negotiate your rent when renewing your lease, especially if you're a reliable tenant.",
+        "vector": [0.15, 0.28, 0.50, 0.66, 0.89]
+    },
+    {
+        "response": "Switch to digital textbooks or online rentals to save on book expenses.",
+        "vector": [0.17, 0.30, 0.52, 0.64, 0.90]
+    },
+    {
+        "response": "Plan your travel during off-peak seasons to save on flights and accommodations.",
+        "vector": [0.18, 0.29, 0.53, 0.63, 0.88]
+    },
+    {
+        "response": "Host potluck dinners with friends instead of eating out.",
+        "vector": [0.20, 0.31, 0.54, 0.62, 0.87]
+    },
+    {
+        "response": "Sign up for store loyalty programs to earn points and rewards on regular purchases.",
+        "vector": [0.21, 0.33, 0.56, 0.61, 0.85]
+    },
+    {
+        "response": "Take advantage of free trial periods for software and services when possible.",
+        "vector": [0.19, 0.34, 0.55, 0.60, 0.84]
+    },
+    {
+        "response": "Set up an automatic bill payment system to avoid late fees.",
+        "vector": [0.23, 0.36, 0.57, 0.65, 0.92]
+    },
+    {
+        "response": "Use university-provided resources, such as free printing credits or discounted software.",
+        "vector": [0.22, 0.35, 0.58, 0.64, 0.91]
+    },
+    {
+        "response": "Learn to do simple repairs, like sewing clothes or fixing small appliances, to save money.",
+        "vector": [0.24, 0.37, 0.59, 0.66, 0.93]
+    },
+    {
+        "response": "Shop at thrift stores or garage sales for affordable clothing and items.",
+        "vector": [0.26, 0.39, 0.60, 0.68, 0.84]
+    },
+    {
+        "response": "Pack your own snacks and water bottle when going out to save on food costs.",
+        "vector": [0.27, 0.40, 0.61, 0.70, 0.86]
+    },
+    {
+        "response": "Utilize public libraries for free access to books, study spaces, and online resources.",
+        "vector": [0.28, 0.42, 0.62, 0.72, 0.88]
+    },
+    {
+        "response": "Participate in campus surveys or research studies that offer compensation.",
+        "vector": [0.29, 0.41, 0.63, 0.71, 0.89]
+    },
+    {
+        "response": "Switch to energy-efficient appliances or gadgets to reduce electricity costs.",
+        "vector": [0.31, 0.43, 0.65, 0.73, 0.87]
+    },
+    {
+        "response": "Download free productivity tools like Notion or Trello to manage your tasks.",
+        "vector": [0.30, 0.45, 0.66, 0.75, 0.90]
+    },
+    {
+        "response": "Avoid convenience store purchases, as they often charge higher prices.",
+        "vector": [0.33, 0.44, 0.67, 0.74, 0.83]
+    },
+    {
+        "response": "Use a programmable thermostat to save on heating and cooling costs.",
+        "vector": [0.32, 0.46, 0.68, 0.77, 0.91]
+    },
+    {
+        "response": "Use cashback portals for online shopping to get rebates on purchases.",
+        "vector": [0.35, 0.47, 0.69, 0.79, 0.92]
+    },
+    {
+        "response": "Reduce car usage by carpooling or joining a ride-share program.",
+        "vector": [0.36, 0.48, 0.70, 0.78, 0.84]
+    },
+    {
+        "response": "Bundle streaming services with roommates to split the cost.",
+        "vector": [0.34, 0.49, 0.71, 0.76, 0.85]
+    },
+    {
+        "response": "Learn to negotiate prices, especially for second-hand items or services.",
+        "vector": [0.37, 0.50, 0.72, 0.80, 0.86]
+    },
+    {
+        "response": "Opt for free or open-source software instead of paid alternatives.",
+        "vector": [0.38, 0.51, 0.73, 0.82, 0.88]
+    },
+    {
+        "response": "Find free or discounted food events on campus to cut meal costs.",
+        "vector": [0.40, 0.52, 0.74, 0.83, 0.89]
+    },
+    {
+        "response": "Use online learning platforms for free courses to develop new skills.",
+        "vector": [0.39, 0.53, 0.75, 0.81, 0.87]
+    },
+    {
+        "response": "Review your subscriptions regularly and cancel unused ones.",
+        "vector": [0.41, 0.54, 0.76, 0.84, 0.91]
+    },
+    {
+        "response": "Shop for clothes during seasonal sales to save significantly.",
+        "vector": [0.42, 0.56, 0.77, 0.85, 0.92]
+    },
+    {
+        "response": "Use financial calculators to evaluate your spending and savings goals.",
+        "vector": [0.44, 0.58, 0.78, 0.87, 0.83]
+    },
+    {
+        "response": "Sign up for cashback grocery apps to earn on regular purchases.",
+        "vector": [0.43, 0.57, 0.79, 0.86, 0.84]
+    },
+    {
+        "response": "Create a capsule wardrobe to reduce clothing costs over time.",
+        "vector": [0.46, 0.59, 0.80, 0.89, 0.90]
+    },
+    {
+        "response": "Keep an eye out for campus giveaways or contests for free items.",
+        "vector": [0.45, 0.60, 0.81, 0.88, 0.91]
+    },
+    {
+        "response": "Cook in batches and freeze meals for convenience and savings.",
+        "vector": [0.47, 0.62, 0.82, 0.90, 0.88]
+    },
+    {
+        "response": "Always check for price-matching policies at stores before making a purchase.",
+        "vector": [0.48, 0.63, 0.83, 0.91, 0.85]
+    },
+    {
+        "response": "Participate in free fitness classes on campus or in your community.",
+        "vector": [0.50, 0.64, 0.84, 0.93, 0.86]
+    },
+    {
+        "response": "Buy generic or store-brand medications to save on healthcare costs.",
+        "vector": [0.49, 0.65, 0.85, 0.92, 0.84]
+    },
+    {
+        "response": "Use a water filter at home to avoid buying bottled water.",
+        "vector": [0.52, 0.66, 0.86, 0.94, 0.90]
+    },
+    {
+        "response": "Explore campus food banks or donation drives if you're in financial need.",
+        "vector": [0.51, 0.67, 0.87, 0.89, 0.91]
+    },
+    {
+        "response": "Rent or borrow formal clothing for events instead of buying expensive outfits.",
+        "vector": [0.53, 0.68, 0.88, 0.90, 0.92]
+    },
+    {
+        "response": "Sign up for free workshops or skill-building sessions offered by local libraries.",
+        "vector": [0.54, 0.69, 0.89, 0.91, 0.93]
+    },
+    {
+        "response": "Plan weekend trips with friends to share travel costs and accommodations.",
+        "vector": [0.55, 0.70, 0.90, 0.92, 0.91]
+    },
+    {
+        "response": "Look for free or heavily discounted academic software from your school.",
+        "vector": [0.56, 0.71, 0.91, 0.93, 0.90]
+    },
+    {
+        "response": "Check out second-hand bookstores for required readings.",
+        "vector": [0.58, 0.72, 0.92, 0.94, 0.89]
+    },
+    {
+        "response": "Use coupons or cashback offers when ordering takeout or delivery.",
+        "vector": [0.57, 0.73, 0.93, 0.95, 0.88]
+    },
+    {
+        "response": "Plan a study group to share notes and save on tutoring costs.",
+        "vector": [0.59, 0.74, 0.94, 0.96, 0.87]
+    },
+    {
+        "response": "Opt for refurbished electronics instead of new ones.",
+        "vector": [0.60, 0.75, 0.95, 0.97, 0.86]
+    },
+    {
+        "response": "Learn to use free photo editing and design tools like GIMP or Canva.",
+        "vector": [0.62, 0.76, 0.96, 0.98, 0.85]
+    },
+    {
+        "response": "Buy seasonal fruits and vegetables to save on groceries.",
+        "vector": [0.61, 0.77, 0.97, 0.99, 0.84]
+    },
+
+    {
+        "response": "Use open educational resources for free access to academic materials.",
+        "vector": [0.64, 0.79, 0.99, 0.89, 0.82]
+    },
+    {
+        "response": "Avoid buying expensive gym memberships by using campus gyms.",
+        "vector": [0.65, 0.80, 0.85, 0.90, 0.81]
+    },
+    {
+        "response": "Search for local job boards specifically for students to find flexible part-time work.",
+        "vector": [0.67, 0.81, 0.86, 0.91, 0.80]
+    },
+    {
+        "response": "Set a monthly savings goal and automate transfers to a savings account right after receiving your income.",
+        "vector": [0.95, 0.89, 0.92, 0.87, 0.90]
+    },
+
+    {
+        "response": "Use Google Docs or other free cloud-based tools instead of paid software.",
+        "vector": [0.66, 0.82, 0.87, 0.92, 0.79]
+    },
+    {
+        "response": "Learn basic bike maintenance to save on repair costs.",
+        "vector": [0.68, 0.83, 0.88, 0.93, 0.78]
+    },
+    {
+        "response": "Split the cost of groceries with roommates to reduce expenses.",
+        "vector": [0.69, 0.84, 0.89, 0.94, 0.77]
+    },
+    {
+        "response": "Limit your data usage and rely on Wi-Fi to save on phone bills.",
+        "vector": [0.70, 0.85, 0.90, 0.95, 0.76]
+    },
+    {
+        "response": "Shop around for affordable renters’ insurance to protect your belongings.",
+        "vector": [0.72, 0.86, 0.91, 0.96, 0.75]
+    },
+    {
+        "response": "Use a prepaid card to control your spending and avoid overdraft fees.",
+        "vector": [0.71, 0.87, 0.92, 0.97, 0.74]
+    },
+    {
+        "response": "Borrow equipment from your university’s media lab or tech center when needed.",
+        "vector": [0.73, 0.88, 0.93, 0.98, 0.73]
+    },
+    {
+        "response": "Switch to online banking to avoid service fees at physical branches.",
+        "vector": [0.74, 0.89, 0.94, 0.99, 0.72]
+    },
+    {
+        "response": "Schedule regular budget reviews to track your spending habits.",
+        "vector": [0.76, 0.90, 0.95, 0.85, 0.71]
+    },
+    {
+        "response": "Attend free language exchange events to learn a new language without paying.",
+        "vector": [0.75, 0.91, 0.96, 0.86, 0.70]
+    },
+    {
+        "response": "Get a part-time job with employee discounts to reduce personal expenses.",
+        "vector": [0.77, 0.92, 0.97, 0.87, 0.69]
+    },
+    {
+        "response": "Participate in free cultural events to enjoy entertainment on a budget.",
+        "vector": [0.78, 0.93, 0.98, 0.88, 0.68]
+    },
+    {
+        "response": "Switch to reusable items like water bottles and lunch containers to save money long-term.",
+        "vector": [0.79, 0.94, 0.99, 0.89, 0.67]
+    },
+    {
+        "response": "Join Facebook groups or online communities to find local deals and freebies.",
+        "vector": [0.80, 0.95, 0.85, 0.90, 0.66]
+    },
+    {
+        "response": "Use price tracking tools for online shopping to buy at the best prices.",
+        "vector": [0.82, 0.96, 0.86, 0.91, 0.65]
+    },
+    {
+        "response": "Opt for bundled student plans for phone and internet services.",
+        "vector": [0.81, 0.97, 0.87, 0.92, 0.64]
+    },
+    {
+        "response": "Use free file-sharing platforms like WeTransfer instead of paid cloud services.",
+        "vector": [0.83, 0.98, 0.88, 0.93, 0.63]
+    },
+    {
+        "response": "Shop during back-to-school sales for the best discounts on supplies.",
+        "vector": [0.84, 0.99, 0.89, 0.94, 0.62]
+    },
+    {
+        "response": "Avoid buying extended warranties, which are often unnecessary.",
+        "vector": [0.85, 0.85, 0.90, 0.95, 0.61]
+    },
+    {
+        "response": "Sign up for campus intramurals or sports teams to stay active for free.",
+        "vector": [0.86, 0.87, 0.91, 0.96, 0.60]
+    },
+    {
+        "response": "Organize group purchases with friends to save on bulk items.",
+        "vector": [0.87, 0.89, 0.92, 0.97, 0.59]
+    },
+    {
+        "response": "Look for zero-interest payment plans for large purchases.",
+        "vector": [0.88, 0.90, 0.93, 0.98, 0.58]
+    },
+    {
+        "response": "Volunteer at festivals or concerts to get free entry.",
+        "vector": [0.89, 0.91, 0.94, 0.99, 0.57]
+    },
+
+    {
+        "response": "Set spending alerts on your bank account to monitor expenses.",
+        "vector": [0.90, 0.92, 0.95, 0.85, 0.56]
+    },
+    {
+        "response": "Use public Wi-Fi in safe locations to reduce mobile data costs.",
+        "vector": [0.91, 0.93, 0.96, 0.86, 0.55]
+    },
+    {
+        "response": "Trade skills or services with friends to save money.",
+        "vector": [0.92, 0.94, 0.97, 0.87, 0.54]
+    },
+    {
+        "response": "Take advantage of referral bonuses when signing up for new apps or services.",
+        "vector": [0.93, 0.95, 0.98, 0.88, 0.53]
+    },
+    {
+        "response": "Use group buying platforms to save on events and services.",
+        "vector": [0.94, 0.96, 0.99, 0.89, 0.52]
+    },
+    {
+        "response": "Learn to upcycle old items to reduce the need for new purchases.",
+        "vector": [0.95, 0.97, 0.85, 0.90, 0.51]
+    },
+    {
+        "response": "Switch to email statements to avoid paper fees from your bank.",
+        "vector": [0.96, 0.98, 0.86, 0.91, 0.50]
+    },
+    {
+        "response": "Install a water-saving showerhead to reduce utility bills.",
+        "vector": [0.97, 0.99, 0.87, 0.92, 0.49]
+    },
+    {
+        "response": "Use free online resume builders to save on professional services.",
+        "vector": [0.85, 0.80, 0.88, 0.93, 0.48]
+    },
+    {
+        "response": "Walk or bike to nearby destinations instead of using public transport.",
+        "vector": [0.86, 0.81, 0.89, 0.94, 0.47]
+    },
+    {
+        "response": "Sign up for grocery store loyalty programs for exclusive discounts.",
+        "vector": [0.87, 0.82, 0.90, 0.95, 0.46]
+    },
+    {
+        "response": "Buy reusable items like coffee cups to save on discounts for refills.",
+        "vector": [0.88, 0.83, 0.91, 0.96, 0.45]
+    },
+    {
+        "response": "Learn to cut your own hair or exchange services with friends to save.",
+        "vector": [0.89, 0.84, 0.92, 0.97, 0.44]
+    },
+    {
+        "response": "Utilize campus mental health services for free counseling sessions.",
+        "vector": [0.90, 0.85, 0.93, 0.98, 0.43]
+    },
+    {
+        "response": "Choose free workout programs on YouTube instead of gym memberships.",
+        "vector": [0.91, 0.86, 0.94, 0.99, 0.42]
+    },
+    {
+        "response": "Sell unused items like old electronics or clothes online.",
+        "vector": [0.92, 0.87, 0.95, 0.85, 0.41]
+    },
+    {
+        "response": "Limit eating out by meal prepping on weekends.",
+        "vector": [0.93, 0.88, 0.96, 0.86, 0.40]
+    },
+    {
+        "response": "Use your student email to access free trials for software like Canva Pro.",
+        "vector": [0.94, 0.89, 0.97, 0.87, 0.39]
+    },
+    {
+        "response": "Plan errands efficiently to reduce transport costs.",
+        "vector": [0.95, 0.90, 0.98, 0.88, 0.38]
+    },
+    {
+        "response": "Attend financial literacy workshops offered by your university.",
+        "vector": [0.96, 0.91, 0.99, 0.89, 0.37]
+    },
+    {
+        "response": "Start a side hustle, like tutoring or freelance writing, to earn extra income.",
+        "vector": [0.97, 0.92, 0.85, 0.90, 0.36]
+    },
+    {
+        "response": "Use browser extensions like Honey or Rakuten to find deals online.",
+        "vector": [0.98, 0.93, 0.86, 0.91, 0.35]
+    },
+    {
+        "response": "Borrow rather than buy tools or equipment for short-term use.",
+        "vector": [0.99, 0.94, 0.87, 0.92, 0.34]
+    },
+    {
+        "response": "Consider using prepaid phone plans to limit spending on data.",
+        "vector": [0.85, 0.95, 0.88, 0.93, 0.33]
+    },
+    {
+        "response": "Learn to grow small plants or herbs to save on groceries.",
+        "vector": [0.86, 0.96, 0.89, 0.94, 0.32]
+    },
+    {
+        "response": "Switch off lights and devices when not in use to save on electricity.",
+        "vector": [0.87, 0.97, 0.90, 0.95, 0.31]
+    },
+    {
+        "response": "Volunteer for on-campus events to get free food and perks.",
+        "vector": [0.88, 0.98, 0.91, 0.96, 0.30]
+    },
+    {
+        "response": "Avoid ATM fees by only withdrawing cash from your bank’s machines.",
+        "vector": [0.89, 0.99, 0.92, 0.97, 0.29]
+    },
+    {
+        "response": "Split streaming service accounts with friends to share costs.",
+        "vector": [0.90, 0.80, 0.93, 0.98, 0.28]
+    },
+    {
+        "response": "Create a grocery list and stick to it to avoid impulse purchases.",
+        "vector": [0.91, 0.81, 0.94, 0.99, 0.27]
+    },
+    {
+        "response": "Borrow textbooks from the library or share them with classmates.",
+        "vector": [0.92, 0.82, 0.95, 0.85, 0.26]
+    },
+    {
+        "response": "Check thrift stores for affordable and unique furniture.",
+        "vector": [0.93, 0.83, 0.96, 0.86, 0.25]
+    },
+    {
+        "response": "Cook with friends to split the cost of ingredients.",
+        "vector": [0.94, 0.84, 0.97, 0.87, 0.24]
+    },
+    {
+        "response": "Opt for online e-books instead of hard copies for your classes.",
+        "vector": [0.95, 0.85, 0.98, 0.88, 0.23]
+    },
+    {
+        "response": "Review your transportation options and choose the most cost-effective one.",
+        "vector": [0.96, 0.86, 0.99, 0.89, 0.22]
+    },
+    {
+        "response": "Avoid shopping when hungry to prevent overspending on snacks.",
+        "vector": [0.97, 0.87, 0.85, 0.90, 0.21]
+    },
+    {
+        "response": "Sign up for student price discounts on software like Adobe or Microsoft Office.",
+        "vector": [0.98, 0.88, 0.86, 0.91, 0.20]
+    },
+    {
+        "response": "Participate in online surveys for gift cards or cash.",
+        "vector": [0.99, 0.89, 0.87, 0.92, 0.19]
+    },
+    {
+        "response": "Track your subscription renewals to cancel those you no longer use.",
+        "vector": [0.85, 0.90, 0.88, 0.93, 0.18]
+    },
+    {
+        "response": "Switch to LED light bulbs to save on electricity.",
+        "vector": [0.86, 0.91, 0.89, 0.94, 0.17]
+    },
+    {
+        "response": "Sign up for free trials but set reminders to cancel before charges begin.",
+        "vector": [0.87, 0.92, 0.90, 0.95, 0.16]
+    },
+    {
+        "response": "Buy in bulk with friends to share costs and save money.",
+        "vector": [0.88, 0.93, 0.91, 0.96, 0.15]
+    },
+    {
+        "response": "Attend free local meetups or events for networking and learning opportunities.",
+        "vector": [0.89, 0.94, 0.92, 0.97, 0.14]
+    },
+    {
+        "response": "Use public parks or free spaces for recreation and gatherings.",
+        "vector": [0.90, 0.95, 0.93, 0.98, 0.13]
+    },
+    {
+        "response": "Sell handmade crafts or services online for extra income.",
+        "vector": [0.91, 0.96, 0.94, 0.99, 0.12]
+    },
+    {
+        "response": "Use time-blocking techniques to manage your schedule effectively.",
+        "vector": [0.92, 0.97, 0.95, 0.85, 0.11]
+    },
+    {
+        "response": "Learn to do simple DIY projects to save on professional fees.",
+        "vector": [0.93, 0.98, 0.96, 0.86, 0.10]
+    },
+    {
+        "response": "Take advantage of cashback offers on your debit or credit card.",
+        "vector": [0.94, 0.99, 0.97, 0.87, 0.09]
     }
+
+
 ]

@@ -37,7 +37,7 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
     ));
     private static final String TRANSLATION_API_URL_EN = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-<source>-en";
     private static final String TRANSLATION_API_URL_FR = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr";
-    private Dotenv dotenv = Dotenv.load();
+    private final Dotenv dotenv = Dotenv.load();
     private final String API_KEY = this.dotenv.get("TRANSLATION_API_KEY");
 
     public ChatBotView(ChatBotController chatBotController, ChatBotViewModel chatBotViewModel) {

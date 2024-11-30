@@ -3,6 +3,7 @@ package view;
 import entity.User;
 import interface_adapter.user.MongoUserRepository;
 import org.jfree.chart.ChartPanel;
+import use_case.login.LogInOutputData;
 import view.components.BarChart;
 import view.components.Heading;
 import view.components.PieChart;
@@ -30,14 +31,26 @@ public class BudgetCompareView {
         this.viewModel = viewModel;
         this.controller = controller;
         MongoUserRepository userRepository = new MongoUserRepository();
+        LogInOutputData logInOutputData = new LogInOutputData()
         this.user = userRepository.getUserByLastName("K");
 
         JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
 
+        HashMap<String, Double> advisedAllocations = new HashMap<>(user.getBudget());
+        HashMap<String, Double> spentAllocations = new HashMap<>(user.getBudgetTracker());
+
+        for (String key : advisedAllocations.keySet()) {
+            for (String key2 : spentAllocations.keySet()) {
+                if (key.equals(key2)) {
+                    spentAllocations.remove(key2);
+                }
+            }
+        }
+
 //        System.out.println(user.getBudget());
         BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
-                user.getBudget(), user.getBudgetTracker());
+                advisedAllocations, spentAllocations);
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
         chartPanel.setPreferredSize(new java.awt.Dimension( 600 , 600));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
