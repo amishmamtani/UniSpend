@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,7 +37,8 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
     ));
     private static final String TRANSLATION_API_URL_EN = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-<source>-en";
     private static final String TRANSLATION_API_URL_FR = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr";
-    private static final String API_KEY = System.getenv("TRANSLATION_API_KEY");
+    private final Dotenv dotenv = Dotenv.load();
+    private final String API_KEY = this.dotenv.get("TRANSLATION_API_KEY");
 
     public ChatBotView(ChatBotController chatBotController, ChatBotViewModel chatBotViewModel) {
         this.chatBotController = chatBotController;
