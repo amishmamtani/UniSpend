@@ -35,37 +35,37 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
         firstNameLabel.setBounds(35, 90, 141, 19);
         firstNameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JTextField firstName = new JTextField();
-        firstName.setBounds(35, 118, 200, 60);
-        firstName.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        firstName.setBackground(Color.decode("#D6DCE6"));
+        JTextField firstNameField = new JTextField();
+        firstNameField.setBounds(35, 118, 200, 60);
+        firstNameField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        firstNameField.setBackground(Color.decode("#D6DCE6"));
 
         JLabel lastNameLabel = new JLabel("Last Name:");
         lastNameLabel.setBounds(260, 90, 141, 19);
         lastNameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JTextField lastName = new JTextField();
-        lastName.setBounds(260, 118, 200, 60);
-        lastName.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        lastName.setBackground(Color.decode("#D6DCE6"));
+        JTextField lastNameField = new JTextField();
+        lastNameField.setBounds(260, 118, 200, 60);
+        lastNameField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        lastNameField.setBackground(Color.decode("#D6DCE6"));
 
         JLabel emailIdLabel = new JLabel("Email Id:");
         emailIdLabel.setBounds(35, 210, 141, 19);
         emailIdLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JTextField emailId = new JTextField();
-        emailId.setBounds(35, 238, 425, 60);
-        emailId.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        emailId.setBackground(Color.decode("#D6DCE6"));
+        JTextField emailIdField = new JTextField();
+        emailIdField.setBounds(35, 238, 425, 60);
+        emailIdField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        emailIdField.setBackground(Color.decode("#D6DCE6"));
 
         JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setBounds(35, 330, 141, 19);
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JTextField password = new JTextField();
-        password.setBounds(35, 358, 425, 60);
-        password.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        password.setBackground(Color.decode("#D6DCE6"));
+        JTextField passwordField = new JTextField();
+        passwordField.setBounds(35, 358, 425, 60);
+        passwordField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        passwordField.setBackground(Color.decode("#D6DCE6"));
 
         JLabel yesAccountLabel = new JLabel("Already have an account?");
         JLabel logIn = new JLabel("<html><u>Log In</u></html>");
@@ -87,13 +87,13 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
 
         this.add(signUpLabel);
         this.add(firstNameLabel);
-        this.add(firstName);
+        this.add(firstNameField);
         this.add(lastNameLabel);
-        this.add(lastName);
+        this.add(lastNameField);
         this.add(emailIdLabel);
-        this.add(emailId);
+        this.add(emailIdField);
         this.add(passwordLabel);
-        this.add(password);
+        this.add(passwordField);
         this.add(yesAccountLabel);
         this.add(logIn);
         this.add(signUpButton);
@@ -108,7 +108,11 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
 
         signUpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                signUpController.switchToLogInView();
+                String firstName = firstNameField.getText();
+                String lastName = lastNameField.getText();
+                String emailId = emailIdField.getText();
+                String password = passwordField.getText();
+                signUpController.execute(firstName, lastName, emailId, password);
             }
         });
 

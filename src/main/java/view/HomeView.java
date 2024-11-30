@@ -3,7 +3,6 @@ package view;
 import interface_adapter.home.HomeController;
 import interface_adapter.home.HomeState;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.signup.SignUpState;
 import view.components.Heading;
 import view.components.PanelButton;
 
@@ -87,32 +86,32 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         chatbotButton.add(chatbot);
         chatbotButton.setComponentZOrder(chatbotDescription,0);
         chatbotButton.setComponentZOrder(chatbot,0);
-        chatbotButton.setBounds(532, 211, 264,144);
+        chatbotButton.setBounds(532, 211, 264,304);
 
         // Compare Budget Button
-        JPanel compareBudgetButton = new PanelButton("comparebudget.png");
-        JLabel compareBudget = new Heading("<html>Compare Budget</html>", 26).getHeading();
-        compareBudget.setForeground(Color.decode("#FFFFFF"));
-        compareBudget.setBounds(20,20, 120, 65);
+//        JPanel compareBudgetButton = new PanelButton("comparebudget.png");
+//        JLabel compareBudget = new Heading("<html>Compare Budget</html>", 26).getHeading();
+//        compareBudget.setForeground(Color.decode("#FFFFFF"));
+//        compareBudget.setBounds(20,20, 120, 65);
 
-        JLabel compareBudgetDescription = new JLabel("<html>Track your progress easily—" +
-                "compare your budget with one tap!</html>");
-        compareBudgetDescription.setForeground(Color.decode("#FFFFFF"));
-        compareBudgetDescription.setFont(new Font("Arial", Font.PLAIN, 12));
-        compareBudgetDescription.setBounds(20,90, 200, 40);
+//        JLabel compareBudgetDescription = new JLabel("<html>Track your progress easily—" +
+//                "compare your budget with one tap!</html>");
+//        compareBudgetDescription.setForeground(Color.decode("#FFFFFF"));
+//        compareBudgetDescription.setFont(new Font("Arial", Font.PLAIN, 12));
+//        compareBudgetDescription.setBounds(20,90, 200, 40);
 
-        compareBudgetButton.add(compareBudgetDescription);
-        compareBudgetButton.add(compareBudget);
-        compareBudgetButton.setComponentZOrder(compareBudgetDescription,0);
-        compareBudgetButton.setComponentZOrder(compareBudget,0);
-        compareBudgetButton.setBounds(532, 371, 264, 144);
+//        compareBudgetButton.add(compareBudgetDescription);
+//        compareBudgetButton.add(compareBudget);
+//        compareBudgetButton.setComponentZOrder(compareBudgetDescription,0);
+//        compareBudgetButton.setComponentZOrder(compareBudget,0);
+//        compareBudgetButton.setBounds(532, 371, 264, 144);
 
         this.add(helloLabel);
         this.add(welcomeLabel);
         this.add(makeBudgetButton);
         this.add(trackBudgetButton);
         this.add(chatbotButton);
-        this.add(compareBudgetButton);
+        //this.add(compareBudgetButton);
 
 
         makeBudgetButton.addMouseListener(new MouseAdapter() {
@@ -136,12 +135,12 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
             }
         });
 
-        compareBudgetButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Compare Budget Clicked");
-//                homeController.switchToBudgetCompare();
-            }
-        });
+//        compareBudgetButton.addMouseListener(new MouseAdapter() {
+//            public void mouseClicked(MouseEvent e) {
+//                System.out.println("Compare Budget Clicked");
+////                homeController.switchToBudgetCompare();
+//            }
+//        });
     }
 
     @Override
