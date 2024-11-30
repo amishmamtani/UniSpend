@@ -30,6 +30,11 @@ class ChatBotInteractorTest {
             public void presentAnswer(ChatBotOutputData outputData) {
                 assertEquals("Avoid impulse purchases by making a shopping list and sticking to it.", outputData.getAnswer().getAnswer());
             }
+
+            @Override
+            public void switchBack() {
+
+            }
         });
 
         ChatBotInputData inputData = new ChatBotInputData(new Question("how do I save money"));

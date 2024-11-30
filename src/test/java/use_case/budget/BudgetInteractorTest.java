@@ -48,6 +48,11 @@ public class BudgetInteractorTest {
                 }
 
             }
+
+            @Override
+            public void switchBack() {
+
+            }
         });
         BudgetInputData testData = new BudgetInputData(income, selectedCategories);
         budgetInteractor.createBudget(testData);
@@ -87,6 +92,11 @@ public class BudgetInteractorTest {
                 }
 
             }
+
+            @Override
+            public void switchBack() {
+
+            }
         });
         BudgetInputData testData = new BudgetInputData(income, selectedCategories);
         budgetInteractor.createBudget(testData);
@@ -120,6 +130,11 @@ public class BudgetInteractorTest {
                 }
 
             }
+
+            @Override
+            public void switchBack() {
+
+            }
         });
         BudgetInputData testData = new BudgetInputData(income, selectedCategories);
         budgetInteractor.createBudget(testData);
@@ -141,6 +156,11 @@ public class BudgetInteractorTest {
             @Override
             public void presentBudget(BudgetOutputData outputData) {
                 assertEquals(1000, outputData.getCategoryAllocations().get("Impossible"));
+            }
+
+            @Override
+            public void switchBack() {
+
             }
         });
         BudgetInputData testData = new BudgetInputData(income, selectedCategories);
@@ -164,6 +184,11 @@ public class BudgetInteractorTest {
             public void presentBudget(BudgetOutputData outputData) {
                 assertEquals(1000, outputData.getCategoryAllocations().get("Housing"));
             }
+
+            @Override
+            public void switchBack() {
+
+            }
         });
         BudgetInputData testData = new BudgetInputData(income, selectedCategories);
         budgetInteractor.createBudget(testData);
@@ -184,11 +209,18 @@ public class BudgetInteractorTest {
 
         BudgetInputData inputData = new BudgetInputData(income, selectedCategories);
 
-        BudgetInteractor interactor = new BudgetInteractor(outputData -> {
-            assertFalse(outputData.getCategoryAllocations().containsKey("Savings"));
-            assertFalse(outputData.getCategoryAllocations().containsKey("Investments"));
-        });
+        BudgetInteractor interactor = new BudgetInteractor(new BudgetOutputBoundary() {
+            @Override
+            public void presentBudget(BudgetOutputData outputData) {
+                assertFalse(outputData.getCategoryAllocations().containsValue("Savings"));
+                assertFalse(outputData.getCategoryAllocations().containsKey("Investments"));
+            }
 
+            @Override
+            public void switchBack() {
+
+            }
+        });
         interactor.createBudget(inputData);
     }
 
