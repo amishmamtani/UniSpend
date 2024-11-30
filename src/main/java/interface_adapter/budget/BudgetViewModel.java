@@ -6,7 +6,7 @@ import interface_adapter.ViewModel;
  */
 public class BudgetViewModel extends ViewModel<BudgetState> {
     public BudgetViewModel() {
-        super("Budget Maker");
+        super("budget maker");
         setState(new BudgetState());
     }
 
