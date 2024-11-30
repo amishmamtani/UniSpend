@@ -1,6 +1,5 @@
-package use_case.chatBot;
+package use_case.chatbot;
 
-import entity.Answer;
 import entity.Question;
 import entity.VectorizedResponse;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,5 +1,9 @@
 package view;
 
+import interface_adapter.home.HomeController;
+import interface_adapter.home.HomeState;
+import interface_adapter.home.HomeViewModel;
+import interface_adapter.signup.SignUpState;
 import view.components.Heading;
 import view.components.PanelButton;
 
@@ -14,8 +18,12 @@ import java.beans.PropertyChangeListener;
 
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "home";
+    private final HomeController homeController;
+    private final HomeViewModel homeViewModel;
 
-    public HomeView() {
+    public HomeView(HomeController homeController, HomeViewModel homeViewModel) {
+        this.homeController = homeController;
+        this.homeViewModel = homeViewModel;
         this.setLayout(null);
         this.setVisible(true);
         this.setBackground(Color.decode("#FFFFFF"));
@@ -116,24 +124,28 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         makeBudgetButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Make Budget Clicked");
+                homeController.switchToBudgetMaker();
             }
         });
 
         trackBudgetButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Track Budget Clicked");
+                homeController.switchToBudgetTracker();
             }
         });
 
         chatbotButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Chatbot Clicked");
+                homeController.switchToChatBot();
             }
         });
 
         compareBudgetButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Compare Budget Clicked");
+//                homeController.switchToBudgetCompare();
             }
         });
     }
@@ -145,7 +157,8 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        System.out.println("PropertyChange "+ evt.getNewValue());
+        final HomeState state = (HomeState) evt.getNewValue();
     }
 
     public String getViewName() {

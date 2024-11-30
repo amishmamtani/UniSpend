@@ -8,6 +8,7 @@ import interface_adapter.budgetcompare.BudgetCompareViewModel;
 import interface_adapter.budgettracker.BudgetTrackerController;
 import interface_adapter.budgettracker.BudgetTrackerState;
 import interface_adapter.budgettracker.BudgetTrackerViewModel;
+import interface_adapter.chatbot.ChatBotState;
 import interface_adapter.user.MongoUserRepository;
 import org.jfree.chart.ChartPanel;
 import use_case.budgetcompare.BudgetCompareInteractor;
@@ -21,6 +22,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -79,6 +82,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         this.setLayout(null);
         this.setBackground(Color.decode("#FFFFFF"));
 
+        backButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                budgetTrackerController.switchBack();
+            }
+        });
         HashMap<String, Double> categorySpending = new HashMap<>();
         createNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -271,7 +279,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        final BudgetTrackerState state = (BudgetTrackerState) evt.getNewValue();
     }
 
     public String getViewName() {

@@ -51,6 +51,11 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
         budgetTrackerPresenter.presentBudgetTracker(trackerOutputData);
     }
 
+    @Override
+    public void switchBack() {
+        budgetTrackerPresenter.switchBack();
+    }
+
     /**
      * This updates the tracker
      */

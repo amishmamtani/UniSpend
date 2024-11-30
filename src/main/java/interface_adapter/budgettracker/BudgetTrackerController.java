@@ -22,4 +22,8 @@ public class BudgetTrackerController {
                 alreadySpentCategories, amount_spent, category_spent_on, user);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
     }
+
+    public void switchBack(){
+        budgetTrackerInteractor.switchBack();
+    }
 }
