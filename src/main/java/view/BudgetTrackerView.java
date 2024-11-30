@@ -1,7 +1,6 @@
 package view;
 
 import app.EmailSender;
-import app.SendEmail;
 import entity.User;
 import interface_adapter.budgetcompare.BudgetCompareController;
 import interface_adapter.budgetcompare.BudgetComparePresenter;
@@ -44,7 +43,8 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         JLabel titleLabel = new Heading("Budget Tracker", 30).getHeading();
         titleLabel.setBounds(35, 23, 230, 43);
 
-        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 18);
+        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF",
+                18);
         JButton createNewButton = createNew.getButton();
         createNewButton.setBounds(35, 480, 150, 60);
 
@@ -52,7 +52,8 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         JButton addButton = add.getButton();
         addButton.setBounds(224, 480, 133, 60);
 
-        ColouredButton spendingAnalysis = new ColouredButton("Spending Analysis", "#1A1A1A", "#FFFFFF", 10);
+        ColouredButton spendingAnalysis = new ColouredButton("Spending Analysis", "#1A1A1A",
+                "#FFFFFF", 10);
         JButton spendingAnalysisButton = spendingAnalysis.getButton();
         spendingAnalysisButton.setBounds(647, 35, 130, 30);
 
@@ -73,7 +74,8 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 System.out.println(income);
                 categorySpending.put("UNSPENT INCOME", income);
 
-                budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0, "NONE", currentUser);
+                budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0,
+                        "NONE", currentUser);
                 final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                 PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
                 ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
@@ -151,11 +153,13 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         logCard.setBounds(35,95+50*distance,320, 45);
                         distance += 1;
 
-                        budgetTrackerController.createBudgetTracker(income, currentUser.getBudgetTracker(), amountSpent, categorySpentOn, currentUser);
+                        budgetTrackerController.createBudgetTracker(income, currentUser.getBudgetTracker(), amountSpent,
+                                categorySpentOn, currentUser);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                         currentUser = userRepository.getUserByLastName("K");
                         System.out.println(currentState.getAlreadySpentCategories());
-                        PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
+                        PieChart pieChart = new PieChart("Budget Tracker",
+                                currentState.getAlreadySpentCategories());
                         ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
                         chartPanel.setBounds(400, 80, 380, 380);
