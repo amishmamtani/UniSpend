@@ -28,7 +28,7 @@ class ChatBotInteractorTest {
         interactor = new ChatBotInteractor(new ChatBotOutputBoundary() {
             @Override
             public void presentAnswer(ChatBotOutputData outputData) {
-                assertEquals("Avoid impulse purchases by making a shopping list and sticking to it.", outputData.getAnswer().getAnswer());
+                assertEquals("Set a monthly savings goal and automate transfers to a savings account right after receiving your income.", outputData.getAnswer().getAnswer());
             }
 
             @Override
