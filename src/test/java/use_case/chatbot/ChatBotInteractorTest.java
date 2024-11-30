@@ -1,13 +1,10 @@
-package use_case.chatBot;
+package use_case.chatbot;
 
-import entity.Answer;
 import entity.Question;
 import entity.VectorizedResponse;
-import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 

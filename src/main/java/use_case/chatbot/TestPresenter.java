@@ -1,4 +1,4 @@
-package use_case.chatBot;
+package use_case.chatbot;
 
 class TestPresenter implements ChatBotOutputBoundary {
     @Override

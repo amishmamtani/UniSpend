@@ -1,9 +1,8 @@
-package interface_adapter.ChatBot;
+package interface_adapter.chatbot;
 
-import entity.Answer;
 import entity.Question;
-import use_case.chatBot.ChatBotInputData;
-import use_case.chatBot.ChatBotInteractor;
+import use_case.chatbot.ChatBotInputData;
+import use_case.chatbot.ChatBotInteractor;
 
 public class ChatBotController {
     private final ChatBotInteractor chatBotInteractor;

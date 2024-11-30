@@ -1,8 +1,8 @@
-package interface_adapter.ChatBot;
+package interface_adapter.chatbot;
 
 import interface_adapter.ViewModel;
-import use_case.chatBot.ChatBotOutputBoundary;
-import use_case.chatBot.ChatBotOutputData;
+import use_case.chatbot.ChatBotOutputBoundary;
+import use_case.chatbot.ChatBotOutputData;
 
 public class ChatBotPresenter implements ChatBotOutputBoundary {
     private final ViewModel<ChatBotState> viewModel;

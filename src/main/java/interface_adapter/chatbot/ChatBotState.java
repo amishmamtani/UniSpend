@@ -1,4 +1,4 @@
-package interface_adapter.ChatBot;
+package interface_adapter.chatbot;
 
 import entity.Answer;
 

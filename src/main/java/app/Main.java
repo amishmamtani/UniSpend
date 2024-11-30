@@ -17,10 +17,10 @@ import use_case.budgettracker.BudgetTrackerInteractor;
 import use_case.signup.SignUpInteractor;
 import view.*;
 
-import interface_adapter.ChatBot.ChatBotController;
-import interface_adapter.ChatBot.ChatBotPresenter;
-import interface_adapter.ChatBot.ChatBotViewModel;
-import use_case.chatBot.ChatBotInteractor;
+import interface_adapter.chatbot.ChatBotController;
+import interface_adapter.chatbot.ChatBotPresenter;
+import interface_adapter.chatbot.ChatBotViewModel;
+import use_case.chatbot.ChatBotInteractor;
 
 import javax.swing.*;
 

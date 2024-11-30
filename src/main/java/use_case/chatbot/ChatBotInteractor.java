@@ -1,4 +1,4 @@
-package use_case.chatBot;
+package use_case.chatbot;
 
 import entity.Answer;
 import entity.VectorizedResponse;

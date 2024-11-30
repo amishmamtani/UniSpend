@@ -1,8 +1,8 @@
 package view;
 
-import interface_adapter.ChatBot.ChatBotController;
-import interface_adapter.ChatBot.ChatBotViewModel;
-import interface_adapter.ChatBot.ChatBotState;
+import interface_adapter.chatbot.ChatBotController;
+import interface_adapter.chatbot.ChatBotViewModel;
+import interface_adapter.chatbot.ChatBotState;
 
 import javax.swing.*;
 import java.awt.*;
