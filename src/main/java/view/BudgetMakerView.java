@@ -3,7 +3,6 @@ package view;
 import interface_adapter.budget.BudgetController;
 import interface_adapter.budget.BudgetState;
 import interface_adapter.budget.BudgetViewModel;
-import interface_adapter.budgettracker.BudgetTrackerState;
 import view.components.ColouredButton;
 import view.components.Heading;
 import view.components.PieChart;
@@ -167,12 +166,6 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
             }
         });
 
-        JFrame frame = new JFrame("Budget Maker");
-        frame.setSize(830, 600);
-        frame.setResizable(false);
-        frame.setContentPane(this);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
     }
 
     private void addCategory(String category, Double percentage) {

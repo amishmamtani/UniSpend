@@ -15,6 +15,7 @@ import interface_adapter.home.HomeController;
 import interface_adapter.home.HomePresenter;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LogInController;
+import interface_adapter.login.LogInPresenter;
 import interface_adapter.login.LogInViewModel;
 import interface_adapter.signup.SignUpController;
 import interface_adapter.signup.SignUpPresenter;
@@ -23,6 +24,7 @@ import use_case.budget.BudgetInteractor;
 import use_case.budgettracker.BudgetTrackerInteractor;
 import use_case.chatbot.ChatBotInteractor;
 import use_case.home.HomeInteractor;
+import use_case.login.LogInInteractor;
 import use_case.signup.SignUpInteractor;
 import view.*;
 
@@ -44,6 +46,8 @@ public class AppBuilder {
     private LogInView logInView;
     private LogInViewModel logInViewModel;
     private LogInController logInController;
+    private LogInInteractor logInInteractor;
+    private LogInPresenter logInPresenter;
 
     private BudgetMakerView budgetMakerView;
     private BudgetViewModel budgetViewModel;
@@ -88,7 +92,9 @@ public class AppBuilder {
 
     public AppBuilder addLogIn() {
         logInViewModel = new LogInViewModel();
-        logInController = new LogInController();
+        logInPresenter = new LogInPresenter(logInViewModel, homeViewModel, viewManagerModel);
+        logInInteractor = new LogInInteractor(logInPresenter);
+        logInController = new LogInController(logInInteractor);
         logInView = new LogInView(logInController, logInViewModel);
         cardPanel.add(logInView, logInView.getViewName());
         return this;
@@ -148,7 +154,7 @@ public class AppBuilder {
         frame.add(cardPanel);
 
         // Set the initial view
-        viewManagerModel.setState(homeView.getViewName());
+        viewManagerModel.setState(signUpView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return frame;

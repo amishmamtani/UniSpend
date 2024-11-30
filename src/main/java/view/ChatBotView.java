@@ -84,14 +84,6 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
         this.add(englishButton);
         this.add(frenchButton);
 
-        JFrame frame = new JFrame("Chat Bot");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(830,600);
-        frame.setResizable(false);
-        frame.setContentPane(this);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.decode("#FFFFFF"));
-        frame.setVisible(true);
 
         backButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {

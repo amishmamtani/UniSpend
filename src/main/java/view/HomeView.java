@@ -114,12 +114,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(chatbotButton);
         this.add(compareBudgetButton);
 
-        JFrame frame = new JFrame("Home");
-        frame.setSize(830, 600);
-        frame.setResizable(false);
-        frame.setContentPane(this);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
 
         makeBudgetButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
