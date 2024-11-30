@@ -29,10 +29,8 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 public class BudgetTrackerView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "budget tracker";
     private final BudgetTrackerViewModel budgetTrackerViewModel;
     private final BudgetTrackerController budgetTrackerController;
-    private final JPanel mainPanel;
     private double income;
     private final MongoUserRepository userRepository = new MongoUserRepository();
     private User currentUser;
@@ -45,30 +43,20 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         this.currentUser = userRepository.getUserByLastName("K");
         this.income = currentUser.getIncome();
 
-        ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
-        JLabel backButton = new JLabel(backIcon);
-        backButton.setBounds(28, 29, backIcon.getIconWidth(), backIcon.getIconHeight());
+        JLabel titleLabel = new Heading("Budget Tracker", 30).getHeading();
+        titleLabel.setBounds(35, 23, 230, 43);
 
-        JLabel titleLabel = new Heading("Budget Tracker", 28).getHeading();
-        titleLabel.setBounds(100, 23, 230, 43);
-
-        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 16);
+        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF",
+                18);
         JButton createNewButton = createNew.getButton();
         createNewButton.setBounds(35, 480, 150, 60);
 
-        ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 16);
+        ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 18);
         JButton addButton = add.getButton();
         addButton.setBounds(224, 480, 133, 60);
 
-        this.add(backButton);
-        this.add(titleLabel);
-        this.add(createNewButton);
-        this.add(addButton);
-        this.setLayout(null);
-        this.setBackground(Color.decode("#FFFFFF"));
-        mainPanel = this;
-      
-        ColouredButton spendingAnalysis = new ColouredButton("Spending Analysis", "#1A1A1A", "#FFFFFF", 10);
+        ColouredButton spendingAnalysis = new ColouredButton("Spending Analysis", "#1A1A1A",
+                "#FFFFFF", 10);
         JButton spendingAnalysisButton = spendingAnalysis.getButton();
         spendingAnalysisButton.setBounds(647, 35, 130, 30);
 
@@ -77,10 +65,10 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         this.add(addButton);
 
         if (currentUser.getBudgetTracker().size() > 0) {
-            this.add(spendingAnalysisButton);
+            budgettracker.add(spendingAnalysisButton);
         }
-        this.setLayout(null);
-        this.setBackground(Color.decode("#FFFFFF"));
+        budgettracker.setLayout(null);
+        budgettracker.setBackground(Color.decode("#FFFFFF"));
 
         backButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -92,63 +80,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
             public void actionPerformed(ActionEvent e) {
                 System.out.println("create new clicked");
 
-                JFrame createNewPopUp = new JFrame();
-                createNewPopUp.setSize(380, 300);
-                JLabel createNewTitleLabel = new Heading("New Budget Tracker", 30).getHeading();
-                createNewTitleLabel.setBounds(30, 30, 300, 35);
-
-                JLabel salaryLabel = new JLabel("Enter your salary or allowance: ");
-                salaryLabel.setBounds(30, 79, 209, 19);
-                salaryLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-
-                JTextField salaryTextField = new JTextField();
-                salaryTextField.setBounds(30, 112, 320, 60);
-                salaryTextField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                salaryTextField.setBackground(Color.decode("#D6DCE6"));
-
-                ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 16);
-                JButton createNewButton = createNew.getButton();
-                createNewButton.setBounds(30, 188, 320, 60);
-
-                JPanel createNewPanel = new JPanel();
-                createNewPanel.add(createNewTitleLabel);
-                createNewPanel.add(salaryLabel);
-                createNewPanel.add(salaryTextField);
-                createNewPanel.add(createNewButton);
-                createNewPanel.setLayout(null);
-                createNewPanel.setBackground(Color.decode("#FFFFFF"));
-                createNewPanel.setVisible(true);
-
-                createNewPopUp.add(createNewPanel);
-                createNewPopUp.setVisible(true);
-
-
-                createNewButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("create new clicked");
-                        income = Double.parseDouble(salaryTextField.getText());
-                        System.out.println(income);
-                        categorySpending.put("UNSPENT INCOME", income);
-
-                        budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0, "NONE", currentUser);
-                        final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
-                        PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
-                        ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
-                        chartPanel.setBackground(Color.decode("#FFFFFF"));
-                        chartPanel.setBounds(400, 80, 380, 380);
-                        chartPanel.setVisible(true);
-                        createNewPanel.setVisible(false);
-                        mainPanel.add(chartPanel);
-                        mainPanel.revalidate();
-                        mainPanel.repaint();
-                        createNewPopUp.dispose();
-                    }
-                });
-              
                 System.out.println(income);
                 categorySpending.put("UNSPENT INCOME", income);
 
-                budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0, "NONE", currentUser);
+                budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0,
+                        "NONE", currentUser);
                 final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                 PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
                 ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
@@ -199,7 +135,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 categorySpentTextField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 categorySpentTextField.setBackground(Color.decode("#D6DCE6"));
 
-                ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 16);
+                ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 18);
                 JButton addButton = add.getButton();
                 addButton.setBounds(30, 353, 320, 60);
 
@@ -226,18 +162,20 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         logCard.setBounds(35,95+50*distance,320, 45);
                         distance += 1;
 
-                        budgetTrackerController.createBudgetTracker(income, currentUser.getBudgetTracker(), amountSpent, categorySpentOn, currentUser);
+                        budgetTrackerController.createBudgetTracker(income, currentUser.getBudgetTracker(), amountSpent,
+                                categorySpentOn, currentUser);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                         currentUser = userRepository.getUserByLastName("K");
                         System.out.println(currentState.getAlreadySpentCategories());
-                        PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
+                        PieChart pieChart = new PieChart("Budget Tracker",
+                                currentState.getAlreadySpentCategories());
                         ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
                         chartPanel.setBounds(400, 80, 380, 380);
                         chartPanel.setVisible(true);
-                        mainPanel.add(logCard);
-                        mainPanel.add(chartPanel);
-                        mainPanel.setComponentZOrder(chartPanel, 0);
+                        budgettracker.add(logCard);
+                        budgettracker.add(chartPanel);
+                        budgettracker.setComponentZOrder(chartPanel, 0);
 
                         if (currentState.isSpent_more_than_income()) {
                             String userEmail = "amishmamtani@gmail.com";
@@ -251,11 +189,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                             warningLabel.setBounds(420,490, 331,19);
                             warningLabel.setFont(new Font("Arial", Font.PLAIN, 14));
                             warningLabel.setForeground(Color.decode("#FF0000"));
-                            mainPanel.add(warningLabel);
+                            budgettracker.add(warningLabel);
                         }
 
-                        mainPanel.revalidate();
-                        mainPanel.repaint();
+                        budgettracker.revalidate();
+                        budgettracker.repaint();
                         addPopUp.dispose();
                     }
                 });
@@ -265,7 +203,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         JFrame frame = new JFrame("Budget Tracker");
         frame.setSize(830, 600);
         frame.setResizable(false);
-        frame.setContentPane(this);
+        frame.setContentPane(budgettracker);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
@@ -280,9 +218,5 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final BudgetTrackerState state = (BudgetTrackerState) evt.getNewValue();
-    }
-
-    public String getViewName() {
-        return viewName;
     }
 }

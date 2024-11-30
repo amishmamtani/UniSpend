@@ -12,12 +12,16 @@ import java.awt.*;
 public class BarChart {
     private JFreeChart barChart;
 
-    public BarChart(String title, HashMap<String, Double> advisedAllocations, HashMap<String, Double> spentAllocations) {
+    public BarChart(String title, HashMap<String, Double> advisedAllocations,
+                    HashMap<String, Double> spentAllocations) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        advisedAllocations.keySet().forEach(key -> dataset.addValue(advisedAllocations.get(key), "Advised Spending", key));
-        spentAllocations.keySet().forEach(key -> dataset.addValue(spentAllocations.get(key), "Actual Spending", key));
+        advisedAllocations.keySet().forEach(key -> dataset.addValue(
+                advisedAllocations.get(key), "Advised Spending", key));
+        spentAllocations.keySet().forEach(key -> dataset.addValue(
+                spentAllocations.get(key), "Actual Spending", key));
 
-        barChart = ChartFactory.createBarChart(title, "Category", "Spending", dataset, PlotOrientation.VERTICAL,
+        barChart = ChartFactory.createBarChart(title, "Category", "Spending",
+                dataset, PlotOrientation.VERTICAL,
                 true, true, false);
     }
 

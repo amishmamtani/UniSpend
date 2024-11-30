@@ -63,15 +63,17 @@ public class BudgetInteractor implements BudgetInputBoundary {
 
         for (Map.Entry<String, double[]> entry : defaultAllocations.entrySet()) {
             double allocation = entry.getValue()[0] * income;
-            if ((allocation + spending) <= income && allocation >= entry.getValue()[1]){
+            double minimum = entry.getValue()[1];
+
+            if ((allocation + spending) <= income && allocation >= minimum) {
                 categoryAllocations.put(entry.getKey(), allocation);
                 spending += allocation;
-            }
-            else if ((entry.getValue()[1] + spending) <= income && allocation >= entry.getValue()[1]){
-                categoryAllocations.put(entry.getKey(), entry.getValue()[1]);
-                spending += entry.getValue()[1];
+            } else if ((minimum + spending) <= income) {
+                categoryAllocations.put(entry.getKey(), minimum);
+                spending += minimum;
             }
         }
+
 
 
         double savings = 0;

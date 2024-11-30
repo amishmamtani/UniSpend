@@ -10,11 +10,13 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class ChatBotInteractor implements ChatBotInputBoundary {
 
     private final ChatBotOutputBoundary chatBotPresenter;
-    private static final String API_KEY = System.getenv("CHATBOT_API_KEY");
+    private Dotenv dotenv = Dotenv.load();
+    private final String API_KEY = this.dotenv.get("CHATBOT_API_KEY");
     private static final String COHERE_EMBED_URL = "https://api.cohere.ai/embed";
     private final List<VectorizedResponse> vectorizedResponses;
 
