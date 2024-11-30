@@ -7,6 +7,8 @@ public interface UserRepository {
 
     User getUserByLastName(String lastName);
 
+    User getUserByEmail(String email);
+
     void deleteUserByLastName(String lastName);
 
     Iterable<User> getAllUsers();

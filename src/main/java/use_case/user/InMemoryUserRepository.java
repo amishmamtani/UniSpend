@@ -19,6 +19,11 @@ class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        return users.get(email);
+    }
+
+    @Override
     public void deleteUserByLastName(String lastName) {
         users.remove(lastName);
     }
