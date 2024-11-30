@@ -1,5 +1,6 @@
 package interface_adapter.budgetcompare;
 
+import entity.User;
 import use_case.budgetcompare.BudgetCompareInputData;
 import use_case.budgetcompare.BudgetCompareInteractor;
 
@@ -12,9 +13,17 @@ public class BudgetCompareController {
         this.budgetCompareInteractor = budgetCompareInteractor;
     }
 
-    public void createBudgetCompare(HashMap<String, Double> advisedAllocations,
-                                    HashMap<String, Double> spentAllocations){
-        BudgetCompareInputData compareInputData = new BudgetCompareInputData(advisedAllocations, spentAllocations);
+    /**
+     * Old createBudgetCompare when I DON'T take in User
+     */
+//    public void createBudgetCompare(HashMap<String, Double> advisedAllocations,
+//                                    HashMap<String, Double> spentAllocations){
+//        BudgetCompareInputData compareInputData = new BudgetCompareInputData(advisedAllocations, spentAllocations);
+//        budgetCompareInteractor.createBudgetCompare(compareInputData);
+//    }
+
+    public void createBudgetCompare(User user){
+        BudgetCompareInputData compareInputData = new BudgetCompareInputData(user);
         budgetCompareInteractor.createBudgetCompare(compareInputData);
     }
 }
