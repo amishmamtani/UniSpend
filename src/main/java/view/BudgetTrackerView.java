@@ -57,10 +57,10 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         JButton spendingAnalysisButton = spendingAnalysis.getButton();
         spendingAnalysisButton.setBounds(647, 35, 130, 30);
 
-        JPanel budgettracker = new JPanel();
-        budgettracker.add(titleLabel);
-        budgettracker.add(createNewButton);
-        budgettracker.add(addButton);
+        this.add(titleLabel);
+        this.add(createNewButton);
+        this.add(addButton);
+
         if (currentUser.getBudgetTracker().size() > 0) {
             budgettracker.add(spendingAnalysisButton);
         }
@@ -71,6 +71,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         createNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("create new clicked");
+
                 System.out.println(income);
                 categorySpending.put("UNSPENT INCOME", income);
 
@@ -82,10 +83,10 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 chartPanel.setBackground(Color.decode("#FFFFFF"));
                 chartPanel.setBounds(400, 80, 380, 380);
                 chartPanel.setVisible(true);
-                budgettracker.add(spendingAnalysisButton);
-                budgettracker.add(chartPanel);
-                budgettracker.revalidate();
-                budgettracker.repaint();
+                mainPanel.add(spendingAnalysisButton);
+                mainPanel.add(chartPanel);
+                mainPanel.revalidate();
+                mainPanel.repaint();
             }
         });
 
