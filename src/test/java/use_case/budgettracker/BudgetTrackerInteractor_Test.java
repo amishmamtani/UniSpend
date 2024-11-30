@@ -1,5 +1,6 @@
 package use_case.budgettracker;
 
+import entity.User;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -7,8 +8,41 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class BudgetTrackerInteractor_Test {
+
+//    @Test
+//    public void firstTimeCreatingTracker() {
+//        double income = 5000;
+//        HashMap<String, Double> alreadySpentCategories = new HashMap<>(Map.of(
+//                "UNSPENT INCOME", 5000.0
+//        ));
+//        double amount_spent = 0.0;
+//        String category_spent_on = "none";
+//
+//        BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
+//            @Override
+//            public void presentBudgetTracker(BudgetTrackerOutputData budgetTrackerOutputData) {
+//                HashMap<String, Double> actualAlreadySpentCategories = budgetTrackerOutputData.getAlreadySpentCategories();
+//                HashMap<String, Double> expectedAlreadySpentCategories = new HashMap<>(Map.of(
+//                        "UNSPENT INCOME", 5000.0
+//                ));
+//                assertEquals(expectedAlreadySpentCategories, actualAlreadySpentCategories);
+//                Double currentIncome = budgetTrackerOutputData.getIncome();
+//                assertEquals(Optional.of(5000.0), Optional.of(currentIncome));
+//                Double newUnspentIncome = budgetTrackerOutputData.getUnspent_income();
+//                assertEquals(Optional.of(5000.0), Optional.of(newUnspentIncome));
+//                boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
+//                assertEquals(false, spentMoreThanIncome);
+//            }
+//        };
+//        BudgetTrackerInteractor budgetTrackerInteractor;
+//        budgetTrackerInteractor = new BudgetTrackerInteractor(updatedAllocations);
+//        BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income, alreadySpentCategories,
+//                amount_spent, category_spent_on);
+//        budgetTrackerInteractor.createBudgetTracker(trackerInputData);
+//    }
 
     @Test
     public void firstTimeCreatingTracker() {
@@ -18,6 +52,7 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 0.0;
         String category_spent_on = "none";
+        User user = new User("IT1", "IT1", "IT1", "IT1");
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
@@ -32,13 +67,14 @@ public class BudgetTrackerInteractor_Test {
                 Double newUnspentIncome = budgetTrackerOutputData.getUnspent_income();
                 assertEquals(Optional.of(5000.0), Optional.of(newUnspentIncome));
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
-                assertEquals(false, spentMoreThanIncome);
+                assertFalse(spentMoreThanIncome);
+                assertEquals(expectedAlreadySpentCategories , user.getBudgetTracker());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
         budgetTrackerInteractor = new BudgetTrackerInteractor(updatedAllocations);
         BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income, alreadySpentCategories,
-                amount_spent, category_spent_on);
+                amount_spent, category_spent_on, user);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
     }
 
@@ -55,6 +91,8 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 10.0;
         String category_spent_on = "Food";
+        User user = new User("IT2", "IT2", "IT2", "IT2");
+        user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
@@ -71,13 +109,14 @@ public class BudgetTrackerInteractor_Test {
                 Double newUnspentIncome = budgetTrackerOutputData.getUnspent_income();
                 assertEquals(Optional.of(2840.0), Optional.of(newUnspentIncome));
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
-                assertEquals(false, spentMoreThanIncome);
+                assertFalse(spentMoreThanIncome);
+                assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
         budgetTrackerInteractor = new BudgetTrackerInteractor(updatedAllocations);
         BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income, alreadySpentCategories,
-                amount_spent, category_spent_on);
+                amount_spent, category_spent_on, user);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
 
     }
@@ -94,6 +133,8 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 0.0;
         String category_spent_on = "none";
+        User user = new User("IT3", "IT3", "IT3", "IT3");
+        user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
@@ -113,12 +154,14 @@ public class BudgetTrackerInteractor_Test {
                 assertEquals(Optional.of(2850.0), Optional.of(newUnspentIncome));
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertEquals(false, spentMoreThanIncome);
+                assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
+
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
         budgetTrackerInteractor = new BudgetTrackerInteractor(updatedAllocations);
         BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income, alreadySpentCategories,
-                amount_spent, category_spent_on);
+                amount_spent, category_spent_on, user);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
 
 
@@ -136,6 +179,8 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 120.0;
         String category_spent_on = "SHOPPING";
+        User user = new User("IT4", "IT4", "IT4", "IT4");
+        user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
@@ -156,12 +201,13 @@ public class BudgetTrackerInteractor_Test {
                 assertEquals(Optional.of(2730.0), Optional.of(newUnspentIncome));
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertEquals(false, spentMoreThanIncome);
+                assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
         budgetTrackerInteractor = new BudgetTrackerInteractor(updatedAllocations);
         BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income, alreadySpentCategories,
-                amount_spent, category_spent_on);
+                amount_spent, category_spent_on, user);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
 
     }
@@ -178,6 +224,8 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 6000.0;
         String category_spent_on = "Shopping";
+        User user = new User("IT5", "IT5", "IT5", "IT5");
+        user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
@@ -211,15 +259,18 @@ public class BudgetTrackerInteractor_Test {
                 assertEquals(Optional.of(-3150.0), Optional.of(newUnspentIncome));
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertEquals(true, spentMoreThanIncome);
+                assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
         budgetTrackerInteractor = new BudgetTrackerInteractor(updatedAllocations);
         BudgetTrackerInputData trackerInputData = new BudgetTrackerInputData(income, alreadySpentCategories,
-                amount_spent, category_spent_on);
+                amount_spent, category_spent_on, user);
         budgetTrackerInteractor.createBudgetTracker(trackerInputData);
 
     }
+
+
 
     /**
      * EVERYTHING BELOW ARE OLD TEST CASES WHERE UNSPENT INCOME WAS NOT PASSED IN alreadySpentCategories
