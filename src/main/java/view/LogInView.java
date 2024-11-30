@@ -76,6 +76,9 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
         logInButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Log In Clicked");
+                String emailID = emailId.getText();
+                String pass = password.getText();
+                logInController.execute(emailID, pass);
                 logInController.prepareSuccessView();
             }
         });
