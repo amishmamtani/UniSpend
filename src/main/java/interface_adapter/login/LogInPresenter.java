@@ -1,6 +1,7 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.home.HomeState;
 import interface_adapter.home.HomeViewModel;
 import use_case.login.LogInOutputBoundary;
 import use_case.login.LogInOutputData;
@@ -20,7 +21,8 @@ public class LogInPresenter implements LogInOutputBoundary {
 
     @Override
     public void prepareSuccessView(LogInOutputData response) {
-
+        final HomeState homeState = homeViewModel.getState();
+        homeState.setEmailId(response.getUsername());
         this.viewManagerModel.setState(homeViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
