@@ -1,5 +1,7 @@
 package view;
 
+import entity.User;
+import interface_adapter.user.MongoUserRepository;
 import org.jfree.chart.ChartPanel;
 import view.components.BarChart;
 import view.components.Heading;
@@ -23,30 +25,28 @@ import java.util.Map;
 public class BudgetCompareView {
     private final BudgetCompareViewModel viewModel;
     private final BudgetCompareController controller;
-//    private final BudgetOutputData advisedSpending;
-//    private final BudgetTrackerOutputData actualSpending;
+    private final User user;
     public BudgetCompareView(BudgetCompareViewModel viewModel, BudgetCompareController controller) {
         this.viewModel = viewModel;
         this.controller = controller;
-//        this.advisedSpending =  new BudgetOutputData(...).getCategoryAllocations();
-//        this.actualSpending = new BudgetTrackerOutputData(...).getAlreadySpentCategories();
+        MongoUserRepository userRepository = new MongoUserRepository();
+        this.user = userRepository.getUserByLastName("K");
 
         JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
 
-//        BarChart barChart = new BarChart("Spending Analysis", advisedSpending, actualSpending);
+//        HashMap<String, Double> testdata1 = new HashMap<>(Map.of(
+//                "housing", 400.0,
+//                "food", 250.0,
+//                "utilities", 60.0));
+//
+//        HashMap<String, Double> testdata2 = new HashMap<>(Map.of(
+//                "housing", 500.0,
+//                "food", 200.0,
+//                "utilities", 50.0));
 
-        HashMap<String, Double> testdata1 = new HashMap<>(Map.of(
-                "housing", 400.0,
-                "food", 250.0,
-                "utilities", 60.0));
-
-        HashMap<String, Double> testdata2 = new HashMap<>(Map.of(
-                "housing", 500.0,
-                "food", 200.0,
-                "utilities", 50.0));
-
-        BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend", testdata1, testdata2);
+//        System.out.println(user.getBudget());
+        BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend", user.getBudget(), user.getBudgetTracker());
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
         chartPanel.setPreferredSize(new java.awt.Dimension( 600 , 600));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
