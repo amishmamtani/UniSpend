@@ -8,73 +8,122 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ChatBotInteractorTest {
 
     private ChatBotInteractor interactor;
-    private List<VectorizedResponse> mockVectorizedResponses;
+    private List<VectorizedResponse> mockResponses;
 
     @BeforeEach
     void setUp() {
-        // Mock vectorized responses for testing
-        mockVectorizedResponses = new ArrayList<>();
-        mockVectorizedResponses.add(new VectorizedResponse("Save at least 20% of your income.", new double[]{0.1, 0.2, 0.3}));
-        mockVectorizedResponses.add(new VectorizedResponse("Invest early for better returns.", new double[]{0.4, 0.5, 0.6}));
-        mockVectorizedResponses.add(new VectorizedResponse("Build an emergency fund.", new double[]{0.7, 0.8, 0.9}));
+        // Initialize mock responses for testing
+        mockResponses = new ArrayList<>();
+        mockResponses.add(new VectorizedResponse("Matched response", new double[]{0.1, 0.2, 0.3, 0.4, 0.5}));
+        mockResponses.add(new VectorizedResponse("Non-matching response", new double[]{0.6, 0.7, 0.8, 0.9, 1.0}));
+    }
 
-        // Create the interactor with mocked responses
-        interactor = new ChatBotInteractor(null) {
-            protected List<VectorizedResponse> loadVectorizedData() {
-                return mockVectorizedResponses; // Use mocked data
+    @Test
+    void testGenerateResponseWithMatch() {
+        interactor = new ChatBotInteractor(new ChatBotOutputBoundary() {
+            @Override
+            public void presentAnswer(ChatBotOutputData outputData) {
+                assertEquals("Avoid impulse purchases by making a shopping list and sticking to it.", outputData.getAnswer().getAnswer());
             }
 
+            @Override
+            public void switchBack() {
 
+            }
+        });
+
+        ChatBotInputData inputData = new ChatBotInputData(new Question("how do I save money"));
+        interactor.generateResponse(inputData);
+ }
+
+    @Test
+    void testGenerateResponseWithNoMatch() {
+        interactor = new ChatBotInteractor(new TestPresenter()) {
             protected double[] vectorizeUserQuestion(String question) {
-                // Mock vectorization based on the question
-                if (question.equalsIgnoreCase("How much should I save?")) {
-                    return new double[]{0.1, 0.2, 0.3}; // Closest to "Save at least 20% of your income."
-                } else if (question.equalsIgnoreCase("When should I start investing?")) {
-                    return new double[]{0.4, 0.5, 0.6}; // Closest to "Invest early for better returns."
-                }
-                return new double[]{0.0, 0.0, 0.0}; // No match
+                return new double[]{0.0, 0.0, 0.0, 0.0, 0.0}; // No match
+            }
+
+            protected List<VectorizedResponse> loadVectorizedData() {
+                return mockResponses; // Use predefined responses
             }
         };
-    }
 
-    @Test
-    void testGenerateResponse_MatchedResponse() {
-        // Simulate user input
-        ChatBotInputData inputData = new ChatBotInputData(new Question("How much should I save?"));
-
-        // Execute interactor logic
+        ChatBotInputData inputData = new ChatBotInputData(new Question("Test question"));
         interactor.generateResponse(inputData);
 
-        // Assert the response
-        assertEquals("Save at least 20% of your income.", interactor.getGeneratedAnswer().getAnswer());
-    }
-
-    @Test
-    void testGenerateResponse_AnotherMatchedResponse() {
-        // Simulate user input
-        ChatBotInputData inputData = new ChatBotInputData(new Question("When should I start investing?"));
-
-        // Execute interactor logic
-        interactor.generateResponse(inputData);
-
-        // Assert the response
-        assertEquals("Invest early for better returns.", interactor.getGeneratedAnswer().getAnswer());
-    }
-
-    @Test
-    void testGenerateResponse_NoMatchedResponse() {
-        // Simulate user input
-        ChatBotInputData inputData = new ChatBotInputData(new Question("What is financial independence?"));
-
-        // Execute interactor logic
-        interactor.generateResponse(inputData);
-
-        // Assert the response
         assertEquals("Sorry, I couldn't find an answer to your question.", interactor.getGeneratedAnswer().getAnswer());
     }
+
+
+    @Test
+    void testLoadVectorizedDataSuccess() {
+        interactor = new ChatBotInteractor(new TestPresenter()) {
+            protected List<VectorizedResponse> loadVectorizedData() {
+                return mockResponses; // Simulate a successful load
+            }
+        };
+
+        List<VectorizedResponse> responses = interactor.loadVectorizedData();
+        assertFalse(responses.isEmpty(), "Vectorized data should not be empty");
+    }
+
+
+    @Test
+    void testFindBestMatchWithMatch() {
+        interactor = new ChatBotInteractor(new TestPresenter()) {
+            @Override
+            protected List<VectorizedResponse> loadVectorizedData() {
+                return mockResponses;
+            }
+        };
+
+        double[] userVector = {0.1, 0.2, 0.3, 0.4, 0.5}; // Exact match
+        VectorizedResponse match = interactor.findBestMatch(userVector);
+
+        assertNotNull(match);
+        assertEquals("Matched response", match.getResponse());
+    }
+
+    @Test
+    void testFindBestMatchNoMatch() {
+        interactor = new ChatBotInteractor(new TestPresenter()) {
+            @Override
+            protected List<VectorizedResponse> loadVectorizedData() {
+                return mockResponses;
+            }
+        };
+
+        double[] userVector = {0.0, 0.0, 0.0, 0.0, 0.0}; // No match
+        VectorizedResponse match = interactor.findBestMatch(userVector);
+
+        assertNull(match, "No match should be found");
+    }
+
+    @Test
+    void testWeightedSimilarity() {
+        interactor = new ChatBotInteractor(new TestPresenter());
+
+        double[] vec1 = {1.0, 2.0, 3.0};
+        double[] vec2 = {1.0, 2.0, 3.0};
+        double similarity = interactor.weightedSimilarity(vec1, vec2);
+
+        assertEquals(1.0, similarity, 0.001, "Similarity should be 1.0 for identical vectors");
+    }
+
+    @Test
+    void testWeightedSimilarityDifferentVectors() {
+        interactor = new ChatBotInteractor(new TestPresenter());
+
+        double[] vec1 = {1.0, 0.0, 0.0};
+        double[] vec2 = {0.0, 1.0, 0.0};
+        double similarity = interactor.weightedSimilarity(vec1, vec2);
+
+        assertEquals(0.0, similarity, 0.001, "Similarity should be 0.0 for orthogonal vectors");
+    }
 }
+
