@@ -1,7 +1,6 @@
 package view;
 
 import app.EmailSender;
-import app.SendEmail;
 import entity.User;
 import interface_adapter.budgetcompare.BudgetCompareController;
 import interface_adapter.budgetcompare.BudgetComparePresenter;
@@ -70,10 +69,10 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         JButton spendingAnalysisButton = spendingAnalysis.getButton();
         spendingAnalysisButton.setBounds(647, 35, 130, 30);
 
-        JPanel budgettracker = new JPanel();
-        budgettracker.add(titleLabel);
-        budgettracker.add(createNewButton);
-        budgettracker.add(addButton);
+        this.add(titleLabel);
+        this.add(createNewButton);
+        this.add(addButton);
+
         if (currentUser.getBudgetTracker().size() > 0) {
             this.add(spendingAnalysisButton);
         }
@@ -121,9 +120,9 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         System.out.println("create new clicked");
                         income = Double.parseDouble(salaryTextField.getText());
                         System.out.println(income);
-                        categorySpending1.put("UNSPENT INCOME", income);
+                        categorySpending.put("UNSPENT INCOME", income);
 
-                        budgetTrackerController.createBudgetTracker(income, categorySpending1, 0.0, "NONE");
+                        budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0, "NONE", currentUser);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                         PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
                         ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
@@ -148,10 +147,10 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 chartPanel.setBackground(Color.decode("#FFFFFF"));
                 chartPanel.setBounds(400, 80, 380, 380);
                 chartPanel.setVisible(true);
-                budgettracker.add(spendingAnalysisButton);
-                budgettracker.add(chartPanel);
-                budgettracker.revalidate();
-                budgettracker.repaint();
+                mainPanel.add(spendingAnalysisButton);
+                mainPanel.add(chartPanel);
+                mainPanel.revalidate();
+                mainPanel.repaint();
             }
         });
 
