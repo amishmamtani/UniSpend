@@ -1,5 +1,8 @@
 package use_case.budgettracker;
 
+import entity.User;
+import interface_adapter.user.MongoUserRepository;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -16,21 +19,32 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
         HashMap<String, Double> alreadySpentCategories = trackerInputData.getAlreadySpentCategories();
         double amount_spent = trackerInputData.getAmount_spent();
         String category_spent_on = trackerInputData.getCategory_spent_on();
+        User user = trackerInputData.getUser();
 
         /**
          * Updates tracker with category spent on and the amount spent
          */
         if (!Objects.equals(category_spent_on, "NONE")) {
-            update_tracker(trackerInputData, category_spent_on, amount_spent, alreadySpentCategories);
+            update_tracker(category_spent_on, amount_spent, alreadySpentCategories);
         }
-
-//        /**
-//         * Finds how much of the income is unspent
-//         */
-//        double unspent_income = get_unspent_income(alreadySpentCategories, income);
 
         double unspent_income = get_unspent_income(alreadySpentCategories);
         boolean spent_more_than_income = unspent_income < 0;
+
+        /**
+         * Updates the users budget tracker
+         */
+        user.setBudgetTracker(alreadySpentCategories);
+
+        /**
+         * Initialises us being able to access the database
+         */
+        MongoUserRepository userRepository = new MongoUserRepository();
+
+        /**
+         * Updates the user in the database.
+         */
+        userRepository.saveUser(user);
 
         BudgetTrackerOutputData trackerOutputData = new BudgetTrackerOutputData(income, alreadySpentCategories,
                 unspent_income, spent_more_than_income);
@@ -38,13 +52,9 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
     }
 
     /**
-     * This updates the tracker if its their first time creating the tracker
-     * @param trackerInputData
-     * @param category_spent_on
-     * @param amount_spent
-     * @param alreadySpentCategories
+     * This updates the tracker
      */
-    private void update_tracker(BudgetTrackerInputData trackerInputData, String category_spent_on, double amount_spent,
+    private void update_tracker(String category_spent_on, double amount_spent,
                                 HashMap<String, Double> alreadySpentCategories) {
         if(alreadySpentCategories.containsKey(category_spent_on)){
             double currentValue = alreadySpentCategories.get(category_spent_on);

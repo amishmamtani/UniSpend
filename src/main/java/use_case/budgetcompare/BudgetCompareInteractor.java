@@ -39,10 +39,6 @@ public class BudgetCompareInteractor implements BudgetCompareInputBoundary {
         BudgetCompareOutputData compareOutputData = new BudgetCompareOutputData(advisedAllocations, spentAllocations,
                 netAllocations, unspent_income);
         budgetComparePresenter.presentBudgetCompare(compareOutputData);
-
-
-
-
     }
 
     private static Double getUnspentIncome(HashMap<String, Double> spentAllocations) {
@@ -60,6 +56,10 @@ public class BudgetCompareInteractor implements BudgetCompareInputBoundary {
                 Double spentAmount = spentAllocations.get(category);
                 Double netAmount = advisedAmount - spentAmount;
                 netAllocations.put(category, netAmount);
+            }
+
+            else {
+                netAllocations.put(category, advisedAmount);
             }
         }
         return netAllocations;
