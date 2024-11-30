@@ -91,4 +91,9 @@ public class BudgetInteractor implements BudgetInputBoundary {
         budgetPresenter.presentBudget(outputData);
     }
 
+    @Override
+    public void switchBack() {
+        budgetPresenter.switchBack();
+    }
+
 }

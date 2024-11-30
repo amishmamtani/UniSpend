@@ -1,13 +1,15 @@
 package view;
 
-import interface_adapter.ChatBot.ChatBotController;
-import interface_adapter.ChatBot.ChatBotViewModel;
-import interface_adapter.ChatBot.ChatBotState;
+import interface_adapter.chatbot.ChatBotController;
+import interface_adapter.chatbot.ChatBotViewModel;
+import interface_adapter.chatbot.ChatBotState;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -82,15 +84,12 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
         this.add(englishButton);
         this.add(frenchButton);
 
-        JFrame frame = new JFrame("Chat Bot");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(830,600);
-        frame.setResizable(false);
-        frame.setContentPane(this);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.decode("#FFFFFF"));
-        frame.setVisible(true);
 
+        backButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                chatBotController.switchBack();
+            }
+        });
         textInput.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 updateUserMessage();
@@ -306,7 +305,7 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        final ChatBotState state = (ChatBotState) evt.getNewValue();
     }
 
     public String getViewName() {

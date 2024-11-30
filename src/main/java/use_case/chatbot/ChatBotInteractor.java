@@ -1,4 +1,4 @@
-package use_case.chatBot;
+package use_case.chatbot;
 
 import entity.Answer;
 import entity.VectorizedResponse;
@@ -50,6 +50,11 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
             chatBotPresenter.presentAnswer(outputData);
         }
 
+    }
+
+    @Override
+    public void switchBack() {
+        chatBotPresenter.switchBack();
     }
 
     private Answer generatedAnswer;

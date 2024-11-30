@@ -14,7 +14,7 @@ public class SignUpInteractor implements SignUpInputBoundary{
 
     @Override
     public void switchToLogInView() {
-        System.out.println("In the interactor");
+        System.out.println("In the sign up interactor");
         signUpOutputBoundary.switchToLogInView();
     }
 }
