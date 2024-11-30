@@ -52,6 +52,11 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
 
     }
 
+    @Override
+    public void switchBack() {
+        chatBotPresenter.switchBack();
+    }
+
     private Answer generatedAnswer;
 
     public Answer getGeneratedAnswer() {

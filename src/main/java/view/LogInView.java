@@ -73,12 +73,12 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
         this.add(logInImage);
 
 
-        JFrame frame = new JFrame("Log In");
-        frame.setSize(830, 600);
-        frame.setResizable(false);
-        frame.setContentPane(this);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setVisible(true);
+        logInButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Log In Clicked");
+                logInController.prepareSuccessView();
+            }
+        });
     }
 
     @Override

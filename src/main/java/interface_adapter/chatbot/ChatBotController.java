@@ -16,4 +16,8 @@ public class ChatBotController {
         chatBotInteractor.generateResponse(inputData);
     }
 
+    public void switchBack(){
+        chatBotInteractor.switchBack();
+    }
+
 }

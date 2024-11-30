@@ -17,4 +17,8 @@ public class BudgetController {
         BudgetInputData inputData = new BudgetInputData(income, selectedCategories);
         budgetInteractor.createBudget(inputData);
     }
+
+    public void switchBack(){
+        budgetInteractor.switchBack();
+    }
 }

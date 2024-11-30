@@ -46,13 +46,13 @@ public class BudgetTrackerInteractor_Test {
 
     @Test
     public void firstTimeCreatingTracker() {
-        double income = 5000;
+        double income = 5000.0;
         HashMap<String, Double> alreadySpentCategories = new HashMap<>(Map.of(
                 "UNSPENT INCOME", 5000.0
         ));
         double amount_spent = 0.0;
         String category_spent_on = "none";
-        User user = new User("IT1", "IT1", "IT1", "IT1");
+        User user = new User("IT1", "IT1", "IT1", "IT1", income);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
@@ -69,6 +69,14 @@ public class BudgetTrackerInteractor_Test {
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertFalse(spentMoreThanIncome);
                 assertEquals(expectedAlreadySpentCategories , user.getBudgetTracker());
+                assertEquals("IT1",user.getFirstName());
+                assertEquals("IT1", user.getEmail());
+                assertEquals("IT1", user.getLastName());
+                assertEquals("IT1", user.getPassword());
+                assertEquals((Double)income, user.getIncome());
+
+                HashMap<String, Double> expectedUserBudget = new HashMap<>();
+                assertEquals(expectedUserBudget, user.getBudget());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
@@ -91,7 +99,7 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 10.0;
         String category_spent_on = "Food";
-        User user = new User("IT2", "IT2", "IT2", "IT2");
+        User user = new User("IT2", "IT2", "IT2", "IT2", income);
         user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
@@ -111,6 +119,15 @@ public class BudgetTrackerInteractor_Test {
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertFalse(spentMoreThanIncome);
                 assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
+                assertEquals("IT2",user.getFirstName());
+                assertEquals("IT2", user.getEmail());
+                assertEquals("IT2", user.getLastName());
+                assertEquals("IT2", user.getPassword());
+
+                assertEquals((Double)income, user.getIncome());
+
+                HashMap<String, Double> expectedUserBudget = new HashMap<>();
+                assertEquals(expectedUserBudget, user.getBudget());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
@@ -133,7 +150,7 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 0.0;
         String category_spent_on = "none";
-        User user = new User("IT3", "IT3", "IT3", "IT3");
+        User user = new User("IT3", "IT3", "IT3", "IT3", income);
         user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
@@ -155,6 +172,15 @@ public class BudgetTrackerInteractor_Test {
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertEquals(false, spentMoreThanIncome);
                 assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
+                assertEquals("IT3",user.getFirstName());
+                assertEquals("IT3", user.getEmail());
+                assertEquals("IT3", user.getLastName());
+                assertEquals("IT3", user.getPassword());
+
+                assertEquals((Double)income, user.getIncome());
+
+                HashMap<String, Double> expectedUserBudget = new HashMap<>();
+                assertEquals(expectedUserBudget, user.getBudget());
 
             }
         };
@@ -179,7 +205,7 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 120.0;
         String category_spent_on = "SHOPPING";
-        User user = new User("IT4", "IT4", "IT4", "IT4");
+        User user = new User("IT4", "IT4", "IT4", "IT4", income);
         user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
@@ -202,6 +228,15 @@ public class BudgetTrackerInteractor_Test {
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertEquals(false, spentMoreThanIncome);
                 assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
+                assertEquals("IT4",user.getFirstName());
+                assertEquals("IT4", user.getEmail());
+                assertEquals("IT4", user.getLastName());
+                assertEquals("IT4", user.getPassword());
+
+                assertEquals((Double)income, user.getIncome());
+
+                HashMap<String, Double> expectedUserBudget = new HashMap<>();
+                assertEquals(expectedUserBudget, user.getBudget());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
@@ -224,7 +259,7 @@ public class BudgetTrackerInteractor_Test {
         ));
         double amount_spent = 6000.0;
         String category_spent_on = "Shopping";
-        User user = new User("IT5", "IT5", "IT5", "IT5");
+        User user = new User("IT5", "IT5", "IT5", "IT5", income);
         user.setBudgetTracker(alreadySpentCategories);
 
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
@@ -260,6 +295,15 @@ public class BudgetTrackerInteractor_Test {
                 boolean spentMoreThanIncome = budgetTrackerOutputData.isSpent_more_than_income();
                 assertEquals(true, spentMoreThanIncome);
                 assertEquals(expectedAlreadySpentCategories, user.getBudgetTracker());
+                assertEquals("IT5",user.getFirstName());
+                assertEquals("IT5", user.getEmail());
+                assertEquals("IT5", user.getLastName());
+                assertEquals("IT5", user.getPassword());
+
+                assertEquals((Double)income, user.getIncome());
+
+                HashMap<String, Double> expectedUserBudget = new HashMap<>();
+                assertEquals(expectedUserBudget, user.getBudget());
             }
         };
         BudgetTrackerInteractor budgetTrackerInteractor;
