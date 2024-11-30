@@ -7,6 +7,7 @@ public class LogInInteractor implements LogInInputBoundary{
     private LogInOutputBoundary logInOutputBoundary;
     private MongoUserRepository userRepo = new MongoUserRepository();
     private User user;
+
     public LogInInteractor(LogInOutputBoundary logInOutputBoundary) {
 
         this.logInOutputBoundary = logInOutputBoundary;
@@ -15,7 +16,9 @@ public class LogInInteractor implements LogInInputBoundary{
     public void execute(LogInInputData loginInputData) {
         final String emailID = loginInputData.getUsername();
         final String password = loginInputData.getPassword();
-        user = userRepo.getUserByEmail(emailID);
+        System.out.println("email ID " + emailID);
+        User user = userRepo.getUserByEmail(emailID);
+        System.out.println(user.getLastName());
         if (user == null) {
             logInOutputBoundary.prepareFailView("Account does not exist");
             System.out.println("Account does not exist");

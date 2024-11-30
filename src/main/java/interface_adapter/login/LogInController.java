@@ -11,4 +11,9 @@ public class LogInController {
     public void prepareSuccessView(){
         logInInteractor.execute(new LogInInputData("", ""));
     }
+
+    public void execute(String username, String password) {
+        final LogInInputData inputData = new LogInInputData(username, password);
+        logInInteractor.execute(inputData);
+    }
 }
