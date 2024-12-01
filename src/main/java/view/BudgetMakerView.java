@@ -3,6 +3,9 @@ package view;
 import interface_adapter.budget.BudgetController;
 import interface_adapter.budget.BudgetState;
 import interface_adapter.budget.BudgetViewModel;
+import interface_adapter.home.HomeState;
+import interface_adapter.home.HomeViewModel;
+import interface_adapter.user.MongoUserRepository;
 import view.components.ColouredButton;
 import view.components.Heading;
 import view.components.PieChart;
@@ -24,11 +27,11 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
     private final String viewName = "budget maker";
     private final BudgetViewModel budgetViewModel;
     private final BudgetController budgetController;
+    private  HomeViewModel homeViewModel;
     private final Map<String, Double> percentageCategories;
     private JFrame addCategoryPopUp = new JFrame();
     private JPanel mainPanel;
     private int x = 0;
-
 
     public BudgetMakerView(BudgetViewModel budgetViewModel, BudgetController controller) {
 
@@ -127,8 +130,9 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 System.out.println(income);
                 Map<String, Double> selectedCategories = getSelectedCategories();
                 System.out.println(selectedCategories);
-                budgetController.createBudget(income, selectedCategories);
+                MongoUserRepository userRepository = new MongoUserRepository();
 
+                budgetController.createBudget(income, selectedCategories, userRepository.getUserByEmail(budgetViewModel.getState().getEmailId()));
                 final BudgetState currentState = budgetViewModel.getState();
 
                 //JFrame pieChartPopUp = new JFrame();

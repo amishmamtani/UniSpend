@@ -6,7 +6,6 @@ import interface_adapter.user.MongoUserRepository;
 public class LogInInteractor implements LogInInputBoundary{
     private LogInOutputBoundary logInOutputBoundary;
     private MongoUserRepository userRepo = new MongoUserRepository();
-    private User user;
 
     public LogInInteractor(LogInOutputBoundary logInOutputBoundary) {
 
@@ -31,6 +30,7 @@ public class LogInInteractor implements LogInInputBoundary{
             }
             else {
                 // set current user
+                System.out.println("Logged in successfully "+ user.getEmail());
                 logInOutputBoundary.prepareSuccessView(new LogInOutputData(emailID, false));
             }
         }

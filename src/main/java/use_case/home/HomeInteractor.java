@@ -12,6 +12,7 @@ public class HomeInteractor implements HomeInputBoundary{
 
     @Override
     public void switchToBudgetMaker() {
+        System.out.println("Switching to Budget Maker");
         System.out.println("In the home interactor");
         homeOutputBoundary.switchToBudgetMaker();
     }

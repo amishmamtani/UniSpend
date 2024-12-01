@@ -1,6 +1,9 @@
 package use_case.budget;
 
 import app.MarketHealthService;
+import entity.User;
+import interface_adapter.user.MongoUserRepository;
+
 import java.util.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -18,7 +21,7 @@ public class BudgetInteractor implements BudgetInputBoundary {
     public void createBudget(BudgetInputData inputData) {
         double income = inputData.getIncome();
         double spending = 0;
-        double indexer = 0;
+        User user = inputData.getUser();
         Map<String, Double> selectedCategories = inputData.getSelectedCategories();
 
         Map<String, Double> categoryAllocations = new HashMap<>();
@@ -86,6 +89,10 @@ public class BudgetInteractor implements BudgetInputBoundary {
             categoryAllocations.put("Investments", investments);
         }
 
+        user.setBudget((HashMap<String, Double>) categoryAllocations);
+        user.setIncome(income);
+        MongoUserRepository userRepository = new MongoUserRepository();
+        userRepository.saveUser(user);
 
         BudgetOutputData outputData = new BudgetOutputData(income, categoryAllocations, savings, investments);
         budgetPresenter.presentBudget(outputData);
