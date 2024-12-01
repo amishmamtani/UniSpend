@@ -16,8 +16,7 @@ class SignUpInteractorTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize the repository and output boundary
-        userRepository = new MongoUserRepository(); // Ensure this points to a test database
+        userRepository = new MongoUserRepository();
         outputBoundary = new TestSignUpOutputBoundary();
         interactor = new SignUpInteractor(outputBoundary);
     }
@@ -25,19 +24,15 @@ class SignUpInteractorTest {
     @AfterEach
     void tearDown() {
         userRepository.deleteUserByEmail("testlogin.doe@example.com");
-        // Clean up the test database after each test
     }
 
     @Test
     void testExecute_SuccessfulSignUp() {
-        // Arrange
         SignUpInputData inputData = new SignUpInputData(
                 "Hugh", "Janus", "testlogin.doe@example.com", "password123");
 
-        // Act
         interactor.execute(inputData);
 
-        // Assert
         User createdUser = userRepository.getUserByEmail(inputData.getEmail());
         assertNotNull(createdUser);
         assertEquals("Hugh", createdUser.getFirstName());
@@ -48,29 +43,23 @@ class SignUpInteractorTest {
 
     @Test
     void testExecute_AccountAlreadyExists() {
-        // Arrange
         SignUpInputData inputData = new SignUpInputData(
                 "Hugh", "Janus", "testlogin.doe@example.com", "password123");
         User existingUser = new User("Hugh", "Janus","password123", "testlogin.doe@example.com");
         userRepository.saveUser(existingUser);
 
-        // Act
         interactor.execute(inputData);
 
-        // Assert
         assertEquals("Account Already Exists!", outputBoundary.failMessage);
     }
 
     @Test
     void testSwitchToLogInView() {
-        // Act
         interactor.switchToLogInView();
 
-        // Assert
         assertTrue(outputBoundary.switchToLogInViewCalled);
     }
 
-    // Helper class for the output boundary
     private static class TestSignUpOutputBoundary implements SignUpOutputBoundary {
         boolean switchToLogInViewCalled = false;
         String failMessage = null;
