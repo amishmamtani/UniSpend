@@ -219,6 +219,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
                         chartPanel.setBounds(400, 80, 380, 380);
                         chartPanel.setVisible(true);
+                        mainPanel.add(spendingAnalysisButton);
                         mainPanel.add(logCard);
                         mainPanel.add(chartPanel);
                         mainPanel.setComponentZOrder(chartPanel, 0);

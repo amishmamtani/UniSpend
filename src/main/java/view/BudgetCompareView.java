@@ -55,22 +55,20 @@ public class BudgetCompareView {
 
         this.controller.createBudgetCompare(this.user);
         final BudgetCompareState currentState = this.viewModel.getState();
+        HashMap<String, Double> finalAdvisedCategories = new HashMap<>();
         HashMap<String, Double> finalSpentCategories = new HashMap<>();
-        for (String key: currentState.getAdvisedAllocations().keySet()) {
-            String uppercaseKey = key.toUpperCase();
-            Double value = currentState.getAdvisedAllocations().get(key);
-            currentState.getAdvisedAllocations().remove(key);
-            currentState.getAdvisedAllocations().put(uppercaseKey, value);
 
-            for (String key2  : currentState.getSpentAllocations().keySet()) {
-                if (key2.equals(key)) {
-                    finalSpentCategories.put(key2, currentState.getSpentAllocations().get(key2));
-                }
+        for (String key: currentState.getAdvisedAllocations().keySet()) {
+            finalAdvisedCategories.put(key.toUpperCase(), currentState.getAdvisedAllocations().get(key));
+            if (currentState.getSpentAllocations().containsKey(key.toUpperCase())) {
+                finalSpentCategories.put(key.toUpperCase(), currentState.getSpentAllocations().get(key.toUpperCase()));
+            } else {
+                finalSpentCategories.put(key.toUpperCase(), 0.0); // Add default if not found
             }
         }
-        BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
-                currentState.getAdvisedAllocations(), finalSpentCategories);
 
+        BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
+                finalAdvisedCategories, finalSpentCategories);
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
         chartPanel.setPreferredSize(new java.awt.Dimension(600, 600));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
