@@ -144,6 +144,7 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                     chartPanel.setBounds(400, 80, 380, 380);
                     chartPanel.setVisible(true);
                     mainPanel.add(chartPanel);
+                    mainPanel.setComponentZOrder(chartPanel,0);
                     mainPanel.repaint();
                     mainPanel.revalidate();
                 }

@@ -7,7 +7,7 @@ public class LogCard extends JPanel {
     public LogCard(String category, String amount) {
         JLabel logCategoryText = new JLabel(category);
         JLabel logAmountText = new JLabel("$ "+ amount);
-        logCategoryText.setBounds(20, 13, 50, 20);
+        logCategoryText.setBounds(20, 13, 200, 20);
         //logAmountText.setBounds(270, 13, 50, 20);
         logAmountText.setForeground(Color.decode("#FFFFFF"));
         JPanel amountPanel = new JPanel();

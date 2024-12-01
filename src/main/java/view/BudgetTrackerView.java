@@ -101,6 +101,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 chartPanel.setVisible(true);
                 mainPanel.add(spendingAnalysisButton);
                 mainPanel.add(chartPanel);
+                mainPanel.setComponentZOrder(chartPanel, 0);
                 mainPanel.revalidate();
                 mainPanel.repaint();
             }
@@ -113,7 +114,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 BudgetCompareOutputBoundary compareOutputBoundary = new BudgetComparePresenter(compareViewModel);
                 BudgetCompareInteractor compareInteractor = new BudgetCompareInteractor(compareOutputBoundary);
                 BudgetCompareController compareController = new BudgetCompareController(compareInteractor);
-                new BudgetCompareView(compareViewModel, compareController);
+                new BudgetCompareView(compareViewModel, compareController, currentUser);
             }
         });
 

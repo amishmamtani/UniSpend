@@ -86,7 +86,7 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
                 String emailID = emailId.getText();
                 String pass = password.getText();
                 logInController.execute(emailID, pass);
-                logInController.prepareSuccessView();
+//                logInController.prepareSuccessView();
             }
         });
     }
