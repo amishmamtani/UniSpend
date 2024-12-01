@@ -77,9 +77,11 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
         noAccountLabel.setBounds(35, 358, 157,20);
         signUp.setBounds(192, 358, 60,20);
 
+
         // Create and configure the log in button
         JButton logInButton = new ColouredButton("Log In", "#1A1A1A",
                 "#FFFFFF", 16).getButton();
+
         logInButton.setBounds(35, 480, 320, 60);
 
         // Create and configure the login image
@@ -113,6 +115,18 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
                 String emailID = emailId.getText(); // Get the entered email ID
                 String pass = password.getText(); // Get the entered password
                 logInController.execute(emailID, pass); // Execute the login action
+                LogInState logInState = logInViewModel.getState();
+                String error = logInState.getLogInError();
+                if(error != null) {
+                    JDialog dialog = new JDialog();
+                    dialog.setTitle("Error");
+                    dialog.setSize(300, 200);
+                    dialog.setLayout(new GridBagLayout());
+                    dialog.setModal(true);
+                    JLabel errorLabel = new JLabel(error);
+                    dialog.add(errorLabel);
+                    dialog.setVisible(true);
+                }
             }
         });
     }
