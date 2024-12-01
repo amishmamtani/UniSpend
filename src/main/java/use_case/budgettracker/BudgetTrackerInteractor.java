@@ -7,13 +7,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Interactor class for updating the Budget Tracker
+ */
 public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
+    /** Presenter for formatting and displaying budget tracker output */
     private final BudgetTrackerOutputBoundary budgetTrackerPresenter;
 
+    /**
+     * Constructs a BudgetTrackerInteractor with the specified presenter.
+     *
+     * @param budgetTrackerPresenter the presenter responsible for handling output data
+     */
     public BudgetTrackerInteractor(BudgetTrackerOutputBoundary budgetTrackerPresenter) {
         this.budgetTrackerPresenter = budgetTrackerPresenter;
     }
 
+    /**
+     * Creates a budget tracker using the provided input data and updates the user and database.
+     *
+     * @param trackerInputData input data of class BudgetTrackerInputData
+     */
     public void createBudgetTracker(BudgetTrackerInputData trackerInputData) {
         double income = trackerInputData.getIncome();
         HashMap<String, Double> alreadySpentCategories = trackerInputData.getAlreadySpentCategories();
@@ -51,13 +65,16 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
         budgetTrackerPresenter.presentBudgetTracker(trackerOutputData);
     }
 
+    /**
+     * Switches back to the homescreen.
+     */
     @Override
     public void switchBack() {
         budgetTrackerPresenter.switchBack();
     }
 
     /**
-     * This updates the tracker
+     *  Updates alreadySpentCategories with the category_spent_on and amount_spent
      */
     private void update_tracker(String category_spent_on, double amount_spent,
                                 HashMap<String, Double> alreadySpentCategories) {
@@ -74,7 +91,7 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
     }
 
     /**
-     * Obtains the value of unspent income based on the value in alreadySpentCategories
+     * @return the value of unspent income based on the value in alreadySpentCategories
      */
     private static double get_unspent_income(HashMap<String, Double> alreadySpentCategories){
         return alreadySpentCategories.get("UNSPENT INCOME");
