@@ -23,22 +23,40 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class for creating the Budget Compare view, which shows a comparison of advised and actual spending.
+ */
 public class BudgetCompareView {
+    /** View model for managing the state of the Budget Compare view */
     private final BudgetCompareViewModel viewModel;
+
+    /** Controller for handling user actions in the Budget Compare view */
     private final BudgetCompareController controller;
+
+    /** The current user whose budget data is being displayed */
     private final User user;
 
+    /**
+     * Constructs a BudgetCompareView instance with the specified view model, controller, and user.
+     *
+     * @param viewModel The view model for managing the state of the Budget Compare view.
+     * @param controller The controller for handling user actions in the Budget Compare view.
+     * @param user The current user whose budget data is being displayed.
+     */
     public BudgetCompareView(BudgetCompareViewModel viewModel, BudgetCompareController controller, User user) {
         this.viewModel = viewModel;
         this.controller = controller;
         this.user = user;
 
+        // Create the title label for the Budget Compare view
         JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
 
+        // Create copies of the user's advised and spent allocations for comparison
         HashMap<String, Double> advisedAllocations = new HashMap<>(user.getBudget());
         HashMap<String, Double> spentAllocations = new HashMap<>(user.getBudgetTracker());
 
+        // Remove categories from spentAllocations that are also in advisedAllocations
         for (String key : advisedAllocations.keySet()) {
             for (String key2 : spentAllocations.keySet()) {
                 if (key.equals(key2)) {
@@ -47,23 +65,27 @@ public class BudgetCompareView {
             }
         }
 
-//        System.out.println(user.getBudget());
+        // Create the bar chart comparing advised vs. actual spending
         BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
                 advisedAllocations, spentAllocations);
+
+        // Create a chart panel to display the bar chart
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
-        chartPanel.setPreferredSize(new java.awt.Dimension( 600 , 600));
+        chartPanel.setPreferredSize(new java.awt.Dimension(600, 600));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
         chartPanel.setBounds(34, 120, 600, 400);
         chartPanel.setVisible(true);
 
+        // Create a panel to hold the title label and chart panel
         JPanel comparePanel = new JPanel();
         comparePanel.add(titleLabel);
         comparePanel.add(chartPanel);
+
+        // Create the frame to display the comparison view
         JFrame frame = new JFrame();
         frame.setSize(800, 744);
         frame.setResizable(false);
         frame.add(comparePanel);
         frame.setVisible(true);
-
     }
 }

@@ -7,18 +7,23 @@ import com.mongodb.client.MongoDatabase;
 import entity.User;
 import org.bson.Document;
 import use_case.user.UserRepository;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import io.github.cdimascio.dotenv.Dotenv;
 
-
-
+/**
+ * Repository implementation for managing user data in a MongoDB database.
+ */
 public class MongoUserRepository implements UserRepository {
+    /** The MongoDB collection for storing user documents */
     private final MongoCollection<Document> usersCollection;
 
+    /**
+     * Constructs a MongoUserRepository and initializes the connection to the MongoDB database.
+     */
     public MongoUserRepository() {
         Dotenv dotenv = Dotenv.load();
         String uri = dotenv.get("DATABASE_URL");
@@ -28,6 +33,12 @@ public class MongoUserRepository implements UserRepository {
         usersCollection = database.getCollection("users");
     }
 
+    /**
+     * Saves or updates a user in the database.
+     * If the user exists, updates their information; otherwise, inserts a new user.
+     *
+     * @param user The user to save or update.
+     */
     @Override
     public void saveUser(User user) {
         Document query = new Document("lastName", user.getLastName());
@@ -39,10 +50,22 @@ public class MongoUserRepository implements UserRepository {
             usersCollection.insertOne(toDocument(user));
         }
     }
+
+    /**
+     * Deletes a user from the database by their email address.
+     *
+     * @param email The email address of the user to delete.
+     */
     public void deleteUserByEmail(String email) {
         usersCollection.deleteOne(new Document("email", email));
     }
 
+    /**
+     * Retrieves a user from the database by their last name.
+     *
+     * @param lastName The last name of the user.
+     * @return The user if found, otherwise null.
+     */
     @Override
     public User getUserByLastName(String lastName) {
         Document query = new Document("lastName", lastName);
@@ -54,6 +77,12 @@ public class MongoUserRepository implements UserRepository {
         return null;
     }
 
+    /**
+     * Retrieves a user from the database by their email address.
+     *
+     * @param email The email address of the user.
+     * @return The user if found, otherwise null.
+     */
     @Override
     public User getUserByEmail(String email) {
         Document query = new Document("email", email);
@@ -65,7 +94,11 @@ public class MongoUserRepository implements UserRepository {
         return null;
     }
 
-
+    /**
+     * Retrieves all users from the database.
+     *
+     * @return A list of all users.
+     */
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -75,10 +108,21 @@ public class MongoUserRepository implements UserRepository {
         return users;
     }
 
+    /**
+     * Deletes a user from the database by their last name.
+     *
+     * @param lastName The last name of the user to delete.
+     */
     public void deleteUserByLastName(String lastName) {
         usersCollection.deleteOne(new Document("lastName", lastName));
     }
 
+    /**
+     * Converts a User object to a MongoDB document.
+     *
+     * @param user The user to convert.
+     * @return A MongoDB document representing the user.
+     */
     private Document toDocument(User user) {
         Document document = new Document()
                 .append("firstName", user.getFirstName())
@@ -96,6 +140,12 @@ public class MongoUserRepository implements UserRepository {
         return document;
     }
 
+    /**
+     * Converts a MongoDB document to a User object.
+     *
+     * @param document The MongoDB document to convert.
+     * @return A User object.
+     */
     private User fromDocument(Document document) {
         User user = new User(
                 document.getString("firstName"),
@@ -118,6 +168,12 @@ public class MongoUserRepository implements UserRepository {
         return user;
     }
 
+    /**
+     * Converts a MongoDB document representing a budget to a map.
+     *
+     * @param document The MongoDB document to convert.
+     * @return A map representing the budget.
+     */
     private Map<String, Double> budgetDocToMap(Document document) {
         Map<String, Double> map = new HashMap<>();
         for (Map.Entry<String, Object> entry : document.entrySet()) {

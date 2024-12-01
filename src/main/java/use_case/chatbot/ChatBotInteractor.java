@@ -12,26 +12,52 @@ import java.util.ArrayList;
 import java.util.List;
 import io.github.cdimascio.dotenv.Dotenv;
 
+/**
+ * Interactor for chatbot functionality.
+ * Handles question processing, vectorized data comparison, and response generation.
+ * Implements the ChatBotInputBoundary interface.
+ */
 public class ChatBotInteractor implements ChatBotInputBoundary {
 
+    /** Presenter responsible for formatting and displaying chatbot responses */
     private final ChatBotOutputBoundary chatBotPresenter;
-    private Dotenv dotenv = Dotenv.load();
+
+    /** Environment variables loaded using Dotenv */
+    private final Dotenv dotenv = Dotenv.load();
+
+    /** API key for embedding service */
     private final String API_KEY = this.dotenv.get("CHATBOT_API_KEY");
+
+    /** URL for the Cohere embedding service */
     private static final String COHERE_EMBED_URL = "https://api.cohere.ai/embed";
+
+    /** Preloaded vectorized responses for matching questions */
     private final List<VectorizedResponse> vectorizedResponses;
 
+    /** Generated answer from the chatbot */
+    private Answer generatedAnswer;
+
+    /**
+     * Constructs a ChatBotInteractor with the specified presenter and loads vectorized response data.
+     *
+     * @param chatBotPresenter The presenter responsible for chatbot output.
+     */
     public ChatBotInteractor(ChatBotOutputBoundary chatBotPresenter) {
         this.chatBotPresenter = chatBotPresenter;
         this.vectorizedResponses = loadVectorizedData();
     }
 
+    /**
+     * Processes the input question, generates a vector representation, and finds the best-matched response.
+     *
+     * @param inputData The input data containing the question to be processed.
+     */
     @Override
     public void generateResponse(ChatBotInputData inputData) {
         String question = inputData.getQuestion().getQuestion();
 
         try {
             double[] userQuestionVector = vectorizeUserQuestion(question);
-
             VectorizedResponse bestMatch = findBestMatch(userQuestionVector);
 
             String responseText = bestMatch != null ? bestMatch.getResponse() : "Sorry, I couldn't find an answer to your question.";
@@ -41,7 +67,6 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
             chatBotPresenter.presentAnswer(outputData);
             generatedAnswer = new Answer(responseText);
 
-
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -49,20 +74,30 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
             ChatBotOutputData outputData = new ChatBotOutputData(errorAnswer);
             chatBotPresenter.presentAnswer(outputData);
         }
-
     }
 
+    /**
+     * Switches back to the previous view or state.
+     */
     @Override
     public void switchBack() {
         chatBotPresenter.switchBack();
     }
 
-    private Answer generatedAnswer;
-
+    /**
+     * Retrieves the last generated answer.
+     *
+     * @return The generated answer.
+     */
     public Answer getGeneratedAnswer() {
         return generatedAnswer;
     }
 
+    /**
+     * Loads vectorized response data from a JSON file.
+     *
+     * @return A list of preloaded vectorized responses.
+     */
     List<VectorizedResponse> loadVectorizedData() {
         List<VectorizedResponse> responses = new ArrayList<>();
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("VectorizedData.json")) {
@@ -90,6 +125,13 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         return responses;
     }
 
+    /**
+     * Converts a user's question into a vector representation using the Cohere embedding service.
+     *
+     * @param question The user's question.
+     * @return A vector representation of the question.
+     * @throws Exception If the embedding service fails.
+     */
     private double[] vectorizeUserQuestion(String question) throws Exception {
         OkHttpClient client = new OkHttpClient();
 
@@ -118,6 +160,12 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         }
     }
 
+    /**
+     * Finds the best matching response for a user's question vector using vectorized response data.
+     *
+     * @param userVector The vector representation of the user's question.
+     * @return The best matching vectorized response, or null if no match exceeds the similarity threshold.
+     */
     VectorizedResponse findBestMatch(double[] userVector) {
         VectorizedResponse bestMatch = null;
         double bestSimilarity = -1;
@@ -133,6 +181,13 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         return bestMatch;
     }
 
+    /**
+     * Computes the cosine similarity between two vectors.
+     *
+     * @param vector1 The first vector.
+     * @param vector2 The second vector.
+     * @return The cosine similarity value.
+     */
     private double cosineSimilarity(double[] vector1, double[] vector2) {
         if (vector1.length != vector2.length) {
             throw new IllegalArgumentException("Vector lengths do not match.");
@@ -150,6 +205,13 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         return dotProduct / (Math.sqrt(norm1) * Math.sqrt(norm2));
     }
 
+    /**
+     * Computes a weighted similarity score between two vectors.
+     *
+     * @param vec1 The first vector.
+     * @param vec2 The second vector.
+     * @return The weighted similarity score.
+     */
     double weightedSimilarity(double[] vec1, double[] vec2) {
         int minLength = Math.min(vec1.length, vec2.length);
         double dotProduct = 0.0;
@@ -167,5 +229,4 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
 
         return (vec1Magnitude > 0 && vec2Magnitude > 0) ? dotProduct / (vec1Magnitude * vec2Magnitude) : 0.0;
     }
-
 }
