@@ -1,5 +1,7 @@
 package use_case.budgettracker;
 
+import entity.User;
+
 import java.util.HashMap;
 
 /**
@@ -15,7 +17,7 @@ public class BudgetTrackerOutputData {
     /** true if the user has spent more than their income */
     private final boolean spent_more_than_income;
 
-
+  
     /**
      * Constructs a BudgetTrackerOutputData object
      *
@@ -23,14 +25,18 @@ public class BudgetTrackerOutputData {
      * @param alreadySpentCategories Categories and the amounts already spent by the user.
      * @param unspent_income        The amount of income left unspent.
      * @param spent_more_than_income Indicates whether the user has overspent.
+     * @param user the current user
      */
-    public BudgetTrackerOutputData( double income, HashMap<String, Double> alreadySpentCategories,
-                                    double unspent_income,
-                                    boolean spent_more_than_income) {
+    private final User user;
+
+    public BudgetTrackerOutputData(double income, HashMap<String, Double> alreadySpentCategories,
+                                   double unspent_income,
+                                   boolean spent_more_than_income, User user) {
         this.income = income;
         this.alreadySpentCategories = alreadySpentCategories;
         this.unspent_income = unspent_income;
         this.spent_more_than_income = spent_more_than_income;
+        this.user = user;
     }
 
     /** @return the user's total income */
@@ -44,4 +50,6 @@ public class BudgetTrackerOutputData {
 
     /** @return whether the user has spent more than their income */
     public boolean isSpent_more_than_income() {return spent_more_than_income;}
+
+    public User getUser() {return user;}
 }

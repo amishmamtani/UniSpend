@@ -94,7 +94,7 @@ public class BudgetInteractor implements BudgetInputBoundary {
         MongoUserRepository userRepository = new MongoUserRepository();
         userRepository.saveUser(user);
 
-        BudgetOutputData outputData = new BudgetOutputData(income, categoryAllocations, savings, investments);
+        BudgetOutputData outputData = new BudgetOutputData(income, categoryAllocations, savings, investments, user);
         budgetPresenter.presentBudget(outputData);
     }
 

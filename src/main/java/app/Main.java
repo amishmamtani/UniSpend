@@ -11,9 +11,9 @@ public class Main {
                                             .addBudgetMaker()
                                             .addBudgetTracker()
                                             .addChatbot()
-                                            .addHome()
                                             .addLogIn()
                                             .addSignUp()
+                                            .addHome()
                                             .build();
         application.setVisible(true);
 

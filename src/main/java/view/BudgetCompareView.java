@@ -27,12 +27,11 @@ public class BudgetCompareView {
     private final BudgetCompareViewModel viewModel;
     private final BudgetCompareController controller;
     private final User user;
-    public BudgetCompareView(BudgetCompareViewModel viewModel, BudgetCompareController controller) {
+
+    public BudgetCompareView(BudgetCompareViewModel viewModel, BudgetCompareController controller, User user) {
         this.viewModel = viewModel;
         this.controller = controller;
-        MongoUserRepository userRepository = new MongoUserRepository();
-        LogInOutputData logInOutputData = new LogInOutputData("", false);
-        this.user = userRepository.getUserByLastName("K");
+        this.user = user;
 
         JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
@@ -64,7 +63,6 @@ public class BudgetCompareView {
         frame.setSize(800, 744);
         frame.setResizable(false);
         frame.add(comparePanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
     }

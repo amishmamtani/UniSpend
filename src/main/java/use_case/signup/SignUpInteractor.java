@@ -22,7 +22,7 @@ public class SignUpInteractor implements SignUpInputBoundary{
             signUpOutputBoundary.switchToLogInView();
         }
         else{
-            signUpOutputBoundary.prepareFailView("Account Already Exists!");
+            signUpOutputBoundary.prepareFailView("Account with that Email Already Exists!");
         }
 
     }

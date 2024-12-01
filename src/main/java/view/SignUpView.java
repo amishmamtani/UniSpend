@@ -64,7 +64,7 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
         passwordLabel.setBounds(35, 330, 141, 19);
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JTextField passwordField = new JTextField();
+        JPasswordField passwordField = new JPasswordField();
         passwordField.setBounds(35, 358, 425, 60);
         passwordField.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         passwordField.setBackground(Color.decode("#D6DCE6"));
@@ -119,8 +119,11 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
                 if(firstName.isEmpty() || lastName.isEmpty() || emailId.isEmpty() || password.isEmpty()) {
                         errorList.add("Please fill all the Fields");
                 }
-                else if(!firstName.matches("[a-zA-Z]+") || !lastName.matches("[a-zA-Z]+")) {
-                    errorList.add("Names can only contain a letter");
+                if(!firstName.matches("[a-zA-Z]+") || !lastName.matches("[a-zA-Z]+")) {
+                    errorList.add("Names can only contain letters");
+                }
+                if(!emailId.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")){
+                    errorList.add("Invalid Email Id");
                 }
                 if (errorList.isEmpty()){
                     signUpController.execute(firstName, lastName, emailId, password);
@@ -150,7 +153,7 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
                     JLabel errorLabel = new JLabel(error);
                     errorLabel.setForeground(Color.RED);
                     errorLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-                    errorLabel.setBounds(35, 64, 172,20);
+                    errorLabel.setBounds(35, 64, 400,20);
                     mainPanel.add(errorLabel);
                     mainPanel.repaint();
                     mainPanel.revalidate();

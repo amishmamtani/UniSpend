@@ -1,8 +1,10 @@
 package view;
 
+import entity.User;
 import interface_adapter.home.HomeController;
 import interface_adapter.home.HomeState;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.user.MongoUserRepository;
 import view.components.Heading;
 import view.components.PanelButton;
 
@@ -19,18 +21,22 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     private final String viewName = "home";
     private final HomeController homeController;
     private final HomeViewModel homeViewModel;
+    private String userFirstName = "";
+    private JPanel mainPanel;
 
     public HomeView(HomeController homeController, HomeViewModel homeViewModel) {
         this.homeController = homeController;
         this.homeViewModel = homeViewModel;
+        this.homeViewModel.addPropertyChangeListener(this);
         this.setLayout(null);
         this.setVisible(true);
         this.setBackground(Color.decode("#FFFFFF"));
 
-        String userFirstName = "Amish";
-        String helloString = "Hi there, " + userFirstName;
-        JLabel helloLabel = new Heading(helloString, 30).getHeading();
-        helloLabel.setBounds(35, 38, 400, 43);
+        MongoUserRepository mongoUserRepository = new MongoUserRepository();
+        User user = mongoUserRepository.getUserByEmail(homeViewModel.getState().getEmailId());
+//        String helloString = "Hi there, " + this.userFirstName;
+//        JLabel helloLabel = new Heading(helloString, 30).getHeading();
+//        helloLabel.setBounds(35, 38, 400, 43);
 
         JLabel welcomeLabel = new Heading("What would you like to do?", 30).getHeading();
         welcomeLabel.setBounds(35, 78, 400, 43);
@@ -106,11 +112,12 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 //        compareBudgetButton.setComponentZOrder(compareBudget,0);
 //        compareBudgetButton.setBounds(532, 371, 264, 144);
 
-        this.add(helloLabel);
+        //this.add(helloLabel);
         this.add(welcomeLabel);
         this.add(makeBudgetButton);
         this.add(trackBudgetButton);
         this.add(chatbotButton);
+        mainPanel = this;
         //this.add(compareBudgetButton);
 
 
@@ -152,6 +159,16 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("PropertyChange "+ evt.getNewValue());
         final HomeState state = (HomeState) evt.getNewValue();
+        MongoUserRepository mongoUserRepository = new MongoUserRepository();
+        User user = mongoUserRepository.getUserByEmail(state.getEmailId());
+        userFirstName = user.getFirstName();
+        System.out.println(userFirstName);
+        String helloString = "Hi there, " + userFirstName;
+        JLabel helloLabel = new Heading(helloString, 30).getHeading();
+        helloLabel.setBounds(35, 38, 400, 43);
+        mainPanel.add(helloLabel);
+        mainPanel.repaint();
+        mainPanel.revalidate();
     }
 
     public String getViewName() {

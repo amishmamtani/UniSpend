@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -42,7 +44,7 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
         passwordLabel.setBounds(35, 250, 141, 19);
         passwordLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        JTextField password = new JTextField();
+        JPasswordField password = new JPasswordField();
         password.setBounds(35, 278, 320, 60);
         password.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         password.setBackground(Color.decode("#D6DCE6"));
@@ -72,6 +74,11 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
         this.add(logInButton);
         this.add(logInImage);
 
+        signUp.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                logInController.switchToSignUp();
+            }
+        });
 
         logInButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -79,7 +86,7 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
                 String emailID = emailId.getText();
                 String pass = password.getText();
                 logInController.execute(emailID, pass);
-                logInController.prepareSuccessView();
+//                logInController.prepareSuccessView();
             }
         });
     }

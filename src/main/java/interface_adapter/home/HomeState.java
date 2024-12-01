@@ -10,4 +10,5 @@ public class HomeState {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+
 }

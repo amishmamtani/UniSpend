@@ -131,21 +131,37 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 Map<String, Double> selectedCategories = getSelectedCategories();
                 System.out.println(selectedCategories);
                 MongoUserRepository userRepository = new MongoUserRepository();
-
+                System.out.println("Budget Maker Email: " + budgetViewModel.getState().getEmailId());
                 budgetController.createBudget(income, selectedCategories, userRepository.getUserByEmail(budgetViewModel.getState().getEmailId()));
                 final BudgetState currentState = budgetViewModel.getState();
 
-                //JFrame pieChartPopUp = new JFrame();
-                PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
+                if(!currentState.getCategoryAllocations().containsKey("Impossible")){
+                    PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
 
-                ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
-                chartPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-                chartPanel.setBackground(Color.decode("#FFFFFF"));
-                chartPanel.setBounds(400, 80, 380, 380);
-                chartPanel.setVisible(true);
-                mainPanel.add(chartPanel);
-                mainPanel.repaint();
-                mainPanel.revalidate();
+                    ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
+                    chartPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+                    chartPanel.setBackground(Color.decode("#FFFFFF"));
+                    chartPanel.setBounds(400, 80, 380, 380);
+                    chartPanel.setVisible(true);
+                    mainPanel.add(chartPanel);
+                    mainPanel.setComponentZOrder(chartPanel,0);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                }
+                else{
+                    JDialog dialog = new JDialog();
+                    dialog.setTitle("");
+                    dialog.setSize(310, 130);
+                    dialog.setLayout(null);
+                    dialog.setModal(true);
+                    JLabel message = new JLabel("<html>To ensure all essential needs are met, " +
+                            "the income entered should be higher. Please adjust the input accordingly.</html>");
+                    message.setBounds(30, 10, 250, 80);
+                    dialog.add(message);
+                    dialog.setVisible(true);
+                }
+
+                //JFrame pieChartPopUp = new JFrame();
 
             }
         });
