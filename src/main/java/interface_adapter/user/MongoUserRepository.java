@@ -39,6 +39,9 @@ public class MongoUserRepository implements UserRepository {
             usersCollection.insertOne(toDocument(user));
         }
     }
+    public void deleteUserByEmail(String email) {
+        usersCollection.deleteOne(new Document("email", email));
+    }
 
     @Override
     public User getUserByLastName(String lastName) {
