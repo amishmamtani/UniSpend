@@ -28,6 +28,7 @@ public class BudgetPresenter implements BudgetOutputBoundary {
         budgetState.setInvestments(outputData.getInvestments());
         budgetState.setCategoryAllocations((HashMap<String, Double>) outputData.getCategoryAllocations());
         budgetState.setSavings(outputData.getSavings());
+        budgetState.setEmailId(outputData.getUser().getEmail());
         // Update the ViewModel with the new state
         viewModel.setState(budgetState);
         viewModel.firePropertyChanged(); // Notify listeners that the state has changed

@@ -35,6 +35,7 @@ public class HomePresenter implements HomeOutputBoundary {
 
     @Override
     public void switchToBudgetTracker() {
+        budgetTrackerViewModel.getState().setEmailId(homeViewModel.getState().getEmailId());
         viewManagerModel.setState(budgetTrackerViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

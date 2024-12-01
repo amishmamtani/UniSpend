@@ -47,7 +47,7 @@ public class BudgetTrackerInteractor implements BudgetTrackerInputBoundary {
         userRepository.saveUser(user);
 
         BudgetTrackerOutputData trackerOutputData = new BudgetTrackerOutputData(income, alreadySpentCategories,
-                unspent_income, spent_more_than_income);
+                unspent_income, spent_more_than_income, user);
         budgetTrackerPresenter.presentBudgetTracker(trackerOutputData);
     }
 

@@ -41,9 +41,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
     public BudgetTrackerView(BudgetTrackerViewModel viewModel, BudgetTrackerController controller) {
         this.budgetTrackerController = controller;
         this.budgetTrackerViewModel = viewModel;
-        // will change the next line to the name stored when logging in
-        this.currentUser = userRepository.getUserByLastName("K");
-        this.income = currentUser.getIncome();
+
 
         ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
         JLabel backButton = new JLabel(backIcon);
@@ -70,9 +68,10 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         this.add(createNewButton);
         this.add(addButton);
         this.add(backButton);
-
-        if (currentUser.getBudgetTracker().size() > 0) {
-            this.add(spendingAnalysisButton);
+        if(!(this.currentUser == null)) {
+            if (currentUser.getBudgetTracker().size() > 0) {
+                this.add(spendingAnalysisButton);
+            }
         }
         this.setLayout(null);
         this.setBackground(Color.decode("#FFFFFF"));
@@ -86,7 +85,9 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         createNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("create new clicked");
-
+                System.out.println(viewModel.getState().getEmailId());
+                currentUser = userRepository.getUserByEmail(viewModel.getState().getEmailId());
+                income = currentUser.getIncome();
                 System.out.println(income);
                 categorySpending.put("UNSPENT INCOME", income);
 
@@ -168,11 +169,10 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         LogCard logCard = new LogCard(categorySpentOn, amountSpentTextField.getText());
                         logCard.setBounds(35,95+50*distance,320, 45);
                         distance += 1;
-
                         budgetTrackerController.createBudgetTracker(income, currentUser.getBudgetTracker(), amountSpent,
                                 categorySpentOn, currentUser);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
-                        currentUser = userRepository.getUserByLastName("K");
+                        //currentUser = userRepository.getUserByLastName("K");
                         System.out.println(currentState.getAlreadySpentCategories());
                         PieChart pieChart = new PieChart("Budget Tracker",
                                 currentState.getAlreadySpentCategories());
@@ -185,13 +185,15 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         mainPanel.setComponentZOrder(chartPanel, 0);
 
                         if (currentState.isSpent_more_than_income()) {
-                            String userEmail = "amishmamtani@gmail.com";
-                            String userFirstName = "Amish";
-//                            String userEmail = currentUser.getEmail();
-//                            String userFirstName = currentUser.getFirstName();
-                            new EmailSender().sendEmail(userEmail,
-                                    "Your wallet’s waving a little red flag \uD83D\uDEA9",
-                                    "<html>Hi "+ userFirstName+ "!<br>"+System.getenv("OVER_BUDGET_EMAIL"));
+                            String userEmail = currentUser.getEmail();
+                            String userFirstName = currentUser.getFirstName();
+                            try {
+                                new EmailSender().sendEmail(userEmail,
+                                        "Your wallet’s waving a little red flag \uD83D\uDEA9",
+                                        "<html>Hi "+ userFirstName+ "!<br>"+System.getenv("OVER_BUDGET_EMAIL"));
+                            } catch (EmailSender.InvalidEmailException ex) {
+                                System.err.println(ex.getMessage());
+                            }
                             JLabel warningLabel = new JLabel("Warning: you have spent more than your income.");
                             warningLabel.setBounds(420,490, 331,19);
                             warningLabel.setFont(new Font("Arial", Font.PLAIN, 14));

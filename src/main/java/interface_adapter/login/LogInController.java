@@ -16,4 +16,8 @@ public class LogInController {
         final LogInInputData inputData = new LogInInputData(username, password);
         logInInteractor.execute(inputData);
     }
+
+    public void switchToSignUp(){
+        logInInteractor.switchToSignUp();
+    }
 }

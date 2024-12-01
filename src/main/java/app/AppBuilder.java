@@ -38,7 +38,7 @@ public class AppBuilder {
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     private SignUpView signUpView;
-    private SignUpViewModel signUpViewModel;
+    private SignUpViewModel signUpViewModel = new SignUpViewModel();
     private SignUpInteractor signUpInteractor;
     private SignUpController signUpController;
     private SignUpPresenter signUpPresenter;
@@ -68,7 +68,7 @@ public class AppBuilder {
     private ChatBotInteractor chatBotInteractor;
 
     private HomeView homeView;
-    private HomeViewModel homeViewModel;
+    private HomeViewModel homeViewModel = new HomeViewModel();
     private HomeController homeController;
     private HomePresenter homePresenter;
     private HomeInteractor homeInteractor;
@@ -81,7 +81,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addSignUp() {
-        signUpViewModel = new SignUpViewModel();
+        //signUpViewModel = new SignUpViewModel();
         signUpPresenter = new SignUpPresenter(viewManagerModel, signUpViewModel, logInViewModel);
         signUpInteractor = new SignUpInteractor(signUpPresenter);
         signUpController = new SignUpController(signUpInteractor);
@@ -92,7 +92,7 @@ public class AppBuilder {
 
     public AppBuilder addLogIn() {
         logInViewModel = new LogInViewModel();
-        logInPresenter = new LogInPresenter(logInViewModel, homeViewModel, viewManagerModel);
+        logInPresenter = new LogInPresenter(logInViewModel, homeViewModel, viewManagerModel, signUpViewModel);
         logInInteractor = new LogInInteractor(logInPresenter);
         logInController = new LogInController(logInInteractor);
         logInView = new LogInView(logInController, logInViewModel);
@@ -101,7 +101,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addHome() {
-        homeViewModel = new HomeViewModel();
+        //homeViewModel = new HomeViewModel();
         homePresenter = new HomePresenter(viewManagerModel, homeViewModel,
                 budgetViewModel, budgetTrackerViewModel, chatBotViewModel,
                 budgetCompareViewModel);
@@ -114,7 +114,7 @@ public class AppBuilder {
 
     public AppBuilder addBudgetMaker() {
         budgetViewModel = new BudgetViewModel();
-        homeViewModel = new HomeViewModel();
+        //homeViewModel = new HomeViewModel();
         budgetPresenter = new BudgetPresenter(viewManagerModel, budgetViewModel, homeViewModel);
         budgetInteractor = new BudgetInteractor(budgetPresenter);
         budgetController = new BudgetController(budgetInteractor);
@@ -125,7 +125,7 @@ public class AppBuilder {
 
     public AppBuilder addBudgetTracker() {
         budgetTrackerViewModel = new BudgetTrackerViewModel();
-        homeViewModel = new HomeViewModel();
+        //homeViewModel = new HomeViewModel();
         budgetTrackerPresenter = new BudgetTrackerPresenter(viewManagerModel, budgetTrackerViewModel, homeViewModel);
         budgetTrackerInteractor = new BudgetTrackerInteractor(budgetTrackerPresenter);
         budgetTrackerController = new BudgetTrackerController(budgetTrackerInteractor);
@@ -136,7 +136,7 @@ public class AppBuilder {
 
     public AppBuilder addChatbot() {
         chatBotViewModel = new ChatBotViewModel();
-        homeViewModel = new HomeViewModel();
+        //homeViewModel = new HomeViewModel();
         chatBotPresenter = new ChatBotPresenter(viewManagerModel, chatBotViewModel, homeViewModel);
         chatBotInteractor = new ChatBotInteractor(chatBotPresenter);
         chatBotController = new ChatBotController(chatBotInteractor);
