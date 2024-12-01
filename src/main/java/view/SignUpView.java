@@ -102,7 +102,8 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
         logIn.setBounds(212, 438, 60,20);
 
         // Create and configure the sign-up button
-        JButton signUpButton = new ColouredButton("Sign Up", "#1A1A1A", "#FFFFFF", 16).getButton();
+        JButton signUpButton = new ColouredButton("Sign Up", "#1A1A1A", "#FFFFFF",
+                16).getButton();
         signUpButton.setBounds(35, 480, 425, 60);
 
         // Create and configure the sign-up image

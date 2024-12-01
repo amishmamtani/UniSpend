@@ -164,7 +164,8 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 System.out.println(selectedCategories);
                 MongoUserRepository userRepository = new MongoUserRepository();
                 System.out.println("Budget Maker Email: " + budgetViewModel.getState().getEmailId());
-                budgetController.createBudget(income, selectedCategories, userRepository.getUserByEmail(budgetViewModel.getState().getEmailId()));
+                budgetController.createBudget(income, selectedCategories,
+                        userRepository.getUserByEmail(budgetViewModel.getState().getEmailId()));
                 final BudgetState currentState = budgetViewModel.getState();
 
                 if(!currentState.getCategoryAllocations().containsKey("Impossible")){

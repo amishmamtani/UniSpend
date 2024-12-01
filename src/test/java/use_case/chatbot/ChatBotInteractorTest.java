@@ -19,8 +19,10 @@ class ChatBotInteractorTest {
     void setUp() {
         // Initialize mock responses for testing
         mockResponses = new ArrayList<>();
-        mockResponses.add(new VectorizedResponse("Matched response", new double[]{0.1, 0.2, 0.3, 0.4, 0.5}));
-        mockResponses.add(new VectorizedResponse("Non-matching response", new double[]{0.6, 0.7, 0.8, 0.9, 1.0}));
+        mockResponses.add(new VectorizedResponse("Matched response",
+                new double[]{0.1, 0.2, 0.3, 0.4, 0.5}));
+        mockResponses.add(new VectorizedResponse("Non-matching response",
+                new double[]{0.6, 0.7, 0.8, 0.9, 1.0}));
     }
 
     @Test
@@ -56,7 +58,8 @@ class ChatBotInteractorTest {
         ChatBotInputData inputData = new ChatBotInputData(new Question("Test question"));
         interactor.generateResponse(inputData);
 
-        assertEquals("Sorry, I couldn't find an answer to your question.", interactor.getGeneratedAnswer().getAnswer());
+        assertEquals("Sorry, I couldn't find an answer to your question.",
+                interactor.getGeneratedAnswer().getAnswer());
     }
 
 

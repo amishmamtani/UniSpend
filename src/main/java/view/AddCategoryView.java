@@ -36,14 +36,14 @@ public class AddCategoryView extends JPanel {
         // Create and configure the text field for entering the category name
         JTextField newCategoryTextField = new JTextField("Category");
         newCategoryTextField.setBounds(30, 81, 233, 60);
-        newCategoryTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10)); // Remove borders
+        newCategoryTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         newCategoryTextField.setBackground(Color.decode("#D6DCE6")); // Set background color
         category = newCategoryTextField;
 
         // Create and configure the text field for entering the percentage
         JTextField percentageTextField = new JTextField("%");
         percentageTextField.setBounds(270, 81, 99, 60);
-        percentageTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10)); // Remove borders
+        percentageTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         percentageTextField.setBackground(Color.decode("#D6DCE6")); // Set background color
         percentage = percentageTextField;
 

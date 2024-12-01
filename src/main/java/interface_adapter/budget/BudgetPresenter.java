@@ -31,7 +31,8 @@ public class BudgetPresenter implements BudgetOutputBoundary {
      * @param viewModel        The ViewModel for managing the budget state.
      * @param homeViewModel    The ViewModel for the home view.
      */
-    public BudgetPresenter(ViewManagerModel viewManagerModel, ViewModel<BudgetState> viewModel, HomeViewModel homeViewModel) {
+    public BudgetPresenter(ViewManagerModel viewManagerModel, ViewModel<BudgetState> viewModel,
+                           HomeViewModel homeViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.viewModel = viewModel;
         this.homeViewModel = homeViewModel;
