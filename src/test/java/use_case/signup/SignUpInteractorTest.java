@@ -45,7 +45,8 @@ class SignUpInteractorTest {
     void testExecute_AccountAlreadyExists() {
         SignUpInputData inputData = new SignUpInputData(
                 "Hugh", "Janus", "testlogin.doe@example.com", "password123");
-        User existingUser = new User("Hugh", "Janus","password123", "testlogin.doe@example.com");
+        User existingUser = new User("Hugh", "Janus","password123",
+                "testlogin.doe@example.com");
         userRepository.saveUser(existingUser);
 
         interactor.execute(inputData);

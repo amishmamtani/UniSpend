@@ -24,7 +24,8 @@ public class BudgetTrackerPresenter implements BudgetTrackerOutputBoundary {
     private final BudgetTrackerState budgetTrackerState = new BudgetTrackerState();
 
     /**
-     * Constructs a BudgetTrackerPresenter with the specified view manager, budget tracker view model, and home view model.
+     * Constructs a BudgetTrackerPresenter with the specified view manager, budget tracker view model,
+     * and home view model.
      *
      * @param viewManagerModel The view manager for managing navigation.
      * @param viewModel        The ViewModel for managing the budget tracker state.

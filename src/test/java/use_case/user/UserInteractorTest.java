@@ -21,7 +21,8 @@ public class UserInteractorTest {
 
     @Test
     void testCreateUserWithIncomeAndBudget() {
-        User user = new User("John", "Doe", "password123", "john.doe@example.com", 5000.0);
+        User user = new User("John", "Doe", "password123",
+                "john.doe@example.com", 5000.0);
         HashMap<String, Double> budget = new HashMap<>();
         budget.put("Housing", 1500.0);
         budget.put("Food", 500.0);
@@ -39,7 +40,8 @@ public class UserInteractorTest {
 
     @Test
     void testUpdateUserBudget() {
-        User user = new User("Jane", "Smith", "password123", "jane.smith@example.com", 3000.0);
+        User user = new User("Jane", "Smith", "password123",
+                "jane.smith@example.com", 3000.0);
         userRepository.saveUser(user);
 
         HashMap<String, Double> newBudget = new HashMap<>();
@@ -58,7 +60,8 @@ public class UserInteractorTest {
 
     @Test
     void testFetchUserWithBudgetTracker() {
-        User user = new User("Alice", "Johnson", "password123", "alice.johnson@example.com", 4000.0);
+        User user = new User("Alice", "Johnson", "password123",
+                "alice.johnson@example.com", 4000.0);
         HashMap<String, Double> budgetTracker = new HashMap<>();
         budgetTracker.put("Housing", 1000.0);
         budgetTracker.put("Food", 300.0);
@@ -70,23 +73,28 @@ public class UserInteractorTest {
 
         assertNotNull(outputData, "Output data should not be null for an existing user.");
         assertEquals(user, outputData.getUser(), "The fetched user should match the one in the repository.");
-        assertEquals(budgetTracker, outputData.getUser().getBudgetTracker(), "The user's budget tracker should be retrieved correctly.");
+        assertEquals(budgetTracker, outputData.getUser().getBudgetTracker(),
+                "The user's budget tracker should be retrieved correctly.");
     }
 
     @Test
     void testDeleteUser() {
-        User user = new User("Tom", "Williams", "password123", "tom.williams@example.com");
+        User user = new User("Tom", "Williams", "password123",
+                "tom.williams@example.com");
         userRepository.saveUser(user);
 
         userRepository.deleteUserByLastName("Williams");
 
-        assertNull(userRepository.getUserByLastName("Williams"), "The user should be deleted from the repository.");
+        assertNull(userRepository.getUserByLastName("Williams"),
+                "The user should be deleted from the repository.");
     }
 
     @Test
     void testGetAllUsers() {
-        User user1 = new User("Emma", "Brown", "password123", "emma.brown@example.com", 3000.0);
-        User user2 = new User("Liam", "Davis", "password123", "liam.davis@example.com", 4000.0);
+        User user1 = new User("Emma", "Brown", "password123",
+                "emma.brown@example.com", 3000.0);
+        User user2 = new User("Liam", "Davis", "password123",
+                "liam.davis@example.com", 4000.0);
 
         userRepository.saveUser(user1);
         userRepository.saveUser(user2);
@@ -112,15 +120,18 @@ public class UserInteractorTest {
 
         assertNotNull(savedUser, "The user should be saved in the repository even if some fields are null.");
         assertNull(savedUser.getFirstName(), "The user's first name should be null.");
-        assertEquals("Doe", savedUser.getLastName(), "The user's last name should be saved correctly.");
+        assertEquals("Doe", savedUser.getLastName(),
+                "The user's last name should be saved correctly.");
         assertNull(savedUser.getPassword(), "The user's password should be null.");
-        assertEquals("john.doe@example.com", savedUser.getEmail(), "The user's email should be saved correctly.");
+        assertEquals("john.doe@example.com", savedUser.getEmail(),
+                "The user's email should be saved correctly.");
     }
 
     @Test
     void testUpdateUserWithNullBudget() {
         // Save an initial user
-        User user = new User("Jane", "Smith", "password123", "jane.smith@example.com", 3000.0);
+        User user = new User("Jane", "Smith", "password123",
+                "jane.smith@example.com", 3000.0);
         userRepository.saveUser(user);
 
         // Update the user with a null budget
@@ -157,7 +168,8 @@ public class UserInteractorTest {
         userRepository.deleteUserByLastName(null);
 
         // Verify no exceptions or errors occur, and no users are affected
-        assertTrue(userRepository.getAllUsers().iterator().hasNext() == false, "The repository should remain unaffected.");
+        assertTrue(userRepository.getAllUsers().iterator().hasNext() == false,
+                "The repository should remain unaffected.");
     }
 
     @Test
@@ -171,7 +183,8 @@ public class UserInteractorTest {
         User savedUser = userRepository.getUserByLastName("");
 
         assertNotNull(savedUser, "The user with empty fields should be saved in the repository.");
-        assertEquals("", savedUser.getFirstName(), "The user's first name should be an empty string.");
+        assertEquals("", savedUser.getFirstName(),
+                "The user's first name should be an empty string.");
         assertEquals("", savedUser.getLastName(), "The user's last name should be an empty string.");
         assertEquals("", savedUser.getPassword(), "The user's password should be an empty string.");
         assertEquals("", savedUser.getEmail(), "The user's email should be an empty string.");
@@ -180,7 +193,8 @@ public class UserInteractorTest {
     @Test
     void testUpdateUserWithNullLastName() {
         // Save an initial user
-        User user = new User("Alice", "Brown", "password123", "alice.brown@example.com", 4000.0);
+        User user = new User("Alice", "Brown",
+                "password123", "alice.brown@example.com", 4000.0);
         userRepository.saveUser(user);
 
         // Attempt to update the user with a null last name
@@ -192,6 +206,7 @@ public class UserInteractorTest {
         // Verify the original user remains unchanged
         User savedUser = userRepository.getUserByLastName("Brown");
         assertNotNull(savedUser, "The original user should remain in the repository.");
-        assertEquals("Alice", savedUser.getFirstName(), "The user's first name should remain unchanged.");
+        assertEquals("Alice", savedUser.getFirstName(),
+                "The user's first name should remain unchanged.");
     }
 }

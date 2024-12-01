@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A class for creating and managing a custom-colored button with specific text, background color, text color, and font size.
+ * A class for creating and managing a custom-colored button with specific text, background color,
+ * text color, and font size.
  */
 public class ColouredButton {
 

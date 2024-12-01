@@ -78,7 +78,8 @@ public class LogInView extends JPanel implements ActionListener, PropertyChangeL
         signUp.setBounds(192, 358, 60,20);
 
         // Create and configure the log in button
-        JButton logInButton = new ColouredButton("Log In", "#1A1A1A", "#FFFFFF", 16).getButton();
+        JButton logInButton = new ColouredButton("Log In", "#1A1A1A",
+                "#FFFFFF", 16).getButton();
         logInButton.setBounds(35, 480, 320, 60);
 
         // Create and configure the login image

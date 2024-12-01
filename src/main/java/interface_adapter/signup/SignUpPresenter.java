@@ -26,7 +26,8 @@ public class SignUpPresenter implements SignUpOutputBoundary {
      * @param signUpViewModel  The ViewModel for managing the sign-up state.
      * @param logInViewModel   The ViewModel for managing the login state.
      */
-    public SignUpPresenter(ViewManagerModel viewManagerModel, SignUpViewModel signUpViewModel, LogInViewModel logInViewModel) {
+    public SignUpPresenter(ViewManagerModel viewManagerModel, SignUpViewModel signUpViewModel,
+                           LogInViewModel logInViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signUpViewModel = signUpViewModel;
         this.logInViewModel = logInViewModel;

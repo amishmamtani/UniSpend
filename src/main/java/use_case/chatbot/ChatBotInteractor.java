@@ -60,7 +60,8 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
             double[] userQuestionVector = vectorizeUserQuestion(question);
             VectorizedResponse bestMatch = findBestMatch(userQuestionVector);
 
-            String responseText = bestMatch != null ? bestMatch.getResponse() : "Sorry, I couldn't find an answer to your question.";
+            String responseText = bestMatch != null ?
+                    bestMatch.getResponse() : "Sorry, I couldn't find an answer to your question.";
             Answer answer = new Answer(responseText);
 
             ChatBotOutputData outputData = new ChatBotOutputData(answer);
@@ -147,7 +148,8 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
                 String responseBody = response.body().string();
-                JSONArray embeddings = new JSONObject(responseBody).getJSONArray("embeddings").getJSONArray(0);
+                JSONArray embeddings = new JSONObject(responseBody).getJSONArray(
+                        "embeddings").getJSONArray(0);
 
                 double[] vector = new double[embeddings.length()];
                 for (int i = 0; i < embeddings.length(); i++) {

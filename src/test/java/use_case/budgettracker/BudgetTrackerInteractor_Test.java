@@ -24,7 +24,8 @@ public class BudgetTrackerInteractor_Test {
 //        BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
 //            @Override
 //            public void presentBudgetTracker(BudgetTrackerOutputData budgetTrackerOutputData) {
-//                HashMap<String, Double> actualAlreadySpentCategories = budgetTrackerOutputData.getAlreadySpentCategories();
+//                HashMap<String, Double> actualAlreadySpentCategories =
+//                budgetTrackerOutputData.getAlreadySpentCategories();
 //                HashMap<String, Double> expectedAlreadySpentCategories = new HashMap<>(Map.of(
 //                        "UNSPENT INCOME", 5000.0
 //                ));
@@ -57,7 +58,8 @@ public class BudgetTrackerInteractor_Test {
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
             public void presentBudgetTracker(BudgetTrackerOutputData budgetTrackerOutputData) {
-                HashMap<String, Double> actualAlreadySpentCategories = budgetTrackerOutputData.getAlreadySpentCategories();
+                HashMap<String, Double> actualAlreadySpentCategories =
+                        budgetTrackerOutputData.getAlreadySpentCategories();
                 HashMap<String, Double> expectedAlreadySpentCategories = new HashMap<>(Map.of(
                         "UNSPENT INCOME", 5000.0
                 ));
@@ -110,7 +112,8 @@ public class BudgetTrackerInteractor_Test {
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
             public void presentBudgetTracker(BudgetTrackerOutputData budgetTrackerOutputData) {
-                HashMap<String, Double> actualAlreadySpentCategories = budgetTrackerOutputData.getAlreadySpentCategories();
+                HashMap<String, Double> actualAlreadySpentCategories =
+                        budgetTrackerOutputData.getAlreadySpentCategories();
                 HashMap<String, Double> expectedAlreadySpentCategories = new HashMap<>(Map.of(
                         "HOUSING", 2000.0,
                         "ENTERTAINMENT", 0.0,
@@ -166,7 +169,8 @@ public class BudgetTrackerInteractor_Test {
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
             public void presentBudgetTracker(BudgetTrackerOutputData budgetTrackerOutputData) {
-                HashMap<String, Double> actualAlreadySpentCategories = budgetTrackerOutputData.getAlreadySpentCategories();
+                HashMap<String, Double> actualAlreadySpentCategories =
+                        budgetTrackerOutputData.getAlreadySpentCategories();
                 HashMap<String, Double> expectedAlreadySpentCategories = new HashMap<>(Map.of(
                         "HOUSING", 2000.0,
                         "ENTERTAINMENT", 0.0,
@@ -226,7 +230,8 @@ public class BudgetTrackerInteractor_Test {
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
             public void presentBudgetTracker(BudgetTrackerOutputData budgetTrackerOutputData) {
-                HashMap<String, Double> actualAlreadySpentCategories = budgetTrackerOutputData.getAlreadySpentCategories();
+                HashMap<String, Double> actualAlreadySpentCategories =
+                        budgetTrackerOutputData.getAlreadySpentCategories();
                 HashMap<String, Double> expectedAlreadySpentCategories = new HashMap<>(Map.of(
                         "HOUSING", 2000.0,
                         "ENTERTAINMENT", 0.0,
@@ -285,7 +290,8 @@ public class BudgetTrackerInteractor_Test {
         BudgetTrackerOutputBoundary updatedAllocations = new BudgetTrackerOutputBoundary() {
             @Override
             public void presentBudgetTracker(BudgetTrackerOutputData budgetTrackerOutputData) {
-                HashMap<String, Double> actualAlreadySpentCategories = budgetTrackerOutputData.getAlreadySpentCategories();
+                HashMap<String, Double> actualAlreadySpentCategories =
+                        budgetTrackerOutputData.getAlreadySpentCategories();
                 HashMap<String, Double> expectedAlreadySpentCategories = new HashMap<>(Map.of(
                         "UNSPENT INCOME", -3150.0,
                         "HOUSING", 2000.0,

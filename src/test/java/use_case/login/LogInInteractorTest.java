@@ -37,7 +37,8 @@ class LogInInteractorTest {
 
     @Test
     void testExecute_IncorrectPassword() {
-        User existingUser = new User("Ben", "Dover","password123", "testlogin@gmail.com");
+        User existingUser = new User("Ben", "Dover","password123",
+                "testlogin@gmail.com");
         userRepository.saveUser(existingUser);
         LogInInputData inputData = new LogInInputData("testlogin@gmail.com", "wrongpassword");
 
@@ -48,7 +49,8 @@ class LogInInteractorTest {
 
     @Test
     void testExecute_SuccessfulLogin() {
-        User existingUser = new User("Ben", "Dover","password123", "testlogin@gmail.com");
+        User existingUser = new User("Ben", "Dover","password123",
+                "testlogin@gmail.com");
         userRepository.saveUser(existingUser);
         LogInInputData inputData = new LogInInputData("testlogin@gmail.com", "password123");
 
