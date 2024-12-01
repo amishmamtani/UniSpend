@@ -1,6 +1,7 @@
 package view;
 
 import entity.User;
+import interface_adapter.budgetcompare.BudgetCompareState;
 import interface_adapter.user.MongoUserRepository;
 import org.jfree.chart.ChartPanel;
 import use_case.login.LogInOutputData;
@@ -36,20 +37,23 @@ public class BudgetCompareView {
         JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
 
-        HashMap<String, Double> advisedAllocations = new HashMap<>(user.getBudget());
-        HashMap<String, Double> spentAllocations = new HashMap<>(user.getBudgetTracker());
+        this.controller.createBudgetCompare(this.user);
+        final BudgetCompareState currentState = this.viewModel.getState();
+        HashMap<String, Double> finalSpentCategories = new HashMap<>();
+        for (String key: currentState.getAdvisedAllocations().keySet()) {
+            String uppercaseKey = key.toUpperCase();
+            Double value = currentState.getAdvisedAllocations().get(key);
+            currentState.getAdvisedAllocations().remove(key);
+            currentState.getAdvisedAllocations().put(uppercaseKey, value);
 
-        for (String key : advisedAllocations.keySet()) {
-            for (String key2 : spentAllocations.keySet()) {
-                if (key.equals(key2)) {
-                    spentAllocations.remove(key2);
+            for (String key2  : currentState.getSpentAllocations().keySet()) {
+                if (key2.equals(key)) {
+                    finalSpentCategories.put(key2, currentState.getSpentAllocations().get(key2));
                 }
             }
         }
-
-//        System.out.println(user.getBudget());
         BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
-                advisedAllocations, spentAllocations);
+                currentState.getAdvisedAllocations(), finalSpentCategories);
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
         chartPanel.setPreferredSize(new java.awt.Dimension( 600 , 600));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
