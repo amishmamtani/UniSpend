@@ -16,10 +16,13 @@ public class SignUpInteractor implements SignUpInputBoundary{
         if (userRepository.getUserByEmail(signUpInputData.getEmail()) == null) {
             User newUser = new User(signUpInputData.getFirstName(),
                     signUpInputData.getLastName(),
-                    signUpInputData.getEmail(),
-                    signUpInputData.getPassword());
+                    signUpInputData.getPassword(),
+                    signUpInputData.getEmail());
             userRepository.saveUser(newUser);
             signUpOutputBoundary.switchToLogInView();
+        }
+        else{
+            signUpOutputBoundary.prepareFailView("Account Already Exists!");
         }
 
     }

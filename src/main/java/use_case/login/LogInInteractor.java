@@ -28,7 +28,7 @@ public class LogInInteractor implements LogInInputBoundary{
             }
             else {
                 // set current user
-                logInOutputBoundary.prepareSuccessView(new LogInOutputData("", false));
+                logInOutputBoundary.prepareSuccessView(new LogInOutputData(emailID, false));
             }
         }
     }
