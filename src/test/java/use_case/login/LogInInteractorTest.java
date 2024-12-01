@@ -69,14 +69,30 @@ class LogInInteractorTest {
         assertEquals("testlogin@gmail.com", outputBoundary.successData.getUsername());
     }
 
+    @Test
+    void testSwitchToSignUpView() {
+        // Act
+        interactor.switchToSignUp();
+
+        // Assert
+        assertTrue(outputBoundary.switchToSignUpViewCalled);
+    }
+
+
     // Helper class for the output boundary
     private static class TestLogInOutputBoundary implements LogInOutputBoundary {
         String failMessage = null;
         LogInOutputData successData = null;
+        boolean switchToSignUpViewCalled = false;
 
         @Override
         public void prepareFailView(String message) {
             failMessage = message;
+        }
+
+        @Override
+        public void switchToSignUp() {
+            switchToSignUpViewCalled = true;
         }
 
         @Override
