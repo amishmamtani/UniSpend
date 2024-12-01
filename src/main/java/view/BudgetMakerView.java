@@ -194,6 +194,7 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                     }
                 }
                 else{
+
                     JDialog dialog = new JDialog();
                     dialog.setTitle("");
                     dialog.setSize(310, 130);

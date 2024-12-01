@@ -20,7 +20,8 @@ public class MongoUserRepositoryTest {
 
     @Test
     public void testSaveAndRetrieveBudgetAndTracker() {
-        User user = new User("Alice", "Brown", "password123", "alice.brown@example.com");
+        User user = new User("Alice", "Brown", "password123",
+                "alice.brown@example.com");
         user.setIncome(60000.0);//rand
 
         HashMap<String, Double> budget = new HashMap<>();
@@ -55,7 +56,8 @@ public class MongoUserRepositoryTest {
 
     @Test
     public void testUpdateBudgetAndTracker() {
-        User user = new User("Bob", "Smith", "securepassword", "bob.smith@example.com");
+        User user = new User("Bob", "Smith", "securepassword",
+                "bob.smith@example.com");
         user.setIncome(75000.0);
 
         HashMap<String, Double> initialBudget = new HashMap<>();

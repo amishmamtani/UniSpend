@@ -27,10 +27,6 @@ public class BudgetCompareInputData {
     /**
      * (Deprecated) Constructs a BudgetCompareInputData object with advised and spent allocations.
      */
-//    public BudgetCompareInputData(HashMap<String, Double> advisedAllocations, HashMap<String, Double> spentAllocations){
-//        this.advisedAllocations = advisedAllocations;
-//        this.spentAllocations = spentAllocations;
-//    }
 
     /**
      * Retrieves the advised allocations for the budget categories.

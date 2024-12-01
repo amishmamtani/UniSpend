@@ -5,7 +5,8 @@ import entity.User;
 import java.util.Map;
 
 /**
- * Encapsulates the output data for a budget, including income, category allocations, savings, investments, and user details.
+ * Encapsulates the output data for a budget, including income, category allocations, savings, investments,
+ * and user details.
  */
 public class BudgetOutputData {
     /** The user's total income */

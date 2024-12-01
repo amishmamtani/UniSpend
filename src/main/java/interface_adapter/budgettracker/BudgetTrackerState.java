@@ -65,8 +65,8 @@ public class BudgetTrackerState {
      * @param unspent_income        The amount of unspent income remaining.
      * @param spent_more_than_income A boolean indicating overspending.
      */
-    public BudgetTrackerState(double income, HashMap<String, Double> alreadySpentCategories, double unspent_income,
-                              boolean spent_more_than_income) {
+    public BudgetTrackerState(double income, HashMap<String, Double> alreadySpentCategories,
+                              double unspent_income, boolean spent_more_than_income) {
         this.income = income;
         this.alreadySpentCategories = alreadySpentCategories;
         this.unspent_income = unspent_income;

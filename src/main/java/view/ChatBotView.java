@@ -61,10 +61,12 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
     ));
 
     /** The API URL for translation from the source language to English */
-    private static final String TRANSLATION_API_URL_EN = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-<source>-en";
+    private static final String TRANSLATION_API_URL_EN =
+            "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-<source>-en";
 
     /** The API URL for translation from English to French */
-    private static final String TRANSLATION_API_URL_FR = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr";
+    private static final String TRANSLATION_API_URL_FR =
+            "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr";
 
     /** The environment variables loaded using dotenv */
     private final Dotenv dotenv = Dotenv.load();
@@ -105,7 +107,8 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
         textInput.setBackground(Color.decode("#FFFFFF"));
 
         // Create the send button
-        JButton sendButton = new ColouredButton("Send", "#1A1A1A", "#FFFFFF", 15).getButton();
+        JButton sendButton = new ColouredButton("Send", "#1A1A1A",
+                "#FFFFFF", 15).getButton();
         sendButton.setBounds(680, 496, 130, 60);
 
         // Set up the language selection buttons (English and French)
@@ -219,9 +222,11 @@ public class ChatBotView extends JPanel implements ActionListener, PropertyChang
         if (!questionText.isEmpty()) {
             if (!"English".equals(selectedLanguage)) {
                 try {
-                    questionText = translateWithRetry(questionText, TRANSLATION_API_URL_EN.replace("<source>", languageMap.get(selectedLanguage)));
+                    questionText = translateWithRetry(questionText, TRANSLATION_API_URL_EN.replace(
+                            "<source>", languageMap.get(selectedLanguage)));
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Error translating question: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this,
+                            "Error translating question: " + ex.getMessage());
                     return;
                 }
             }
