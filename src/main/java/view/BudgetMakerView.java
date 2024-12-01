@@ -1,10 +1,8 @@
 package view;
 
-import entity.User;
 import interface_adapter.budget.BudgetController;
 import interface_adapter.budget.BudgetState;
 import interface_adapter.budget.BudgetViewModel;
-import interface_adapter.home.HomeState;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.user.MongoUserRepository;
 import view.components.ColouredButton;
@@ -50,8 +48,8 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
     /** The main panel containing the components of the view */
     private JPanel mainPanel;
 
-    /** The x-coordinate offset for positioning dynamically added checkboxes */
-    private int x = 0;
+    /** The y-coordinate offset for positioning dynamically added checkboxes */
+    private int disctance = 0;
 
     /**
      * Constructs a BudgetMakerView instance with the specified view model and controller.
@@ -158,41 +156,55 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         createBudgetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("create budget clicked");
-                Double income = Double.parseDouble(incomeTextField.getText());
-                System.out.println(income);
-                Map<String, Double> selectedCategories = getSelectedCategories();
-                System.out.println(selectedCategories);
-                MongoUserRepository userRepository = new MongoUserRepository();
-                System.out.println("Budget Maker Email: " + budgetViewModel.getState().getEmailId());
-                budgetController.createBudget(income, selectedCategories, userRepository.getUserByEmail(budgetViewModel.getState().getEmailId()));
-                final BudgetState currentState = budgetViewModel.getState();
+                if(incomeTextField.getText().matches("[0-9]+")){
+                    Double income = Double.parseDouble(incomeTextField.getText());
+                    System.out.println(income);
+                    Map<String, Double> selectedCategories = getSelectedCategories();
+                    System.out.println(selectedCategories);
+                    MongoUserRepository userRepository = new MongoUserRepository();
+                    System.out.println("Budget Maker Email: " + budgetViewModel.getState().getEmailId());
+                    budgetController.createBudget(income, selectedCategories, userRepository.getUserByEmail(budgetViewModel.getState().getEmailId()));
+                    final BudgetState currentState = budgetViewModel.getState();
 
-                if(!currentState.getCategoryAllocations().containsKey("Impossible")){
-                    PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
+                    if(!currentState.getCategoryAllocations().containsKey("Impossible")){
+                        PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
 
-                    // Create and display the pie chart
-                    ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
-                    chartPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-                    chartPanel.setBackground(Color.decode("#FFFFFF"));
-                    chartPanel.setBounds(400, 80, 380, 380);
-                    chartPanel.setVisible(true);
-                    mainPanel.add(chartPanel);
-                    mainPanel.setComponentZOrder(chartPanel, 0);
-                    mainPanel.repaint();
-                    mainPanel.revalidate();
-                } else {
-                    // Display a dialog if the budget is not feasible
+                        // Create and display the pie chart
+                        ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
+                        chartPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+                        chartPanel.setBackground(Color.decode("#FFFFFF"));
+                        chartPanel.setBounds(400, 80, 380, 380);
+                        chartPanel.setVisible(true);
+                        mainPanel.add(chartPanel);
+                        mainPanel.setComponentZOrder(chartPanel, 0);
+                        mainPanel.repaint();
+                        mainPanel.revalidate();
+                    } else {
+                        // Display a dialog if the budget is not feasible
+                        JDialog dialog = new JDialog();
+                        dialog.setTitle("");
+                        dialog.setSize(310, 130);
+                        dialog.setLayout(null);
+                        dialog.setModal(true);
+                        JLabel message = new JLabel("<html>To ensure all essential needs are met, " +
+                                "the income entered should be higher. Please adjust the input accordingly.</html>");
+                        message.setBounds(30, 10, 250, 80);
+                        dialog.add(message);
+                        dialog.setVisible(true);
+                    }
+                }
+                else{
                     JDialog dialog = new JDialog();
                     dialog.setTitle("");
                     dialog.setSize(310, 130);
                     dialog.setLayout(null);
                     dialog.setModal(true);
-                    JLabel message = new JLabel("<html>To ensure all essential needs are met, " +
-                            "the income entered should be higher. Please adjust the input accordingly.</html>");
+                    JLabel message = new JLabel("Invalid Income");
                     message.setBounds(30, 10, 250, 80);
                     dialog.add(message);
                     dialog.setVisible(true);
                 }
+
             }
         });
 
@@ -229,8 +241,8 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
     private void addCategory(String category, Double percentage) {
         JCheckBox checkBox = new JCheckBox(category);
         checkBox.setSelected(true);
-        checkBox.setBounds(200, 258 + 30 * x, 200, 18);
-        x = x + 1;
+        checkBox.setBounds(200, 258 + 30 * disctance, 200, 18);
+        disctance = disctance + 1;
         percentageCategories.put(category, percentage / 100);
         this.add(checkBox);
         this.revalidate();
