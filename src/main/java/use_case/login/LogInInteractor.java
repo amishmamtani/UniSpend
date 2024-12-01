@@ -17,7 +17,6 @@ public class LogInInteractor implements LogInInputBoundary{
         final String password = loginInputData.getPassword();
         System.out.println("email ID " + emailID);
         User user = userRepo.getUserByEmail(emailID);
-        System.out.println(user.getLastName());
         if (user == null) {
             logInOutputBoundary.prepareFailView("Account does not exist");
             System.out.println("Account does not exist");
