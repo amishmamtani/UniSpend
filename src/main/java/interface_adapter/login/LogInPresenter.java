@@ -22,7 +22,10 @@ public class LogInPresenter implements LogInOutputBoundary {
     @Override
     public void prepareSuccessView(LogInOutputData response) {
         final HomeState homeState = homeViewModel.getState();
-        homeState.setEmailId(response.getUsername());
+        if (homeState.getEmailId() == null){
+            homeState.setEmailId(response.getUsername());
+        }
+        System.out.println("Home Presenter: "+ homeState.getEmailId());
         this.viewManagerModel.setState(homeViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }

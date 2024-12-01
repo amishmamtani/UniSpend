@@ -8,6 +8,7 @@ public class BudgetState {
     private HashMap<String, Double> categoryAllocations;
     private double savings;
     private double investments;
+    private String emailId;
 
     public BudgetState(double income, HashMap<String, Double> categoryAllocations, double savings, double investments) {
         this.income = income;
@@ -18,6 +19,11 @@ public class BudgetState {
 
     public BudgetState() {
     }
+    public void setIncome(double income) {this.income = income;}
+    public void setCategoryAllocations(HashMap<String, Double> categoryAllocations) {this.categoryAllocations = categoryAllocations;}
+    public void setSavings(double savings) {this.savings = savings;}
+    public void setInvestments(double investments) {this.investments = investments;}
+
 
     public double getIncome() {
         return income;
@@ -33,5 +39,13 @@ public class BudgetState {
 
     public double getInvestments() {
         return investments;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 }

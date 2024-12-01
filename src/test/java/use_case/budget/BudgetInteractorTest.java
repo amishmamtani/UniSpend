@@ -2,6 +2,7 @@ package use_case.budget;
 
 
 import app.MarketHealthService;
+import entity.User;
 import interface_adapter.budget.BudgetPresenter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ public class BudgetInteractorTest {
                 "Entertainment",0.1,
                 "Healthcare", 0.1
         ));
+        User user = new User("BudgetMakerTest", "User", "Test", "test@test.com");
 
         budgetInteractor = new BudgetInteractor(new BudgetOutputBoundary() {
             @Override
@@ -54,7 +56,7 @@ public class BudgetInteractorTest {
 
             }
         });
-        BudgetInputData testData = new BudgetInputData(income, selectedCategories);
+        BudgetInputData testData = new BudgetInputData(income, selectedCategories, user);
         budgetInteractor.createBudget(testData);
     }
 
@@ -70,6 +72,7 @@ public class BudgetInteractorTest {
                 "Healthcare", 0.1,
                 "Music",0.05
         ));
+        User user = new User("BudgetMakerTest", "User", "Test", "test@test.com");
 
         budgetInteractor = new BudgetInteractor(new BudgetOutputBoundary() {
             @Override
@@ -98,7 +101,7 @@ public class BudgetInteractorTest {
 
             }
         });
-        BudgetInputData testData = new BudgetInputData(income, selectedCategories);
+        BudgetInputData testData = new BudgetInputData(income, selectedCategories, user);
         budgetInteractor.createBudget(testData);
     }
 
@@ -114,6 +117,7 @@ public class BudgetInteractorTest {
                 "Healthcare", 0.0,
                 "Music",0.05
         ));
+        User user = new User("BudgetMakerTest", "User", "Test", "test@test.com");
 
         budgetInteractor = new BudgetInteractor(new BudgetOutputBoundary() {
             @Override
@@ -136,7 +140,7 @@ public class BudgetInteractorTest {
 
             }
         });
-        BudgetInputData testData = new BudgetInputData(income, selectedCategories);
+        BudgetInputData testData = new BudgetInputData(income, selectedCategories, user);
         budgetInteractor.createBudget(testData);
     }
 
@@ -151,7 +155,7 @@ public class BudgetInteractorTest {
                 "Entertainment",0.1,
                 "Healthcare", 0.1
         ));
-
+        User user = new User("BudgetMakerTest", "User", "Test", "test@test.com");
         budgetInteractor = new BudgetInteractor(new BudgetOutputBoundary() {
             @Override
             public void presentBudget(BudgetOutputData outputData) {
@@ -163,7 +167,7 @@ public class BudgetInteractorTest {
 
             }
         });
-        BudgetInputData testData = new BudgetInputData(income, selectedCategories);
+        BudgetInputData testData = new BudgetInputData(income, selectedCategories, user);
         budgetInteractor.createBudget(testData);
     }
 
@@ -178,6 +182,7 @@ public class BudgetInteractorTest {
                 "Entertainment",0.0,
                 "Healthcare", 0.0
         ));
+        User user = new User("BudgetMakerTest", "User", "Test", "test@test.com");
 
         budgetInteractor = new BudgetInteractor(new BudgetOutputBoundary() {
             @Override
@@ -190,7 +195,7 @@ public class BudgetInteractorTest {
 
             }
         });
-        BudgetInputData testData = new BudgetInputData(income, selectedCategories);
+        BudgetInputData testData = new BudgetInputData(income, selectedCategories, user);
         budgetInteractor.createBudget(testData);
     }
 
@@ -206,8 +211,8 @@ public class BudgetInteractorTest {
                 "Healthcare", 0.0,
                 "Music", 1.0
         ));
-
-        BudgetInputData inputData = new BudgetInputData(income, selectedCategories);
+        User user = new User("BudgetMakerTest", "User", "Test", "test@test.com");
+        BudgetInputData inputData = new BudgetInputData(income, selectedCategories, user);
 
         BudgetInteractor interactor = new BudgetInteractor(new BudgetOutputBoundary() {
             @Override

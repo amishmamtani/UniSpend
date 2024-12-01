@@ -12,22 +12,22 @@ public class BudgetPresenter implements BudgetOutputBoundary {
     private final ViewModel<BudgetState> viewModel;
     private final ViewManagerModel viewManagerModel;
     private final HomeViewModel homeViewModel;
+    private final BudgetState budgetState = new BudgetState();
 
     public BudgetPresenter(ViewManagerModel viewManagerModel, ViewModel<BudgetState> viewModel, HomeViewModel homeViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.viewModel = viewModel;
         this.homeViewModel = homeViewModel;
+        System.out.println(homeViewModel.getState().getEmailId());
+        this.budgetState.setEmailId(homeViewModel.getState().getEmailId());
     }
 
     @Override
     public void presentBudget(BudgetOutputData outputData) {
-        BudgetState budgetState = new BudgetState(
-                outputData.getIncome(),
-                (HashMap<String, Double>) outputData.getCategoryAllocations(),
-                outputData.getSavings(),
-                outputData.getInvestments()
-        );
-
+        budgetState.setIncome(outputData.getIncome());
+        budgetState.setInvestments(outputData.getInvestments());
+        budgetState.setCategoryAllocations((HashMap<String, Double>) outputData.getCategoryAllocations());
+        budgetState.setSavings(outputData.getSavings());
         // Update the ViewModel with the new state
         viewModel.setState(budgetState);
         viewModel.firePropertyChanged(); // Notify listeners that the state has changed
