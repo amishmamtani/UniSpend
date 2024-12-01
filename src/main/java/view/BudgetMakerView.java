@@ -1,5 +1,6 @@
 package view;
 
+import entity.User;
 import interface_adapter.budget.BudgetController;
 import interface_adapter.budget.BudgetState;
 import interface_adapter.budget.BudgetViewModel;
@@ -22,19 +23,43 @@ import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class for creating and managing the Budget Maker view, which allows the user to enter their budget details,
+ * select categories, and create a monthly budget.
+ */
+public class BudgetMakerView extends JPanel implements ActionListener, PropertyChangeListener {
 
-public class BudgetMakerView extends JPanel implements ActionListener, PropertyChangeListener{
+    /** The name of the view */
     private final String viewName = "budget maker";
+
+    /** The view model for managing the state of the Budget Maker view */
     private final BudgetViewModel budgetViewModel;
+
+    /** The controller for handling user actions in the Budget Maker view */
     private final BudgetController budgetController;
+
+    /** The home view model used for state management */
     private  HomeViewModel homeViewModel;
+
+    /** A map containing the categories and their respective percentage values */
     private final Map<String, Double> percentageCategories;
+
+    /** The JFrame used for the "Add Category" pop-up window */
     private JFrame addCategoryPopUp = new JFrame();
+
+    /** The main panel containing the components of the view */
     private JPanel mainPanel;
+
+    /** The x-coordinate offset for positioning dynamically added checkboxes */
     private int x = 0;
 
+    /**
+     * Constructs a BudgetMakerView instance with the specified view model and controller.
+     *
+     * @param budgetViewModel The view model for managing the state of the Budget Maker view.
+     * @param controller The controller for handling user actions in the Budget Maker view.
+     */
     public BudgetMakerView(BudgetViewModel budgetViewModel, BudgetController controller) {
-
         this.budgetController = controller;
         this.budgetViewModel = budgetViewModel;
         this.percentageCategories = new HashMap<>(Map.of(
@@ -45,15 +70,16 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 "Entertainment", 1.0,
                 "Healthcare", 1.0));
 
-        // main budget maker user interface
+        // Main budget maker user interface
         ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
         JLabel backButton = new JLabel(backIcon);
         backButton.setBounds(28, 29, backIcon.getIconWidth(), backIcon.getIconHeight());
 
+        // Create and configure the budget title label
         JLabel budgetTitleLabel = new Heading("Budget Maker", 28).getHeading();
         budgetTitleLabel.setBounds(90, 23, 191, 43);
 
-
+        // Create and configure the income label and text field
         JLabel allowanceLabel = new JLabel("Enter your monthly allowance or salary: ");
         allowanceLabel.setBounds(35, 77, 300, 18);
         allowanceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -63,9 +89,11 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         incomeTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         incomeTextField.setBackground(Color.decode("#D6DCE6"));
 
+        // Create and configure the category heading label
         JLabel categoryHeading = new Heading("Categories", 22).getHeading();
         categoryHeading.setBounds(35, 197, 200, 25);
 
+        // Create and configure the checkboxes for each category
         JCheckBox housingCheckBox = new JCheckBox("Housing");
         housingCheckBox.setBounds(35, 258, 120, 18);
         housingCheckBox.setSelected(true);
@@ -90,16 +118,17 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         healthcareCheckBox.setBounds(35, 408, 120, 18);
         healthcareCheckBox.setSelected(true);
 
-        ColouredButton createBudget = new ColouredButton("Create Budget", "#1A1A1A",
-                "#FFFFFF", 16);
+        // Create and configure the "Create Budget" button
+        ColouredButton createBudget = new ColouredButton("Create Budget", "#1A1A1A", "#FFFFFF", 16);
         JButton createBudgetButton = createBudget.getButton();
         createBudgetButton.setBounds(32, 480, 320, 60);
 
-        ColouredButton addCategory = new ColouredButton("＋ Add ", "#1A1A1A",
-                "#FFFFFF", 15);
+        // Create and configure the "Add Category" button
+        ColouredButton addCategory = new ColouredButton("＋ Add ", "#1A1A1A", "#FFFFFF", 15);
         JButton addCategoryButton = addCategory.getButton();
-        addCategoryButton.setBounds(258,192, 96, 38);
+        addCategoryButton.setBounds(258, 192, 96, 38);
 
+        // Add components to the main panel
         this.setSize(830, 600);
         this.add(backButton);
         this.add(budgetTitleLabel);
@@ -118,11 +147,14 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         this.setBackground(Color.decode("#FFFFFF"));
         mainPanel = this;
 
+        // Add listener for the back button
         backButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 budgetController.switchBack();
             }
         });
+
+        // Add listener for the "Create Budget" button
         createBudgetButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("create budget clicked");
@@ -138,17 +170,18 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 if(!currentState.getCategoryAllocations().containsKey("Impossible")){
                     PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
 
+                    // Create and display the pie chart
                     ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                     chartPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
                     chartPanel.setBackground(Color.decode("#FFFFFF"));
                     chartPanel.setBounds(400, 80, 380, 380);
                     chartPanel.setVisible(true);
                     mainPanel.add(chartPanel);
-                    mainPanel.setComponentZOrder(chartPanel,0);
+                    mainPanel.setComponentZOrder(chartPanel, 0);
                     mainPanel.repaint();
                     mainPanel.revalidate();
-                }
-                else{
+                } else {
+                    // Display a dialog if the budget is not feasible
                     JDialog dialog = new JDialog();
                     dialog.setTitle("");
                     dialog.setSize(310, 130);
@@ -160,21 +193,21 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                     dialog.add(message);
                     dialog.setVisible(true);
                 }
-
-                //JFrame pieChartPopUp = new JFrame();
-
             }
         });
 
+        // Add listener for the "Add Category" button
         addCategoryButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                // Open the Add Category pop-up window
                 AddCategoryView addCategoryPopUpPanel = new AddCategoryView();
                 addCategoryPopUp.setContentPane(addCategoryPopUpPanel);
                 addCategoryPopUp.setSize(400, 278);
                 addCategoryPopUp.setVisible(true);
                 addCategoryPopUp.setResizable(false);
 
+                // Add listener for the "Add Category" button in the pop-up
                 addCategoryPopUpPanel.getAddCategoryButton().addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         String category = addCategoryPopUpPanel.getCategory().getText();
@@ -185,20 +218,30 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 });
             }
         });
-
     }
 
+    /**
+     * Adds a new category to the list with the specified name and percentage.
+     *
+     * @param category The name of the new category.
+     * @param percentage The percentage for the new category.
+     */
     private void addCategory(String category, Double percentage) {
         JCheckBox checkBox = new JCheckBox(category);
         checkBox.setSelected(true);
-        checkBox.setBounds(200, 258+30*x, 200, 18);
+        checkBox.setBounds(200, 258 + 30 * x, 200, 18);
         x = x + 1;
-        percentageCategories.put(category, percentage/100);
+        percentageCategories.put(category, percentage / 100);
         this.add(checkBox);
         this.revalidate();
         this.repaint();
     }
 
+    /**
+     * Retrieves the selected categories and their corresponding percentages.
+     *
+     * @return A map containing the selected categories and their respective percentages.
+     */
     private Map<String, Double> getSelectedCategories() {
         Map<String, Boolean> selectedCategories = new HashMap<>();
         for (Component component : this.getComponents()) {
@@ -208,10 +251,9 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         }
         Map<String, Double> selectedPercentageCategories = new HashMap<>();
         for (String categories : selectedCategories.keySet()) {
-            if(selectedCategories.get(categories)){
+            if (selectedCategories.get(categories)) {
                 selectedPercentageCategories.put(categories, percentageCategories.get(categories));
-            }
-            else{
+            } else {
                 selectedPercentageCategories.put(categories, 0.0);
             }
         }
@@ -220,7 +262,7 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Empty method for implementing ActionListener interface
     }
 
     @Override
@@ -228,6 +270,11 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
         final BudgetState state = (BudgetState) evt.getNewValue();
     }
 
+    /**
+     * Retrieves the view name for the Budget Maker view.
+     *
+     * @return The name of the view.
+     */
     public String getViewName() {
         return viewName;
     }
