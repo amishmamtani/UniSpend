@@ -5,18 +5,32 @@ import entity.User;
 import interface_adapter.user.MongoUserRepository;
 
 import java.util.*;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.TreeMap;
-import java.util.Map;
 
+/**
+ * Interactor for handling budget creation and related operations.
+ * Implements the BudgetInputBoundary interface.
+ */
 public class BudgetInteractor implements BudgetInputBoundary {
 
+    /** Presenter responsible for formatting and displaying budget output */
     private final BudgetOutputBoundary budgetPresenter;
 
+    /**
+     * Constructs a BudgetInteractor with the specified presenter.
+     *
+     * @param budgetPresenter The presenter responsible for handling budget output.
+     */
     public BudgetInteractor(BudgetOutputBoundary budgetPresenter) {
         this.budgetPresenter = budgetPresenter;
     }
+
+    /**
+     * Creates a budget based on the input data, including income, selected categories,
+     * and economic indicators. Allocates spending to various categories and calculates
+     * savings and investments.
+     *
+     * @param inputData The input data required to create the budget.
+     */
     @Override
     public void createBudget(BudgetInputData inputData) {
         double income = inputData.getIncome();
@@ -40,18 +54,18 @@ public class BudgetInteractor implements BudgetInputBoundary {
                 "Healthcare", new double[]{0.05, 0}
         ));
 
+        // Adjust default allocations based on selected categories
         for (Map.Entry<String, Double> entry : selectedCategories.entrySet()) {
             if (defaultAllocations.containsKey(entry.getKey())) {
                 if (entry.getValue() == 0) {
                     defaultAllocations.remove(entry.getKey());
                 }
-            }
-            else {
+            } else {
                 defaultAllocations.put(entry.getKey(), new double[]{entry.getValue(), 0});
-                }
-
+            }
         }
 
+        // Calculate total essential spending
         for (String essential : essentials) {
             if (defaultAllocations.containsKey(essential)) {
                 essentialNum += Math.max(defaultAllocations.get(essential)[0] * income,
@@ -59,11 +73,13 @@ public class BudgetInteractor implements BudgetInputBoundary {
             }
         }
 
+        // Handle scenario where essential spending exceeds income
         if (essentialNum > income) {
             categoryAllocations.put("Impossible", 1000.0);
             spending = income;
         }
 
+        // Allocate budget to categories
         for (Map.Entry<String, double[]> entry : defaultAllocations.entrySet()) {
             double allocation = entry.getValue()[0] * income;
             double minimum = entry.getValue()[1];
@@ -77,11 +93,10 @@ public class BudgetInteractor implements BudgetInputBoundary {
             }
         }
 
-
-
+        // Calculate savings and investments
         double savings = 0;
         double investments = 0;
-        if (income > spending){
+        if (income > spending) {
             double difference = income - spending;
             savings = difference * savingsPercentage;
             investments = difference * investmentsPercentage;
@@ -89,18 +104,22 @@ public class BudgetInteractor implements BudgetInputBoundary {
             categoryAllocations.put("Investments", investments);
         }
 
+        // Update user data and save to database
         user.setBudget((HashMap<String, Double>) categoryAllocations);
         user.setIncome(income);
         MongoUserRepository userRepository = new MongoUserRepository();
         userRepository.saveUser(user);
 
+        // Prepare and present output data
         BudgetOutputData outputData = new BudgetOutputData(income, categoryAllocations, savings, investments, user);
         budgetPresenter.presentBudget(outputData);
     }
 
+    /**
+     * Switches back to the previous state or view.
+     */
     @Override
     public void switchBack() {
         budgetPresenter.switchBack();
     }
-
 }

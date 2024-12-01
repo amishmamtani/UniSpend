@@ -17,27 +17,47 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * The HomeView class represents the home screen of the application, where users can select various options
+ * such as making a budget, tracking the budget, interacting with the chatbot, or comparing the budget.
+ */
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    /** The name of the view */
     private final String viewName = "home";
+
+    /** The controller for managing home interactions */
     private final HomeController homeController;
+
+    /** The view model for managing home state */
     private final HomeViewModel homeViewModel;
+
+    /** The first name of the current user */
     private String userFirstName = "";
+
+    /** The main panel of the view */
     private JPanel mainPanel;
 
+    /**
+     * Constructs the HomeView with the given controller and view model.
+     * Initializes various UI components such as buttons, labels, and user details.
+     *
+     * @param homeController The controller responsible for handling home interactions.
+     * @param homeViewModel The view model managing the home state.
+     */
     public HomeView(HomeController homeController, HomeViewModel homeViewModel) {
         this.homeController = homeController;
         this.homeViewModel = homeViewModel;
-        this.homeViewModel.addPropertyChangeListener(this);
-        this.setLayout(null);
+        this.homeViewModel.addPropertyChangeListener(this); // Listen for property changes
+
+        this.setLayout(null);  // Set layout to null for absolute positioning
         this.setVisible(true);
-        this.setBackground(Color.decode("#FFFFFF"));
+        this.setBackground(Color.decode("#FFFFFF")); // Set background color to white
 
         MongoUserRepository mongoUserRepository = new MongoUserRepository();
         User user = mongoUserRepository.getUserByEmail(homeViewModel.getState().getEmailId());
-//        String helloString = "Hi there, " + this.userFirstName;
-//        JLabel helloLabel = new Heading(helloString, 30).getHeading();
-//        helloLabel.setBounds(35, 38, 400, 43);
 
+        // Create and configure the "What would you like to do?" heading
         JLabel welcomeLabel = new Heading("What would you like to do?", 30).getHeading();
         welcomeLabel.setBounds(35, 78, 400, 43);
 
@@ -94,33 +114,14 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         chatbotButton.setComponentZOrder(chatbot,0);
         chatbotButton.setBounds(532, 211, 264,304);
 
-        // Compare Budget Button
-//        JPanel compareBudgetButton = new PanelButton("comparebudget.png");
-//        JLabel compareBudget = new Heading("<html>Compare Budget</html>", 26).getHeading();
-//        compareBudget.setForeground(Color.decode("#FFFFFF"));
-//        compareBudget.setBounds(20,20, 120, 65);
-
-//        JLabel compareBudgetDescription = new JLabel("<html>Track your progress easily—" +
-//                "compare your budget with one tap!</html>");
-//        compareBudgetDescription.setForeground(Color.decode("#FFFFFF"));
-//        compareBudgetDescription.setFont(new Font("Arial", Font.PLAIN, 12));
-//        compareBudgetDescription.setBounds(20,90, 200, 40);
-
-//        compareBudgetButton.add(compareBudgetDescription);
-//        compareBudgetButton.add(compareBudget);
-//        compareBudgetButton.setComponentZOrder(compareBudgetDescription,0);
-//        compareBudgetButton.setComponentZOrder(compareBudget,0);
-//        compareBudgetButton.setBounds(532, 371, 264, 144);
-
-        //this.add(helloLabel);
+        // Add components to the panel
         this.add(welcomeLabel);
         this.add(makeBudgetButton);
         this.add(trackBudgetButton);
         this.add(chatbotButton);
         mainPanel = this;
-        //this.add(compareBudgetButton);
 
-
+        // Add mouse listeners to handle button clicks
         makeBudgetButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Make Budget Clicked");
@@ -141,28 +142,24 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 homeController.switchToChatBot();
             }
         });
-
-//        compareBudgetButton.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                System.out.println("Compare Budget Clicked");
-////                homeController.switchToBudgetCompare();
-//            }
-//        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Empty implementation for ActionListener interface
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        // Update the user's first name based on the updated state
         System.out.println("PropertyChange "+ evt.getNewValue());
         final HomeState state = (HomeState) evt.getNewValue();
         MongoUserRepository mongoUserRepository = new MongoUserRepository();
         User user = mongoUserRepository.getUserByEmail(state.getEmailId());
         userFirstName = user.getFirstName();
         System.out.println(userFirstName);
+
+        // Update the welcome message with the user's first name
         String helloString = "Hi there, " + userFirstName;
         JLabel helloLabel = new Heading(helloString, 30).getHeading();
         helloLabel.setBounds(35, 38, 400, 43);
@@ -171,6 +168,11 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         mainPanel.revalidate();
     }
 
+    /**
+     * Retrieves the view name for the home view.
+     *
+     * @return The name of the view.
+     */
     public String getViewName() {
         return viewName;
     }

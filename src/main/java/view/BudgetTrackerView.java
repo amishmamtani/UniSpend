@@ -28,30 +28,57 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
+/**
+ * A class representing the Budget Tracker view, allowing users to track their spending,
+ * create a budget, and analyze their expenses.
+ */
 public class BudgetTrackerView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    /** The name of the view */
     private final String viewName = "budget tracker";
+
+    /** The view model for managing the state of the Budget Tracker view */
     private final BudgetTrackerViewModel budgetTrackerViewModel;
+
+    /** The controller for handling user actions in the Budget Tracker view */
     private final BudgetTrackerController budgetTrackerController;
+
+    /** The user's income */
     private double income;
+
+    /** Repository for managing user data */
     private final MongoUserRepository userRepository = new MongoUserRepository();
+
+    /** The current user whose budget data is being displayed */
     private User currentUser;
+
+    /** A variable to track the vertical distance for dynamic layout changes */
     private Integer distance = 0;
+
+    /** The main panel containing the components of the Budget Tracker view */
     private final JPanel mainPanel;
 
+    /**
+     * Constructs a BudgetTrackerView instance with the specified view model and controller.
+     *
+     * @param viewModel The view model for managing the state of the Budget Tracker view.
+     * @param controller The controller for handling user actions in the Budget Tracker view.
+     */
     public BudgetTrackerView(BudgetTrackerViewModel viewModel, BudgetTrackerController controller) {
         this.budgetTrackerController = controller;
         this.budgetTrackerViewModel = viewModel;
 
-
+        // Create the back button and configure its appearance
         ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
         JLabel backButton = new JLabel(backIcon);
         backButton.setBounds(28, 29, backIcon.getIconWidth(), backIcon.getIconHeight());
 
+        // Create and configure the title label for the Budget Tracker view
         JLabel titleLabel = new Heading("Budget Tracker", 28).getHeading();
         titleLabel.setBounds(100, 23, 230, 43);
 
-        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF",
-                18);
+        // Create and configure the buttons for the Budget Tracker view
+        ColouredButton createNew = new ColouredButton("Create New", "#1A1A1A", "#FFFFFF", 18);
         JButton createNewButton = createNew.getButton();
         createNewButton.setBounds(35, 480, 150, 60);
 
@@ -59,16 +86,16 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         JButton addButton = add.getButton();
         addButton.setBounds(224, 480, 133, 60);
 
-        ColouredButton spendingAnalysis = new ColouredButton("Spending Analysis", "#1A1A1A",
-                "#FFFFFF", 10);
+        ColouredButton spendingAnalysis = new ColouredButton("Spending Analysis", "#1A1A1A", "#FFFFFF", 10);
         JButton spendingAnalysisButton = spendingAnalysis.getButton();
         spendingAnalysisButton.setBounds(647, 35, 130, 30);
 
+        // Add components to the main panel
         this.add(titleLabel);
         this.add(createNewButton);
         this.add(addButton);
         this.add(backButton);
-        if(!(this.currentUser == null)) {
+        if (!(this.currentUser == null)) {
             if (currentUser.getBudgetTracker().size() > 0) {
                 this.add(spendingAnalysisButton);
             }
@@ -76,12 +103,18 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         this.setLayout(null);
         this.setBackground(Color.decode("#FFFFFF"));
         mainPanel = this;
+
+        // Add listener for the back button
         backButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 budgetTrackerController.switchBack();
             }
         });
+
+        // Create and manage category spending
         HashMap<String, Double> categorySpending = new HashMap<>();
+
+        // Add listener for the "Create New" button
         createNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("create new clicked");
@@ -91,8 +124,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 System.out.println(income);
                 categorySpending.put("UNSPENT INCOME", income);
 
-                budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0,
-                        "NONE", currentUser);
+                budgetTrackerController.createBudgetTracker(income, categorySpending, 0.0, "NONE", currentUser);
                 final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
                 PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
                 ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
@@ -107,6 +139,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
             }
         });
 
+        // Add listener for the "Spending Analysis" button
         spendingAnalysisButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("spending analysis clicked");
@@ -118,6 +151,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
             }
         });
 
+        // Add listener for the "Add" button
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("add clicked");
@@ -170,15 +204,13 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         income = currentUser.getIncome();
 
                         LogCard logCard = new LogCard(categorySpentOn, amountSpentTextField.getText());
-                        logCard.setBounds(35,95+50*distance,320, 45);
+                        logCard.setBounds(35, 95 + 50 * distance, 320, 45);
                         distance += 1;
                         budgetTrackerController.createBudgetTracker(income, currentUser.getBudgetTracker(), amountSpent,
                                 categorySpentOn, currentUser);
                         final BudgetTrackerState currentState = budgetTrackerViewModel.getState();
-                        //currentUser = userRepository.getUserByLastName("K");
                         System.out.println(currentState.getAlreadySpentCategories());
-                        PieChart pieChart = new PieChart("Budget Tracker",
-                                currentState.getAlreadySpentCategories());
+                        PieChart pieChart = new PieChart("Budget Tracker", currentState.getAlreadySpentCategories());
                         ChartPanel chartPanel = new ChartPanel(pieChart.getChart());
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
                         chartPanel.setBounds(400, 80, 380, 380);
@@ -198,7 +230,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                                 System.err.println(ex.getMessage());
                             }
                             JLabel warningLabel = new JLabel("Warning: you have spent more than your income.");
-                            warningLabel.setBounds(420,490, 331,19);
+                            warningLabel.setBounds(420, 490, 331, 19);
                             warningLabel.setFont(new Font("Arial", Font.PLAIN, 14));
                             warningLabel.setForeground(Color.decode("#FF0000"));
                             mainPanel.add(warningLabel);
@@ -211,13 +243,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                 });
             }
         });
-
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Empty method for implementing ActionListener interface
     }
 
     @Override
@@ -225,6 +255,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         final BudgetTrackerState state = (BudgetTrackerState) evt.getNewValue();
     }
 
+    /**
+     * Retrieves the view name for the Budget Tracker view.
+     *
+     * @return The name of the view.
+     */
     public String getViewName() {
         return viewName;
     }
