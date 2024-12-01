@@ -31,7 +31,6 @@ public class BudgetCompareView {
         this.viewModel = viewModel;
         this.controller = controller;
         MongoUserRepository userRepository = new MongoUserRepository();
-        LogInOutputData logInOutputData = new LogInOutputData()
         this.user = userRepository.getUserByLastName("K");
 
         JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();

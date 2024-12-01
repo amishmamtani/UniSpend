@@ -15,11 +15,13 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.ArrayList;
 
 public class SignUpView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName = "sign up";
     private SignUpController signUpController;
     private SignUpViewModel signUpViewModel;
+    private JPanel mainPanel;
 
     public SignUpView(SignUpController signUpController, SignUpViewModel signUpViewModel) {
         this.signUpController = signUpController;
@@ -98,6 +100,7 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
         this.add(logIn);
         this.add(signUpButton);
         this.add(signUpImage);
+        mainPanel = this;
 
         logIn.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -108,11 +111,50 @@ public class SignUpView extends JPanel implements ActionListener, PropertyChange
 
         signUpButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String firstName = firstNameField.getText();
-                String lastName = lastNameField.getText();
-                String emailId = emailIdField.getText();
-                String password = passwordField.getText();
-                signUpController.execute(firstName, lastName, emailId, password);
+                String firstName = firstNameField.getText().trim();
+                String lastName = lastNameField.getText().trim();
+                String emailId = emailIdField.getText().trim();
+                String password = passwordField.getText().trim();
+                ArrayList<String> errorList = new ArrayList<>();
+                if(firstName.isEmpty() || lastName.isEmpty() || emailId.isEmpty() || password.isEmpty()) {
+                        errorList.add("Please fill all the Fields");
+                }
+                else if(!firstName.matches("[a-zA-Z]+") || !lastName.matches("[a-zA-Z]+")) {
+                    errorList.add("Names can only contain a letter");
+                }
+                if (errorList.isEmpty()){
+                    signUpController.execute(firstName, lastName, emailId, password);
+                }
+                else{
+                    System.out.println(errorList);
+                    JDialog dialog = new JDialog();
+                    dialog.setTitle("Error");
+                    dialog.setSize(300, 200);
+                    dialog.setLayout(new GridBagLayout());
+                    dialog.setModal(true);
+
+                    String errorMessage = "<html>";
+                    for(String error : errorList){
+                        errorMessage += error + "<br>";
+                    }
+                    errorMessage += "</html>";
+                    JLabel errorLabel = new JLabel(errorMessage);
+                    dialog.add(errorLabel);
+                    dialog.setVisible(true);
+                }
+
+                SignUpState signUpState = signUpViewModel.getState();
+                String error = signUpState.getError();
+
+                if (error != null){
+                    JLabel errorLabel = new JLabel(error);
+                    errorLabel.setForeground(Color.RED);
+                    errorLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+                    errorLabel.setBounds(35, 64, 172,20);
+                    mainPanel.add(errorLabel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                }
             }
         });
 
