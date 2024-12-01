@@ -200,6 +200,8 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         System.out.println("add clicked");
                         Double amountSpent = Double.parseDouble(amountSpentTextField.getText());
                         String categorySpentOn = categorySpentTextField.getText();
+                        currentUser = userRepository.getUserByEmail(viewModel.getState().getEmailId());
+                        income = currentUser.getIncome();
 
                         LogCard logCard = new LogCard(categorySpentOn, amountSpentTextField.getText());
                         logCard.setBounds(35, 95 + 50 * distance, 320, 45);
