@@ -66,6 +66,7 @@ public class BudgetCompareView {
                 finalSpentCategories.put(key.toUpperCase(), 0.0); // Add default if not found
             }
         }
+        finalSpentCategories.put("SAVINGS", currentState.getSpentAllocations().get("UNSPENT INCOME"));
 
         BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
                 finalAdvisedCategories, finalSpentCategories);
