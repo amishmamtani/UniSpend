@@ -59,9 +59,9 @@ public class BudgetCompareView {
         BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
                 finalAdvisedCategories, finalSpentCategories, currentState.getNetAllocations());
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
-        chartPanel.setPreferredSize(new java.awt.Dimension(600, 600));
+        chartPanel.setPreferredSize(new java.awt.Dimension(850, 550));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
-        chartPanel.setBounds(34, 120, 600, 400);
+        chartPanel.setBounds(34, 120, 700, 350);
         chartPanel.setVisible(true);
 
         // Create a panel to hold the title label and chart panel
@@ -71,7 +71,7 @@ public class BudgetCompareView {
 
         // Create the frame to display the comparison view
         JFrame frame = new JFrame();
-        frame.setSize(800, 744);
+        frame.setSize(900, 644);
         frame.setResizable(false);
         frame.add(comparePanel);
         frame.setVisible(true);
