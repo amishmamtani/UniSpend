@@ -104,8 +104,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 We welcome feedback on how to improve this project! Please submit your suggestions through the following:
 
-- [Google Form for Feedback](https://link-to-feedback-form)
-- [Discussion Board](https://link-to-discussion-board)
+- [Google Form for Feedback]([https://link-to-feedback-form](https://forms.gle/cDZdLdukmJysYHoq9))
 
 **Guidelines for feedback:**
 - Provide clear, actionable suggestions.
