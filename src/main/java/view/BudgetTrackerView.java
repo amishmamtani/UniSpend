@@ -87,7 +87,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
         JButton addButton = add.getButton();
         addButton.setBounds(224, 480, 133, 60);
 
-        ColouredButton spendingAnalysis = new ColouredButton("Spending Analysis", "#1A1A1A",
+        ColouredButton spendingAnalysis = new ColouredButton("Budget Compare", "#1A1A1A",
                 "#FFFFFF", 10);
         JButton spendingAnalysisButton = spendingAnalysis.getButton();
         spendingAnalysisButton.setBounds(647, 35, 130, 30);
