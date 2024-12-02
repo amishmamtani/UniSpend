@@ -49,7 +49,7 @@ public class AppBuilder {
     private LogInInteractor logInInteractor;
     private LogInPresenter logInPresenter;
 
-    private BudgetMakerView budgetMakerView;
+    private BudgetView budgetView;
     private BudgetViewModel budgetViewModel;
     private BudgetController budgetController;
     private BudgetPresenter budgetPresenter;
@@ -118,8 +118,8 @@ public class AppBuilder {
         budgetPresenter = new BudgetPresenter(viewManagerModel, budgetViewModel, homeViewModel);
         budgetInteractor = new BudgetInteractor(budgetPresenter);
         budgetController = new BudgetController(budgetInteractor);
-        budgetMakerView = new BudgetMakerView(budgetViewModel, budgetController);
-        cardPanel.add(budgetMakerView, budgetMakerView.getViewName());
+        budgetView = new BudgetView(budgetViewModel, budgetController);
+        cardPanel.add(budgetView, budgetView.getViewName());
         return this;
     }
 

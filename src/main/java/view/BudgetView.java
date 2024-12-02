@@ -25,7 +25,7 @@ import java.util.Map;
  * A class for creating and managing the Budget Maker view, which allows the user to enter their budget details,
  * select categories, and create a monthly budget.
  */
-public class BudgetMakerView extends JPanel implements ActionListener, PropertyChangeListener {
+public class BudgetView extends JPanel implements ActionListener, PropertyChangeListener {
 
     /** The name of the view */
     private final String viewName = "budget maker";
@@ -57,7 +57,7 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
      * @param budgetViewModel The view model for managing the state of the Budget Maker view.
      * @param controller The controller for handling user actions in the Budget Maker view.
      */
-    public BudgetMakerView(BudgetViewModel budgetViewModel, BudgetController controller) {
+    public BudgetView(BudgetViewModel budgetViewModel, BudgetController controller) {
         this.budgetController = controller;
         this.budgetViewModel = budgetViewModel;
         this.percentageCategories = new HashMap<>(Map.of(
