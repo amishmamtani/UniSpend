@@ -38,7 +38,7 @@ public class BudgetCompareView {
         this.user = user;
 
         // Create the title label for the Budget Compare view
-        JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();
+        JLabel titleLabel = new Heading("Budget Compare", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
 
         this.controller.createBudgetCompare(this.user);
