@@ -1,5 +1,6 @@
 package app;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -22,9 +23,9 @@ public class EmailSender {
         if (!isValidEmail(to)) {
             throw new InvalidEmailException("Invalid email address: " + to);
         }
-
-        final String fromEmail = System.getenv("EMAIL");
-        final String password = System.getenv("EMAIL_PASSWORD");
+        Dotenv dotenv = Dotenv.load();
+        final String fromEmail = dotenv.get("EMAIL");
+        final String password = dotenv.get("EMAIL_PASSWORD");
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
