@@ -101,7 +101,7 @@ public class BudgetInteractor implements BudgetInputBoundary {
             double difference = income - spending;
             savings = difference * savingsPercentage;
             investments = difference * investmentsPercentage;
-            categoryAllocations.put("Savings", savings);
+            categoryAllocations.put("UNSPENT INCOME", savings);
             categoryAllocations.put("Investments", investments);
         }
 

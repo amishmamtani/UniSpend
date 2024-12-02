@@ -165,6 +165,9 @@ public class BudgetView extends JPanel implements ActionListener, PropertyChange
                     System.out.println("Budget Maker Email: " + budgetViewModel.getState().getEmailId());
                     budgetController.createBudget(income, selectedCategories, userRepository.getUserByEmail(budgetViewModel.getState().getEmailId()));
                     final BudgetState currentState = budgetViewModel.getState();
+                    final HashMap categoryAllocations = currentState.getCategoryAllocations();
+                    categoryAllocations.remove("UNSPENT INCOME");
+                    categoryAllocations.put("Savings", budgetViewModel.getState().getSavings());
 
                     if(!currentState.getCategoryAllocations().containsKey("Impossible")){
                         PieChart pieChart = new PieChart("Monthly Budget", currentState.getCategoryAllocations());
