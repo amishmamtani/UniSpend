@@ -216,7 +216,7 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 // Open the Add Category pop-up window
                 AddCategoryView addCategoryPopUpPanel = new AddCategoryView();
                 addCategoryPopUp.setContentPane(addCategoryPopUpPanel);
-                addCategoryPopUp.setSize(400, 278);
+                addCategoryPopUp.setSize(400, 318);
                 addCategoryPopUp.setVisible(true);
                 addCategoryPopUp.setResizable(false);
 
@@ -224,9 +224,23 @@ public class BudgetMakerView extends JPanel implements ActionListener, PropertyC
                 addCategoryPopUpPanel.getAddCategoryButton().addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         String category = addCategoryPopUpPanel.getCategory().getText();
-                        Double percentage = Double.parseDouble(addCategoryPopUpPanel.getPercentage().getText());
-                        addCategory(category, percentage);
-                        addCategoryPopUp.dispose();
+                        if (category.isEmpty()){
+                            JOptionPane.showMessageDialog(null,
+                                    "Please enter a valid category.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        else if(!addCategoryPopUpPanel.getPercentage().getText().matches("[0-9]+")){
+                            JOptionPane.showMessageDialog(null,
+                                    "Invalid Percentage",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        else{
+                            Double percentage = Double.parseDouble(addCategoryPopUpPanel.getPercentage().getText());
+                            addCategory(category, percentage);
+                            addCategoryPopUp.dispose();
+                        }
                     }
                 });
             }

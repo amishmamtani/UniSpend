@@ -3,6 +3,7 @@ package use_case.budget;
 import app.MarketHealthService;
 import entity.User;
 import interface_adapter.user.MongoUserRepository;
+import use_case.user.UserRepository;
 
 import java.util.*;
 
@@ -79,7 +80,7 @@ public class BudgetInteractor implements BudgetInputBoundary {
             spending = income;
         }
 
-        // Allocate budget to categories
+        // Allocate budget to new categories
         for (Map.Entry<String, double[]> entry : defaultAllocations.entrySet()) {
             double allocation = entry.getValue()[0] * income;
             double minimum = entry.getValue()[1];
@@ -107,7 +108,7 @@ public class BudgetInteractor implements BudgetInputBoundary {
         // Update user data and save to database
         user.setBudget((HashMap<String, Double>) categoryAllocations);
         user.setIncome(income);
-        MongoUserRepository userRepository = new MongoUserRepository();
+        UserRepository userRepository = new MongoUserRepository();
         userRepository.saveUser(user);
 
         // Prepare and present output data
