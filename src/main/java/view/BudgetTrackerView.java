@@ -10,6 +10,7 @@ import interface_adapter.budgettracker.BudgetTrackerState;
 import interface_adapter.budgettracker.BudgetTrackerViewModel;
 import interface_adapter.chatbot.ChatBotState;
 import interface_adapter.user.MongoUserRepository;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.jfree.chart.ChartPanel;
 import use_case.budgetcompare.BudgetCompareInteractor;
 import use_case.budgetcompare.BudgetCompareOutputBoundary;
@@ -227,10 +228,11 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         if (currentState.isSpent_more_than_income()) {
                             String userEmail = currentUser.getEmail();
                             String userFirstName = currentUser.getFirstName();
+                            Dotenv dotenv = Dotenv.load();
                             try {
                                 new EmailSender().sendEmail(userEmail,
                                         "Your wallet’s waving a little red flag \uD83D\uDEA9",
-                                        "<html>Hi "+ userFirstName+ "!<br>"+System.getenv(
+                                        "<html>Hi "+ userFirstName+ "!<br>"+dotenv.get(
                                                 "OVER_BUDGET_EMAIL"));
                             } catch (EmailSender.InvalidEmailException ex) {
                                 System.err.println(ex.getMessage());
