@@ -77,13 +77,6 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         }
     }
 
-    /**
-     * Switches back to the previous view or state.
-     */
-    @Override
-    public void switchBack() {
-        chatBotPresenter.switchBack();
-    }
 
     /**
      * Retrieves the last generated answer.
@@ -171,7 +164,7 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
     VectorizedResponse findBestMatch(double[] userVector) {
         VectorizedResponse bestMatch = null;
         double bestSimilarity = -1;
-        double similarityThreshold = 0.5; // Adjust this value as needed
+        double similarityThreshold = 0.2; // Adjust this value as needed
 
         for (VectorizedResponse response : vectorizedResponses) {
             double similarity = weightedSimilarity(userVector, response.getVector());
@@ -183,29 +176,6 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
         return bestMatch;
     }
 
-    /**
-     * Computes the cosine similarity between two vectors.
-     *
-     * @param vector1 The first vector.
-     * @param vector2 The second vector.
-     * @return The cosine similarity value.
-     */
-    private double cosineSimilarity(double[] vector1, double[] vector2) {
-        if (vector1.length != vector2.length) {
-            throw new IllegalArgumentException("Vector lengths do not match.");
-        }
-        double dotProduct = 0.0;
-        double norm1 = 0.0;
-        double norm2 = 0.0;
-
-        for (int i = 0; i < vector1.length; i++) {
-            dotProduct += vector1[i] * vector2[i];
-            norm1 += Math.pow(vector1[i], 2);
-            norm2 += Math.pow(vector2[i], 2);
-        }
-
-        return dotProduct / (Math.sqrt(norm1) * Math.sqrt(norm2));
-    }
 
     /**
      * Computes a weighted similarity score between two vectors.
@@ -231,4 +201,13 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
 
         return (vec1Magnitude > 0 && vec2Magnitude > 0) ? dotProduct / (vec1Magnitude * vec2Magnitude) : 0.0;
     }
+
+    /**
+     * Switches back to the previous view or state.
+     */
+    @Override
+    public void switchBack() {
+        chatBotPresenter.switchBack();
+    }
+
 }
