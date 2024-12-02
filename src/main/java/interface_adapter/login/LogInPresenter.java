@@ -68,7 +68,7 @@ public class LogInPresenter implements LogInOutputBoundary {
     @Override
     public void prepareFailView(String errorMessage) {
         final LogInState loginState = loginViewModel.getState();
-        // loginState.setLoginError(errorMessage); // Uncomment if error handling is implemented in the state
+        loginState.setLogInError(errorMessage);
         loginViewModel.firePropertyChanged();
     }
 
