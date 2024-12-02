@@ -34,15 +34,19 @@ public class AddCategoryView extends JPanel {
         addCategoryLabel.setBounds(30, 30, 189, 33);
 
         // Create and configure the text field for entering the category name
-        JTextField newCategoryTextField = new JTextField("Category");
-        newCategoryTextField.setBounds(30, 81, 233, 60);
+        JLabel categoryLabel = new JLabel("Category");
+        categoryLabel.setBounds(30, 71, 189, 33);
+        JTextField newCategoryTextField = new JTextField();
+        newCategoryTextField.setBounds(30, 111, 233, 60);
         newCategoryTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         newCategoryTextField.setBackground(Color.decode("#D6DCE6")); // Set background color
         category = newCategoryTextField;
 
         // Create and configure the text field for entering the percentage
-        JTextField percentageTextField = new JTextField("%");
-        percentageTextField.setBounds(270, 81, 99, 60);
+        JLabel percentageLabel = new JLabel("%");
+        percentageLabel.setBounds(270, 71, 40, 33);
+        JTextField percentageTextField = new JTextField();
+        percentageTextField.setBounds(270, 111, 99, 60);
         percentageTextField.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         percentageTextField.setBackground(Color.decode("#D6DCE6")); // Set background color
         percentage = percentageTextField;
@@ -50,11 +54,13 @@ public class AddCategoryView extends JPanel {
         // Create a coloured button for adding the category
         ColouredButton add = new ColouredButton("Add", "#1A1A1A", "#FFFFFF", 16);
         JButton addButton = add.getButton();
-        addButton.setBounds(30, 158, 340, 60); // Set position and size of the button
+        addButton.setBounds(30, 200, 340, 60); // Set position and size of the button
         addCategoryButton = addButton;
 
         // Add all components to the panel
         this.add(addCategoryLabel);
+        this.add(categoryLabel);
+        this.add(percentageLabel);
         this.add(newCategoryTextField);
         this.add(percentageTextField);
         this.add(addCategoryButton);

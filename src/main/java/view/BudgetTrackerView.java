@@ -203,6 +203,8 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         System.out.println("add clicked");
                         Double amountSpent = Double.parseDouble(amountSpentTextField.getText());
                         String categorySpentOn = categorySpentTextField.getText();
+                        currentUser = userRepository.getUserByEmail(viewModel.getState().getEmailId());
+                        income = currentUser.getIncome();
 
                         LogCard logCard = new LogCard(categorySpentOn, amountSpentTextField.getText());
                         logCard.setBounds(35, 95 + 50 * distance, 320, 45);
@@ -217,6 +219,7 @@ public class BudgetTrackerView extends JPanel implements ActionListener, Propert
                         chartPanel.setBackground(Color.decode("#FFFFFF"));
                         chartPanel.setBounds(400, 80, 380, 380);
                         chartPanel.setVisible(true);
+                        mainPanel.add(spendingAnalysisButton);
                         mainPanel.add(logCard);
                         mainPanel.add(chartPanel);
                         mainPanel.setComponentZOrder(chartPanel, 0);

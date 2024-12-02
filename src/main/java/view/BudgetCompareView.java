@@ -1,27 +1,16 @@
 package view;
 
 import entity.User;
-import interface_adapter.user.MongoUserRepository;
+import interface_adapter.budgetcompare.BudgetCompareController;
+import interface_adapter.budgetcompare.BudgetCompareState;
+import interface_adapter.budgetcompare.BudgetCompareViewModel;
 import org.jfree.chart.ChartPanel;
-import use_case.login.LogInOutputData;
 import view.components.BarChart;
 import view.components.Heading;
-import view.components.PieChart;
-
-import use_case.budget.BudgetOutputData;
-import use_case.budgettracker.BudgetTrackerOutputData;
-import interface_adapter.budgetcompare.BudgetCompareController;
-import interface_adapter.budgetcompare.BudgetComparePresenter;
-import interface_adapter.budgetcompare.BudgetCompareViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A class for creating the Budget Compare view, which shows a comparison of advised and actual spending.
@@ -52,28 +41,27 @@ public class BudgetCompareView {
         JLabel titleLabel = new Heading("Spending Analysis", 30).getHeading();
         titleLabel.setBounds(90, 43, 230, 43);
 
-        // Create copies of the user's advised and spent allocations for comparison
-        HashMap<String, Double> advisedAllocations = new HashMap<>(user.getBudget());
-        HashMap<String, Double> spentAllocations = new HashMap<>(user.getBudgetTracker());
+        this.controller.createBudgetCompare(this.user);
+        final BudgetCompareState currentState = this.viewModel.getState();
+        HashMap<String, Double> finalAdvisedCategories = new HashMap<>();
+        HashMap<String, Double> finalSpentCategories = new HashMap<>();
 
-        // Remove categories from spentAllocations that are also in advisedAllocations
-        for (String key : advisedAllocations.keySet()) {
-            for (String key2 : spentAllocations.keySet()) {
-                if (key.equals(key2)) {
-                    spentAllocations.remove(key2);
-                }
+        for (String key: currentState.getAdvisedAllocations().keySet()) {
+            finalAdvisedCategories.put(key.toUpperCase(), currentState.getAdvisedAllocations().get(key));
+            if (currentState.getSpentAllocations().containsKey(key.toUpperCase())) {
+                finalSpentCategories.put(key.toUpperCase(), currentState.getSpentAllocations().get(key.toUpperCase()));
+            } else {
+                finalSpentCategories.put(key.toUpperCase(), 0.0); // Add default if not found
             }
         }
+        finalSpentCategories.put("SAVINGS", currentState.getSpentAllocations().get("UNSPENT INCOME"));
 
-        // Create the bar chart comparing advised vs. actual spending
         BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
-                advisedAllocations, spentAllocations);
-
-        // Create a chart panel to display the bar chart
+                finalAdvisedCategories, finalSpentCategories, currentState.getNetAllocations());
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
-        chartPanel.setPreferredSize(new java.awt.Dimension(600, 600));
+        chartPanel.setPreferredSize(new java.awt.Dimension(850, 550));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
-        chartPanel.setBounds(34, 120, 600, 400);
+        chartPanel.setBounds(34, 120, 700, 350);
         chartPanel.setVisible(true);
 
         // Create a panel to hold the title label and chart panel
@@ -83,7 +71,7 @@ public class BudgetCompareView {
 
         // Create the frame to display the comparison view
         JFrame frame = new JFrame();
-        frame.setSize(800, 744);
+        frame.setSize(900, 644);
         frame.setResizable(false);
         frame.add(comparePanel);
         frame.setVisible(true);

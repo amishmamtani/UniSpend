@@ -3,6 +3,7 @@ package use_case.budgetcompare;
 import entity.User;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Encapsulates the input data required for a budget comparison.
@@ -20,7 +21,16 @@ public class BudgetCompareInputData {
      * @param user The user whose budget and spending data will be used for the comparison.
      */
     public BudgetCompareInputData(User user) {
-        this.advisedAllocations = user.getBudget();
+
+        HashMap<String, Double> advisedAllocations1;
+        advisedAllocations1 = user.getBudget();
+        HashMap<String, Double> updatedAllocations = new HashMap<>();
+        for (Map.Entry<String, Double> entry : advisedAllocations1.entrySet()) {
+            // Convert the key to uppercase and add it to the new map
+            updatedAllocations.put(entry.getKey().toUpperCase(), entry.getValue());
+        }
+
+        this.advisedAllocations = updatedAllocations;
         this.spentAllocations = user.getBudgetTracker();
     }
 
