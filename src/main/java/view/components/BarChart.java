@@ -23,8 +23,10 @@ public class BarChart {
      * @param advisedAllocations A map of categories to advised spending allocations.
      * @param spentAllocations   A map of categories to actual spending allocations.
      */
-    public BarChart(String title, HashMap<String, Double> advisedAllocations,
-                    HashMap<String, Double> spentAllocations) {
+    public BarChart(String title,
+                    HashMap<String, Double> advisedAllocations,
+                    HashMap<String, Double> spentAllocations,
+                    HashMap<String,Double> netAllocations) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         // Add advised spending data to the dataset
@@ -34,6 +36,9 @@ public class BarChart {
         // Add actual spending data to the dataset
         spentAllocations.keySet().forEach(key -> dataset.addValue(
                 spentAllocations.get(key), "Actual Spending", key));
+
+        // Add difference between advised and actual spending to the dataset
+        netAllocations.keySet().forEach(key -> dataset.addValue(netAllocations.get(key), "Net Spending", key));
 
         // Create the bar chart
         barChart = ChartFactory.createBarChart(

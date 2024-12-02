@@ -1,28 +1,16 @@
 package view;
 
 import entity.User;
+import interface_adapter.budgetcompare.BudgetCompareController;
 import interface_adapter.budgetcompare.BudgetCompareState;
-import interface_adapter.user.MongoUserRepository;
+import interface_adapter.budgetcompare.BudgetCompareViewModel;
 import org.jfree.chart.ChartPanel;
-import use_case.login.LogInOutputData;
 import view.components.BarChart;
 import view.components.Heading;
-import view.components.PieChart;
-
-import use_case.budget.BudgetOutputData;
-import use_case.budgettracker.BudgetTrackerOutputData;
-import interface_adapter.budgetcompare.BudgetCompareController;
-import interface_adapter.budgetcompare.BudgetComparePresenter;
-import interface_adapter.budgetcompare.BudgetCompareViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A class for creating the Budget Compare view, which shows a comparison of advised and actual spending.
@@ -69,7 +57,7 @@ public class BudgetCompareView {
         finalSpentCategories.put("SAVINGS", currentState.getSpentAllocations().get("UNSPENT INCOME"));
 
         BarChart barChart = new BarChart("A comparison of what you spent vs. what you were supposed to spend",
-                finalAdvisedCategories, finalSpentCategories);
+                finalAdvisedCategories, finalSpentCategories, currentState.getNetAllocations());
         ChartPanel chartPanel = new ChartPanel(barChart.getBarChart());
         chartPanel.setPreferredSize(new java.awt.Dimension(600, 600));
         chartPanel.setBackground(Color.decode("#FFFFFF"));
