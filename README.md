@@ -90,7 +90,7 @@ Once installed, you can start using the **Budget Tracker Application** by:
    - Visualize your budget status using pie charts and tables.
    - Compare your advised budget against actual spending to see if you're staying on track.
 
-
+[Demo Link](https://youtu.be/qnrSGQBbxUA?si=5ekODc0yMadBnsS1)
 
 ---
 
