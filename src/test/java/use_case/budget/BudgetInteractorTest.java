@@ -86,12 +86,12 @@ public class BudgetInteractorTest {
                 assertEquals(500, outputData.getCategoryAllocations().get("Music"));
                 double markethealth = MarketHealthService.getEconomicIndicator();
                 if (markethealth > 2) {
-                    assertEquals(750, outputData.getCategoryAllocations().get("Savings"));
+                    assertEquals(750, outputData.getCategoryAllocations().get("UNSPENT INCOME"));
                     assertEquals(1750, outputData.getCategoryAllocations().get("Investments"));
                 }
                 else {
                     assertEquals(750, outputData.getCategoryAllocations().get("Inestments"));
-                    assertEquals(1750, outputData.getCategoryAllocations().get("Savings"));
+                    assertEquals(1750, outputData.getCategoryAllocations().get("UNSPENT INCOME"));
                 }
 
             }
@@ -125,11 +125,11 @@ public class BudgetInteractorTest {
                 assertEquals(500, outputData.getCategoryAllocations().get("Music"));
                 double markethealth = MarketHealthService.getEconomicIndicator();
                 if (markethealth > 2) {
-                    assertEquals(2850, outputData.getCategoryAllocations().get("Savings"));
+                    assertEquals(2850, outputData.getCategoryAllocations().get("UNSPENT INCOME"));
                     assertEquals(6650, outputData.getCategoryAllocations().get("Investments"));
                 }
                 else {
-                    assertEquals(6650, outputData.getCategoryAllocations().get("Savings"));
+                    assertEquals(6650, outputData.getCategoryAllocations().get("UNSPENT INCOME"));
                     assertEquals(2850, outputData.getCategoryAllocations().get("Investments"));
                 }
 
