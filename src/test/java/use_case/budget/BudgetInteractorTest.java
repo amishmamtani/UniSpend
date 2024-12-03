@@ -6,6 +6,7 @@ import entity.User;
 import interface_adapter.budget.BudgetPresenter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.signup.SignUpOutputBoundary;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -215,6 +216,7 @@ public class BudgetInteractorTest {
         BudgetInputData inputData = new BudgetInputData(income, selectedCategories, user);
 
         BudgetInteractor interactor = new BudgetInteractor(new BudgetOutputBoundary() {
+            private boolean switchBackCalled = false;
             @Override
             public void presentBudget(BudgetOutputData outputData) {
                 assertFalse(outputData.getCategoryAllocations().containsValue("Savings"));
@@ -223,13 +225,12 @@ public class BudgetInteractorTest {
 
             @Override
             public void switchBack() {
-
+                switchBackCalled = true;
             }
         });
         interactor.createBudget(inputData);
+        interactor.switchBack();
     }
-
-
 
 
 
