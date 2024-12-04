@@ -25,6 +25,8 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
     /** Environment variables loaded using Dotenv */
     private final Dotenv dotenv = Dotenv.load();
 
+    private String vectorFile;
+
     /** API key for embedding service */
     private final String API_KEY = this.dotenv.get("CHATBOT_API_KEY");
 
@@ -42,9 +44,22 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
      *
      * @param chatBotPresenter The presenter responsible for chatbot output.
      */
+    public ChatBotInteractor(ChatBotOutputBoundary chatBotPresenter, List<VectorizedResponse> vectorizedResponses) {
+        this.chatBotPresenter = chatBotPresenter;
+        this.vectorizedResponses = vectorizedResponses != null ? vectorizedResponses : loadVectorizedData();
+        this.vectorFile = "VectorizedData.json";
+        }
+
     public ChatBotInteractor(ChatBotOutputBoundary chatBotPresenter) {
         this.chatBotPresenter = chatBotPresenter;
-        this.vectorizedResponses = loadVectorizedData();
+        this.vectorizedResponses =  loadVectorizedData();
+        this.vectorFile = "VectorizedData.json";
+    }
+
+    public ChatBotInteractor(ChatBotOutputBoundary chatBotPresenter, String vectorFile) {
+        this.chatBotPresenter = chatBotPresenter;
+        this.vectorizedResponses =  loadVectorizedData();
+        this.vectorFile = vectorFile;
     }
 
     /**
@@ -72,20 +87,14 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
             e.printStackTrace();
 
             Answer errorAnswer = new Answer("There was an error processing your question.");
+            generatedAnswer = errorAnswer;
             ChatBotOutputData outputData = new ChatBotOutputData(errorAnswer);
             chatBotPresenter.presentAnswer(outputData);
         }
     }
 
 
-    /**
-     * Retrieves the last generated answer.
-     *
-     * @return The generated answer.
-     */
-    public Answer getGeneratedAnswer() {
-        return generatedAnswer;
-    }
+
 
     /**
      * Loads vectorized response data from a JSON file.
@@ -94,7 +103,7 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
      */
     List<VectorizedResponse> loadVectorizedData() {
         List<VectorizedResponse> responses = new ArrayList<>();
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("VectorizedData.json")) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(vectorFile)) {
             if (is == null) {
                 throw new RuntimeException("Vectorized data file not found!");
             }
@@ -126,7 +135,7 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
      * @return A vector representation of the question.
      * @throws Exception If the embedding service fails.
      */
-    private double[] vectorizeUserQuestion(String question) throws Exception {
+     double[] vectorizeUserQuestion(String question) throws Exception {
         OkHttpClient client = new OkHttpClient();
 
         JSONObject requestBody = new JSONObject();
@@ -138,8 +147,7 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
                 .addHeader("Authorization", "Bearer " + API_KEY)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
+        Response response = client.newCall(request).execute();
                 String responseBody = response.body().string();
                 JSONArray embeddings = new JSONObject(responseBody).getJSONArray(
                         "embeddings").getJSONArray(0);
@@ -149,10 +157,7 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
                     vector[i] = embeddings.getDouble(i);
                 }
                 return vector;
-            } else {
-                throw new Exception("Failed to fetch embeddings: " + response.body().string());
-            }
-        }
+
     }
 
     /**
@@ -209,5 +214,6 @@ public class ChatBotInteractor implements ChatBotInputBoundary {
     public void switchBack() {
         chatBotPresenter.switchBack();
     }
+
 
 }
