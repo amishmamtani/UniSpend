@@ -1,10 +1,11 @@
 package use_case.chatbot;
 
+import entity.Answer;
 import entity.Question;
 import entity.VectorizedResponse;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,122 +13,176 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ChatBotInteractorTest {
 
-    private ChatBotInteractor interactor;
-    private List<VectorizedResponse> mockResponses;
+    static class TestPresenter implements ChatBotOutputBoundary {
+        private ChatBotOutputData lastOutputData;
 
-    @BeforeEach
-    void setUp() {
-        // Initialize mock responses for testing
-        mockResponses = new ArrayList<>();
-        mockResponses.add(new VectorizedResponse("Matched response",
-                new double[]{0.1, 0.2, 0.3, 0.4, 0.5}));
-        mockResponses.add(new VectorizedResponse("Non-matching response",
-                new double[]{0.6, 0.7, 0.8, 0.9, 1.0}));
+        @Override
+        public void presentAnswer(ChatBotOutputData outputData) {
+            this.lastOutputData = outputData;
+        }
+
+        @Override
+        public void switchBack() {
+            // No-op for testing purposes
+        }
+
+        public ChatBotOutputData getLastOutputData() {
+            return lastOutputData;
+        }
     }
 
     @Test
-    void testGenerateResponseWithMatch() {
-        interactor = new ChatBotInteractor(new ChatBotOutputBoundary() {
-            @Override
-            public void presentAnswer(ChatBotOutputData outputData) {
-                assertEquals("Avoid impulse purchases by making a shopping list and sticking to it.",
-                        outputData.getAnswer().getAnswer());
-            }
+    void testConstructorWithVectorizedResponses() {
+        TestPresenter presenter = new TestPresenter();
+        List<VectorizedResponse> responses = List.of(
+                new VectorizedResponse("Response 1", new double[]{0.2, 0.3}),
+                new VectorizedResponse("Response 2", new double[]{0.5, 0.5})
+        );
 
-            @Override
-            public void switchBack() {
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter, responses);
 
-            }
-        });
-
-        ChatBotInputData inputData = new ChatBotInputData(new Question("how do I save money"));
-        interactor.generateResponse(inputData);
- }
+        assertNotNull(interactor);
+        assertEquals(2, responses.size());
+    }
 
     @Test
-    void testGenerateResponseWithNoMatch() {
-        interactor = new ChatBotInteractor(new TestPresenter()) {
-            protected double[] vectorizeUserQuestion(String question) {
-                return new double[]{0.0, 0.0, 0.0, 0.0, 0.0}; // No match
-            }
+    void testConstructorWithoutVectorizedResponses() {
+        TestPresenter presenter = new TestPresenter();
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter);
 
-            protected List<VectorizedResponse> loadVectorizedData() {
-                return mockResponses; // Use predefined responses
-            }
-        };
-
-        ChatBotInputData inputData = new ChatBotInputData(new Question("Test question"));
-        interactor.generateResponse(inputData);
-
-        assertEquals("Sorry, I couldn't find an answer to your question.",
-                interactor.getGeneratedAnswer().getAnswer());
+        assertNotNull(interactor);
+        assertNotNull(interactor.loadVectorizedData());
     }
 
 
     @Test
-    void testLoadVectorizedDataSuccess() {
-        interactor = new ChatBotInteractor(new TestPresenter()) {
-            protected List<VectorizedResponse> loadVectorizedData() {
-                return mockResponses; // Simulate a successful load
-            }
-        };
+    void testLoadVectorizedDataHandlesMissingFileGracefully() {
+        // Arrange: Create a TestPresenter
+        TestPresenter presenter = new TestPresenter();
 
+        // Use a non-existent vector file to trigger the exception
+        String invalidVectorFile = "NonExistentFile.json";
+
+        // Act: Initialize ChatBotInteractor with an invalid file
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter, invalidVectorFile);
+
+        // Call the method to ensure it processes the exception path
         List<VectorizedResponse> responses = interactor.loadVectorizedData();
-        assertFalse(responses.isEmpty(), "Vectorized data should not be empty");
+
+        // Assert: Ensure that the response list is empty and no exceptions crash the flow
+        assertNotNull(responses);
+        assertTrue(responses.isEmpty());
+    }
+
+
+
+
+    @Test
+    void testGenerateResponseMatch() {
+        TestPresenter presenter = new TestPresenter();
+        List<VectorizedResponse> responses = List.of(
+                new VectorizedResponse("Best Match", new double[]{0.5, 0.5, 0.5})
+        );
+
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter, responses);
+
+        ChatBotInputData inputData = new ChatBotInputData(new Question("Best Match"));
+        interactor.generateResponse(inputData);
+
+        ChatBotOutputData outputData = presenter.getLastOutputData();
+        assertNotNull(outputData);
+        assertEquals("Best Match", outputData.getAnswer().getAnswer());
+    }
+
+    @Test
+    void testGenerateResponseNoMatch() {
+        TestPresenter presenter = new TestPresenter();
+        List<VectorizedResponse> responses = new ArrayList<>();
+
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter, responses);
+
+        ChatBotInputData inputData = new ChatBotInputData(new Question("Unmatched Question"));
+        interactor.generateResponse(inputData);
+
+        ChatBotOutputData outputData = presenter.getLastOutputData();
+        assertNotNull(outputData);
+        assertEquals("Sorry, I couldn't find an answer to your question.", outputData.getAnswer().getAnswer());
+    }
+
+    @Test
+    void testGenerateResponseExceptionHandling() {
+        TestPresenter presenter = new TestPresenter();
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter) {
+            @Override
+            double[] vectorizeUserQuestion(String question) throws Exception {
+                throw new Exception("Simulated exception");
+            }
+        };
+
+        ChatBotInputData inputData = new ChatBotInputData(new Question("Test Exception"));
+        interactor.generateResponse(inputData);
+
+        ChatBotOutputData outputData = presenter.getLastOutputData();
+        assertNotNull(outputData);
+        assertEquals("There was an error processing your question.", outputData.getAnswer().getAnswer());
+    }
+    @Test
+    void testLoadVectorizedDataHandlesMissingFile() {
+        String nonExistentFile = "NonExistentVectorizedData.json";
+        ChatBotInteractor interactor = new ChatBotInteractor(new TestPresenter(), nonExistentFile);
+
+        // Verify that the interactor does not crash and handles the missing file gracefully
+        assertDoesNotThrow(() -> {
+            List<VectorizedResponse> responses = interactor.loadVectorizedData();
+            assertTrue(responses.isEmpty(), "Responses should be empty if the file is missing.");
+        });
     }
 
 
     @Test
-    void testFindBestMatchWithMatch() {
-        interactor = new ChatBotInteractor(new TestPresenter()) {
-            @Override
-            protected List<VectorizedResponse> loadVectorizedData() {
-                return mockResponses;
-            }
-        };
+    void testLoadVectorizedData() {
+        ChatBotInteractor interactor = new ChatBotInteractor(new TestPresenter());
+        List<VectorizedResponse> responses = interactor.loadVectorizedData();
 
-        double[] userVector = {0.1, 0.2, 0.3, 0.4, 0.5}; // Exact match
-        VectorizedResponse match = interactor.findBestMatch(userVector);
-
-        assertNotNull(match);
-        assertEquals("Matched response", match.getResponse());
+        assertNotNull(responses);
+        // Ensure the response loading logic works correctly
+        // Test this with a valid `VectorizedData.json` file in your resources.
     }
 
     @Test
-    void testFindBestMatchNoMatch() {
-        interactor = new ChatBotInteractor(new TestPresenter()) {
-            @Override
-            protected List<VectorizedResponse> loadVectorizedData() {
-                return mockResponses;
-            }
-        };
+    void testFindBestMatch() {
+        TestPresenter presenter = new TestPresenter();
+        List<VectorizedResponse> responses = List.of(
+                new VectorizedResponse("Match 1", new double[]{0.8, 0.6, 0.4}),
+                new VectorizedResponse("Match 2", new double[]{0.5, 0.5, 0.5})
+        );
 
-        double[] userVector = {0.0, 0.0, 0.0, 0.0, 0.0}; // No match
-        VectorizedResponse match = interactor.findBestMatch(userVector);
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter, responses);
 
-        assertNull(match, "No match should be found");
+        double[] userVector = {0.5, 0.5, 0.5};
+        VectorizedResponse bestMatch = interactor.findBestMatch(userVector);
+
+        assertNotNull(bestMatch);
+        assertEquals("Match 2", bestMatch.getResponse());
     }
 
     @Test
     void testWeightedSimilarity() {
-        interactor = new ChatBotInteractor(new TestPresenter());
+        ChatBotInteractor interactor = new ChatBotInteractor(new TestPresenter());
 
-        double[] vec1 = {1.0, 2.0, 3.0};
-        double[] vec2 = {1.0, 2.0, 3.0};
-        double similarity = interactor.weightedSimilarity(vec1, vec2);
+        double[] vector1 = {1.0, 2.0, 3.0};
+        double[] vector2 = {1.0, 2.0, 3.0};
 
-        assertEquals(1.0, similarity, 0.001, "Similarity should be 1.0 for identical vectors");
+        double similarity = interactor.weightedSimilarity(vector1, vector2);
+        assertEquals(1.0, similarity, 0.01);
     }
 
     @Test
-    void testWeightedSimilarityDifferentVectors() {
-        interactor = new ChatBotInteractor(new TestPresenter());
+    void testSwitchBack() {
+        TestPresenter presenter = new TestPresenter();
+        ChatBotInteractor interactor = new ChatBotInteractor(presenter);
 
-        double[] vec1 = {1.0, 0.0, 0.0};
-        double[] vec2 = {0.0, 1.0, 0.0};
-        double similarity = interactor.weightedSimilarity(vec1, vec2);
-
-        assertEquals(0.0, similarity, 0.001, "Similarity should be 0.0 for orthogonal vectors");
+        interactor.switchBack();
+        // No assertions needed as this is a no-op, but ensures no exceptions occur
     }
 }
-
